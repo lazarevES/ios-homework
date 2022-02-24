@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Post {
+struct Post_old {
     var title: String
     var image: UIImage
     var info: String
@@ -15,9 +15,9 @@ struct Post {
 
 class PostViewController: UIViewController {
 
-    var post: Post
+    var post: Post_old
     
-    init(post: Post) {
+    init(post: Post_old) {
         self.post = post
         super.init(nibName: nil, bundle: nil)
     }

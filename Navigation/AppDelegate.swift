@@ -45,8 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         profileNavigationController.navigationBar.scrollEdgeAppearance = profileNavigationController.navigationBar.standardAppearance
        
         tabBarController.viewControllers = [feedNavigationController, profileNavigationController]
-        tabBarController.tabBar.isHidden = false
-        
+ 
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
         

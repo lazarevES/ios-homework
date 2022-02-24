@@ -73,13 +73,13 @@ class FeedViewController: UIViewController {
         
         stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        stackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: -16).isActive = true
+        stackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: Const.trailingMargin).isActive = true
         stackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 1.5).isActive = true
         
     }
     
     @objc func showPost(sender: UIButton) {
-        let postViewController = PostViewController(post:Post(title: sender.title(for: .normal)!,
+        let postViewController = PostViewController(post:Post_old(title: sender.title(for: .normal)!,
                                                               image: sender.image(for: .normal)!,
                                                               info: infoArray[sender.tag]))
         self.navigationController?.pushViewController(postViewController, animated: true)
