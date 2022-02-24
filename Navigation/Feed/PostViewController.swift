@@ -9,15 +9,16 @@ import UIKit
 
 struct Post {
     var title: String
+    var image: UIImage
+    var info: String
 }
 
 class PostViewController: UIViewController {
 
-    var post: Post?
-    let infoViewController: InfoViewController
+    var post: Post
     
-    init() {
-        infoViewController = InfoViewController()
+    init(post: Post) {
+        self.post = post
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -26,21 +27,29 @@ class PostViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
         let infoBarButtonItem = UIBarButtonItem(title: "Инфо", style: .plain, target: self, action: #selector(showInfo))
         self.navigationItem.rightBarButtonItem  = infoBarButtonItem
-                
+      
         view.backgroundColor = UIColor.lightGray
         
-        if let thisPost = post {
-            title = thisPost.title
-        }
-               
+        title = post.title
+        
+        let image = UIImageView(image: post.image)
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.contentMode = .scaleAspectFit
+       
+        view.addSubview(image)
+       
+        image.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        image.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        
     }
     
     @objc func showInfo() {
-        infoViewController.title = title
+        let infoViewController = InfoViewController(title: post.info)
         present(infoViewController, animated: true, completion: nil)
     }
 
