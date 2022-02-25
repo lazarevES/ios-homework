@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		471D11FB27C6233F00810B1B /* Const.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D11FA27C6233F00810B1B /* Const.swift */; };
+		471D11FB27C6233F00810B1B /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D11FA27C6233F00810B1B /* General.swift */; };
 		475FE25927B2D04F00353434 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25827B2D04F00353434 /* FeedViewController.swift */; };
 		475FE25B27B2D06C00353434 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25A27B2D06C00353434 /* ProfileViewController.swift */; };
 		475FE25F27B2E14100353434 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25E27B2E14100353434 /* PostViewController.swift */; };
@@ -23,7 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		471D11FA27C6233F00810B1B /* Const.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Const.swift; sourceTree = "<group>"; };
+		471D11FA27C6233F00810B1B /* General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
 		475FE25827B2D04F00353434 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		475FE25A27B2D06C00353434 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		475FE25E27B2E14100353434 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		477DA8BE27C6579700FA6C89 /* General */ = {
 			isa = PBXGroup;
 			children = (
-				471D11FA27C6233F00810B1B /* Const.swift */,
+				471D11FA27C6233F00810B1B /* General.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -192,7 +192,7 @@
 				475FE25927B2D04F00353434 /* FeedViewController.swift in Sources */,
 				476267BF27BBFA55008A4908 /* ViewController.swift in Sources */,
 				479BB9CF27A992A100E6EB2C /* SceneDelegate.swift in Sources */,
-				471D11FB27C6233F00810B1B /* Const.swift in Sources */,
+				471D11FB27C6233F00810B1B /* General.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

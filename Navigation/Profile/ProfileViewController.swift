@@ -10,17 +10,22 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     var isLogined = true
-    var postTable: UITableView
+    var postTable: UITableView = {
+        let postTable = UITableView(frame: .zero, style: .grouped)
+        postTable.toAutoLayout()
+        postTable.refreshControl = UIRefreshControl()
+        postTable.isScrollEnabled = true
+        postTable.separatorInset = .zero
+        postTable.refreshControl?.addTarget(self, action: #selector(updatePostArray), for: .valueChanged)
+        postTable.sectionHeaderHeight = UITableView.automaticDimension
+        postTable.estimatedSectionHeaderHeight = 220
+        postTable.rowHeight = UITableView.automaticDimension
+        //postTable.estimatedRowHeight = 44
+        
+        return postTable
+    }()
+    
     var posts = constPostArray
-    
-    init() {
-        postTable = UITableView(frame: .zero, style: .grouped)
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,28 +36,21 @@ class ProfileViewController: UIViewController {
         
         postTable.dataSource = self
         postTable.delegate = self
-        postTable.refreshControl = UIRefreshControl()
-        postTable.isScrollEnabled = true
-        postTable.separatorInset = .zero
-        postTable.refreshControl?.addTarget(self, action: #selector(updatePostArray), for: .valueChanged)
-        
-        postTable.sectionHeaderHeight = UITableView.automaticDimension
-        postTable.estimatedSectionHeaderHeight = 220
-        
-        //postTable.rowHeight = UITableView.automaticDimension
-        //postTable.estimatedRowHeight = 44
         
         postTable.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.identifire)
         postTable.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifire)
         
         view.addSubview(postTable)
         
-        postTable.translatesAutoresizingMaskIntoConstraints = false
-        postTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        postTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        postTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        postTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        useConstraint()
         
+    }
+    
+    func useConstraint() {
+        [postTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+         postTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+         postTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+         postTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)].forEach({$0.isActive = true})
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,10 +106,5 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         return 220
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 550
-    }
-    
-    
+        
 }

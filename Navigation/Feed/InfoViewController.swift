@@ -8,11 +8,34 @@
 import UIKit
 
 class InfoViewController: UIViewController {
-
-    var text: String
+    
+    let textLabel: UILabel = {
+        let label = UILabel()
+        label.toAutoLayout()
+        label.textAlignment = .center
+        label.textColor = .white
+        label.lineBreakMode = .byTruncatingMiddle
+        label.numberOfLines = 2
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        
+        return label
+    }()
+    
+    let button: UIButton = {
+        let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width/2-50, y: UIScreen.main.bounds.height/2-25, width: 100, height: 50))
+        button.backgroundColor = UIColor.black
+        button.setTitle("Like", for: .normal)
+        button.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
+        button.titleLabel?.textAlignment = .center
+        button.titleLabel?.accessibilityIgnoresInvertColors = true
+        button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
+        button.toAutoLayout()
+        
+        return button
+    }()
     
     init(title: String) {
-        text = title
+        textLabel.text = title
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -22,41 +45,23 @@ class InfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        view.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.toAutoLayout()
         view.backgroundColor = UIColor.darkGray
         
-        let textLabel = UILabel()
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        textLabel.text = text
-        textLabel.textAlignment = .center
-        textLabel.textColor = .white
-        textLabel.lineBreakMode = .byTruncatingMiddle
-        textLabel.numberOfLines = 2
-        textLabel.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        view.addSubviews(textLabel, button)
+        useConstraint()
         
-        view.addSubview(textLabel)
-        
-        let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width/2-50, y: UIScreen.main.bounds.height/2-25, width: 100, height: 50))
-        button.backgroundColor = UIColor.black
-        button.setTitle("Like", for: .normal)
-        button.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
-        button.titleLabel?.textAlignment = .center
-        button.titleLabel?.accessibilityIgnoresInvertColors = true
-        button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
+    }
     
-        view.addSubview(button)
-    
-        textLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        textLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
-        textLabel.heightAnchor.constraint(equalToConstant: 60).isActive = true
-        textLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -60).isActive = true
-        
-        button.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 30).isActive = true
-        button.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
-        
+    func useConstraint() {
+        [textLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
+         textLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+         textLabel.heightAnchor.constraint(equalToConstant: 60),
+         textLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -60),
+         button.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 30),
+         button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+         button.widthAnchor.constraint(equalToConstant: 100)].forEach({$0.isActive = true})
     }
     
     @objc func showAlert() {
@@ -77,5 +82,5 @@ class InfoViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-
+    
 }

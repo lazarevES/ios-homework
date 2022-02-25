@@ -38,7 +38,7 @@ class PostViewController: UIViewController {
         title = post.title
         
         let image = UIImageView(image: post.image)
-        image.translatesAutoresizingMaskIntoConstraints = false
+        image.toAutoLayout()
         image.contentMode = .scaleAspectFit
        
         view.addSubview(image)
