@@ -55,13 +55,13 @@ class InfoViewController: UIViewController {
     }
     
     func useConstraint() {
-        [textLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20),
-         textLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20),
+        [textLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: Const.smallSize),
+         textLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -Const.smallSize),
          textLabel.heightAnchor.constraint(equalToConstant: 60),
          textLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant: -60),
          button.topAnchor.constraint(equalTo: textLabel.bottomAnchor, constant: 30),
          button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-         button.widthAnchor.constraint(equalToConstant: 100)].forEach({$0.isActive = true})
+         button.widthAnchor.constraint(equalToConstant: Const.bigSize)].forEach({$0.isActive = true})
     }
     
     @objc func showAlert() {
