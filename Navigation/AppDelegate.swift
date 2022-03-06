@@ -24,9 +24,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         feedViewController.view.backgroundColor = UIColor.white
         let feedNavigationController = UINavigationController(rootViewController: feedViewController)
         
-        let profileViewController = ProfileViewController()
-        profileViewController.view.backgroundColor = .white
-        let profileNavigationController = UINavigationController(rootViewController: profileViewController)
+        let logInViewController = LogInViewController()
+        logInViewController.view.backgroundColor = .white
+        let profileNavigationController = UINavigationController(rootViewController: logInViewController)
 
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
