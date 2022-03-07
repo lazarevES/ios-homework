@@ -43,8 +43,8 @@ class PostViewController: UIViewController {
        
         view.addSubview(image)
        
-        image.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        image.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        NSLayoutConstraint.activate([image.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     image.centerYAnchor.constraint(equalTo: view.centerYAnchor)])
         
     }
     

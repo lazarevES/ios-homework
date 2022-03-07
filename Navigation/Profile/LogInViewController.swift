@@ -128,7 +128,9 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
                                                object: nil)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self,
                                                   name: UIResponder.keyboardWillShowNotification,
                                                   object: nil)
@@ -139,36 +141,38 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
     
     private func useConstraint() {
         
-        [scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-         scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-         scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-         scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-         
-         contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-         contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-         contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-         contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-         contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-         contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
-         
-         logo.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 120),
-         logo.widthAnchor.constraint(equalToConstant: 100),
-         logo.heightAnchor.constraint(equalToConstant: 100),
-         logo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-         
-         stackView.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: 120),
-         stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
-         stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
-         stackView.heightAnchor.constraint(equalToConstant: 100),
-         
-         logIn.topAnchor.constraint(equalTo: password.bottomAnchor, constant: Const.indent),
-         logIn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
-         logIn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
-         logIn.heightAnchor.constraint(equalToConstant: 50)].forEach({$0.isActive = true})
+        NSLayoutConstraint.activate([scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                                     scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                                     scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                                     scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                                     
+                                     contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+                                     contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+                                     contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+                                     contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+                                     contentView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
+                                     contentView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+                                     
+                                     logo.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Const.bigIndent),
+                                     logo.widthAnchor.constraint(equalToConstant: Const.bigSize),
+                                     logo.heightAnchor.constraint(equalToConstant: Const.bigSize),
+                                     logo.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     
+                                     stackView.topAnchor.constraint(equalTo: logo.bottomAnchor, constant: Const.bigIndent),
+                                     stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
+                                     stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
+                                     stackView.heightAnchor.constraint(equalToConstant: Const.bigSize),
+                                     
+                                     logIn.topAnchor.constraint(equalTo: password.bottomAnchor, constant: Const.indent),
+                                     logIn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
+                                     logIn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
+                                     logIn.heightAnchor.constraint(equalToConstant: Const.size)])
     }
     
     @objc func login() {
-        navigationController?.popViewController(animated: true)
+        let profileViewController = ProfileViewController()
+            navigationController?.pushViewController(profileViewController, animated: false)
+            navigationController?.setViewControllers([profileViewController], animated: true)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
