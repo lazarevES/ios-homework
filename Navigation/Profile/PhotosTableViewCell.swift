@@ -17,7 +17,7 @@ class PhotosTableViewCell: UITableViewCell {
         stackView.toAutoLayout()
         stackView.axis = .horizontal
         stackView.spacing = 8
-        stackView.alignment = .center
+        stackView.alignment = .leading
         stackView.distribution = .fillEqually
         stackView.backgroundColor = .white
         
@@ -63,38 +63,27 @@ class PhotosTableViewCell: UITableViewCell {
     
     func useConstraint() {
         
-        [titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-         titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
-         
-         titleButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-         titleButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-         titleButton.heightAnchor.constraint(equalToConstant: 30),
-         titleButton.widthAnchor.constraint(equalToConstant: 30),
-         
-         stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
-         stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
-         stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
-         stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
-         
-        ].forEach({$0.isActive = true})
+        NSLayoutConstraint.activate([titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+                                     titleLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 12),
+                                     
+                                     titleButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+                                     titleButton.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
+                                     titleButton.heightAnchor.constraint(equalToConstant: 30),
+                                     titleButton.widthAnchor.constraint(equalToConstant: 30),
+                                     
+                                     stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 12),
+                                     stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 12),
+                                     stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -12),
+                                     stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -12),
+                                     
+                                    ])
         
         stackView.arrangedSubviews.forEach(
             {
-                [$0.widthAnchor.constraint(greaterThanOrEqualToConstant: (contentView.frame.width - 16) / 4),
+                [$0.widthAnchor.constraint(greaterThanOrEqualToConstant: (stackView.frame.width - 16) / 4),
                  $0.heightAnchor.constraint(equalTo: $0.widthAnchor)].forEach({$0.isActive = true})
                 
             })
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     override func prepareForReuse() {

@@ -126,33 +126,28 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private func useConstraint() {
         
         //тут установим привязки
-        
-        [closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Const.indent),
-         closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
-         closeButton.heightAnchor.constraint(equalToConstant: Const.smallSize),
-            
-         avatar.widthAnchor.constraint(equalToConstant: Const.bigSize),
-         avatar.heightAnchor.constraint(equalTo: avatar.widthAnchor),
-         avatar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
-         avatar.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Const.indent),
-         
-         userName.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: Const.smallSize),
-         userName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
-         userName.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
-         
-         status.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: Const.smallSize),
-         status.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
-         status.bottomAnchor.constraint(equalTo: setStatusField.topAnchor, constant: -6),
-         
-         statusButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-         statusButton.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
-         statusButton.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: Const.indent),
-         statusButton.heightAnchor.constraint(equalToConstant: Const.size),
-         
-         setStatusField.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: Const.smallSize),
-         setStatusField.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -10),
-         setStatusField.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
-         setStatusField.heightAnchor.constraint(equalToConstant: 40)].forEach({$0.isActive = true})
+        NSLayoutConstraint.activate([avatar.widthAnchor.constraint(equalToConstant: Const.bigSize),
+                                     avatar.heightAnchor.constraint(equalTo: avatar.widthAnchor),
+                                     avatar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
+                                     avatar.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Const.indent),
+                                     
+                                     userName.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: Const.smallSize),
+                                     userName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
+                                     userName.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
+                                     
+                                     status.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: Const.smallSize),
+                                     status.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
+                                     status.bottomAnchor.constraint(equalTo: setStatusField.topAnchor, constant: -6),
+                                     
+                                     statusButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+                                     statusButton.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
+                                     statusButton.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: Const.indent),
+                                     statusButton.heightAnchor.constraint(equalToConstant: Const.size),
+                                     
+                                     setStatusField.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: Const.smallSize),
+                                     setStatusField.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -10),
+                                     setStatusField.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
+                                     setStatusField.heightAnchor.constraint(equalToConstant: 40)])
         
     }
     

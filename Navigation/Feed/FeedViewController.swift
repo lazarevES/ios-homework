@@ -73,10 +73,10 @@ class FeedViewController: UIViewController {
     }
     
     func useConstraint() {
-        [stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-         stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-         stackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: Const.trailingMargin),
-         stackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 1.5)].forEach({$0.isActive = true})
+        NSLayoutConstraint.activate([stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+                                     stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+                                     stackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: Const.trailingMargin),
+                                     stackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 1.5)])
     }
     
     @objc func showPost(sender: UIButton) {

@@ -46,28 +46,16 @@ class ProfileViewController: UIViewController {
     }
     
     func useConstraint() {
-        [ProfileViewController.postTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-         ProfileViewController.postTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-         ProfileViewController.postTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-         ProfileViewController.postTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)].forEach({$0.isActive = true})
+        NSLayoutConstraint.activate([postTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+                                     postTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+                                     postTable.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+                                     postTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)])
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.navigationBar.isHidden = true
     }
     
-    override func viewDidAppear (_ animated: Bool) {
-        
-        isLogined = !isLogined
-        
-        if !isLogined {
-            navigationController?.pushViewController(LogInViewController(), animated: true)
-        }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(false, animated: true)
-    }
     
     @objc func updatePostArray() {
         ProfileViewController.postTable.reloadData()

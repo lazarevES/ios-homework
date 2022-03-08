@@ -29,11 +29,11 @@ class PhotosCollectionViewCell: UICollectionViewCell {
     }
     
     func useConstraint() {
-        [photo.topAnchor.constraint(equalTo: contentView.topAnchor),
-         photo.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-         photo.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-         photo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
-        ].forEach({$0.isActive = true})
+        NSLayoutConstraint.activate([photo.topAnchor.constraint(equalTo: contentView.topAnchor),
+                                     photo.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+                                     photo.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                                     photo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+                                    ])
     }
     
     func setupImage(_ name: String) {
