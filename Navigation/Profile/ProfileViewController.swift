@@ -11,7 +11,7 @@ class ProfileViewController: UIViewController {
     
     var isLogined = true
     
-    var postTable: UITableView = {
+    static var postTable: UITableView = {
         let postTable = UITableView(frame: .zero, style: .plain)
         postTable.toAutoLayout()
         postTable.refreshControl = UIRefreshControl()
@@ -32,14 +32,14 @@ class ProfileViewController: UIViewController {
         
         view.backgroundColor = .white
         
-        postTable.dataSource = self
-        postTable.delegate = self
+        ProfileViewController.postTable.dataSource = self
+        ProfileViewController.postTable.delegate = self
         
-        postTable.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.identifire)
-        postTable.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifire)
-        postTable.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifire)
+        ProfileViewController.postTable.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.identifire)
+        ProfileViewController.postTable.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifire)
+        ProfileViewController.postTable.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifire)
         
-        view.addSubview(postTable)
+        view.addSubview(ProfileViewController.postTable)
         
         useConstraint()
         
@@ -58,8 +58,8 @@ class ProfileViewController: UIViewController {
     
     
     @objc func updatePostArray() {
-        postTable.reloadData()
-        postTable.refreshControl?.endRefreshing()
+        ProfileViewController.postTable.reloadData()
+        ProfileViewController.postTable.refreshControl?.endRefreshing()
     }
     
 }
