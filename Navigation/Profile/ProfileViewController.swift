@@ -11,7 +11,7 @@ class ProfileViewController: UIViewController {
     
     var isLogined = true
     
-    static var postTable: UITableView = {
+    var postTable: UITableView = {
         let postTable = UITableView(frame: .zero, style: .plain)
         postTable.toAutoLayout()
         postTable.refreshControl = UIRefreshControl()
@@ -30,16 +30,20 @@ class ProfileViewController: UIViewController {
         
         title = "Профиль"
         
-        view.backgroundColor = .white
+#if DEBUG
+        postTable.backgroundColor = .lightGray
+#elseif release
+        postTable.backgroundColor = .white
+#endif
         
-        ProfileViewController.postTable.dataSource = self
-        ProfileViewController.postTable.delegate = self
+        postTable.dataSource = self
+        postTable.delegate = self
         
-        ProfileViewController.postTable.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.identifire)
-        ProfileViewController.postTable.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifire)
-        ProfileViewController.postTable.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifire)
+        postTable.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.identifire)
+        postTable.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.identifire)
+        postTable.register(PhotosTableViewCell.self, forCellReuseIdentifier: PhotosTableViewCell.identifire)
         
-        view.addSubview(ProfileViewController.postTable)
+        view.addSubview(postTable)
         
         useConstraint()
         
@@ -58,8 +62,8 @@ class ProfileViewController: UIViewController {
     
     
     @objc func updatePostArray() {
-        ProfileViewController.postTable.reloadData()
-        ProfileViewController.postTable.refreshControl?.endRefreshing()
+        postTable.reloadData()
+        postTable.refreshControl?.endRefreshing()
     }
     
 }

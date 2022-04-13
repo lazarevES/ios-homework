@@ -131,6 +131,9 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
                                      avatar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
                                      avatar.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Const.indent),
                                      
+                                     closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
+                                     closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Const.indent),
+                                     
                                      userName.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: Const.smallSize),
                                      userName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
                                      userName.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
@@ -163,7 +166,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
                 self.foneView.isHidden = false
                 self.foneView.alpha = 0.7
                 self.avatar.isUserInteractionEnabled = false
-                ProfileViewController.postTable.isScrollEnabled = false
+                //ProfileViewController.postTable.isScrollEnabled = false
             },
             completion: { _ in
                 UIImageView.animate(withDuration: 0.3) {
@@ -189,7 +192,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
                     self.avatar.center = self.defaultAvatarPosicion!
                     self.foneView.alpha = 0.0
                     self.avatar.isUserInteractionEnabled = true
-                    ProfileViewController.postTable.isScrollEnabled = true
                 },
                                     completion: { _ in
                     self.foneView.isHidden = true

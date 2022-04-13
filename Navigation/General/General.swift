@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import StorageService
 
 struct Const {
     
@@ -18,14 +19,6 @@ struct Const {
     static let bigSize: CGFloat = 100
     static let bigIndent: CGFloat = 120
     
-}
-
-struct Post {
-    var author: String
-    var description: String
-    var image: String
-    var likes: Int
-    var views: Int
 }
 
 public extension UIView {
