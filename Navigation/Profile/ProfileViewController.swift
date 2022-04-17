@@ -8,10 +8,8 @@
 import UIKit
 
 class ProfileViewController: UIViewController {
-    
-    var isLogined = true
-    
-    var postTable: UITableView = {
+        
+    lazy var postTable: UITableView = {
         let postTable = UITableView(frame: .zero, style: .plain)
         postTable.toAutoLayout()
         postTable.refreshControl = UIRefreshControl()
@@ -30,9 +28,11 @@ class ProfileViewController: UIViewController {
         
         title = "Профиль"
         
-#if DEBUG
+#if release
+        view.backgroundColor = .lightGray
         postTable.backgroundColor = .lightGray
-#elseif release
+#elseif DEBUG
+        view.backgroundColor = .white
         postTable.backgroundColor = .white
 #endif
         
@@ -108,7 +108,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
                 return 0
             }
         }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
            if indexPath.section == 0 {
                navigationController?.pushViewController(PhotosViewController(), animated: true)

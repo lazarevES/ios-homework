@@ -9,7 +9,7 @@ import UIKit
 
 class InfoViewController: UIViewController {
     
-    let textLabel: UILabel = {
+    lazy var textLabel: UILabel = {
         let label = UILabel()
         label.toAutoLayout()
         label.textAlignment = .center
@@ -21,7 +21,7 @@ class InfoViewController: UIViewController {
         return label
     }()
     
-    let button: UIButton = {
+    lazy var button: UIButton = {
         let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width/2-50, y: UIScreen.main.bounds.height/2-25, width: 100, height: 50))
         button.backgroundColor = UIColor.black
         button.setTitle("Like", for: .normal)
@@ -35,8 +35,8 @@ class InfoViewController: UIViewController {
     }()
     
     init(title: String) {
-        textLabel.text = title
         super.init(nibName: nil, bundle: nil)
+        textLabel.text = title
     }
     
     required init?(coder: NSCoder) {

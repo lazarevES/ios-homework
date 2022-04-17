@@ -9,7 +9,7 @@ import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate  {
     
-    var scrollView: UIScrollView = {
+    lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
         scrollView.isScrollEnabled = true
@@ -17,20 +17,20 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         return scrollView
     }()
     
-    var contentView: UIView = {
+    lazy var contentView: UIView = {
         let contentView = UIView()
         contentView.backgroundColor = .white
         contentView.toAutoLayout()
         return contentView
     }()
     
-    var logo: UIImageView = {
+    lazy var logo: UIImageView = {
         let logo = UIImageView(image: UIImage(named: "logo"))
         logo.toAutoLayout()
         return logo
     }()
     
-    var userName: UITextField = {
+    lazy var userName: UITextField = {
         let userName = UITextField()
         userName.toAutoLayout()
         userName.textColor = .black
@@ -47,7 +47,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         return userName
     }()
     
-    var password: UITextField = {
+    lazy var password: UITextField = {
         let password = UITextField()
         password.toAutoLayout()
         password.textColor = .black
@@ -64,7 +64,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         return password
     }()
     
-    var logIn: UIButton = {
+    lazy var logIn: UIButton = {
         let logIn = UIButton()
         logIn.toAutoLayout()
         logIn.setTitle("Вход", for: .normal)
@@ -84,7 +84,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         return logIn
     }()
     
-    var stackView: UIStackView = {
+    lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.toAutoLayout()
         stackView.axis = .vertical
