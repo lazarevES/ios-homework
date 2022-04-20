@@ -22,6 +22,18 @@ class ProfileViewController: UIViewController {
     }()
     
     var posts = constPostArray
+    private let userService: UserService
+    private let userName: String
+    
+    init(userService: UserService, name: String){
+        self.userService = userService
+        self.userName = name
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,7 +69,7 @@ class ProfileViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
+        navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     
     
@@ -96,6 +108,9 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         
         if section == 0 {
             let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.identifire) as! ProfileHeaderView
+            if let user = userService.getUser(name: userName) {
+                headerView.initUserData(user: user)
+            }
             return headerView
         } else
         { return nil }

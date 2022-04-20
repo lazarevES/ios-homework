@@ -12,7 +12,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     lazy var userName: UILabel = {
         let userName = UILabel()
-        userName.text = "Киря"
+        userName.text = "Пользователь не найден"
         userName.textAlignment = .natural
         userName.textColor = .black
         userName.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -20,7 +20,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     }()
     
     lazy var avatar: UIImageView = {
-        let avatar = UIImageView(image: UIImage(named: "avatar"))
+        let avatar = UIImageView()
         avatar.clipsToBounds = true
         avatar.layer.cornerRadius = 50
         avatar.layer.borderWidth = 3
@@ -33,7 +33,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     lazy var status: UILabel = {
         let status = UILabel()
-        status.text = "В ожидании еды"
+        status.text = ""
         status.textAlignment = .natural
         status.textColor = .gray
         status.font = UIFont.systemFont(ofSize: 14, weight: .regular)
@@ -103,6 +103,12 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    public func initUserData(user: User) {
+        userName.text = user.name
+        avatar.image = user.avatar
+        status.text = user.status
+    }
+    
     @objc func pressButton() {
         //print(status.text) первая часть задания
         status.text = statusText
@@ -120,6 +126,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private func useConstraint() {
         
         //тут установим привязки
+        
         avatar.snp.makeConstraints { (make) -> Void in
             make.top.equalToSuperview().offset(Const.indent)
             make.leading.equalToSuperview().offset(Const.leadingMargin)
@@ -129,25 +136,24 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         closeButton.snp.makeConstraints { (make) -> Void in
             make.top.trailing.equalToSuperview().inset(Const.indent)
         }
-        
+
         userName.snp.makeConstraints { (make) -> Void in
-            make.trailing.equalToSuperview().offset(Const.trailingMargin)
-            make.top.equalToSuperview().offset(27)
+            make.top.equalToSuperview().inset(27)
             make.leading.equalTo(avatar.snp.trailing).offset(Const.smallSize)
+            make.trailing.equalToSuperview().offset(Const.trailingMargin)
         }
-        
+
         status.snp.makeConstraints { (make) -> Void in
-            make.right.equalToSuperview().offset(Const.trailingMargin)
             make.leading.equalTo(avatar.snp.trailing).offset(Const.smallSize)
             make.bottom.equalTo(setStatusField.snp.top).offset(-12)
         }
-        
+
         statusButton.snp.makeConstraints { (make) -> Void in
             make.leading.trailing.equalToSuperview().inset(Const.leadingMargin)
             make.top.equalTo(avatar.snp.bottom).offset(Const.indent)
             make.height.equalTo(Const.size)
         }
-        
+
         setStatusField.snp.makeConstraints { (make) -> Void in
             make.leading.equalTo(avatar.snp.trailing).offset(Const.smallSize)
             make.bottom.equalTo(statusButton.snp.top).inset(-10)

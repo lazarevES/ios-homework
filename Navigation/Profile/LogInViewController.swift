@@ -114,10 +114,16 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
         view.addGestureRecognizer(tapGesture)
         
+#if release
+        userName.text = ""
+#elseif DEBUG
+        userName.text = "Киря"
+#endif
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.navigationBar.isHidden = true
         NotificationCenter.default.addObserver(self, selector:
                                                 #selector(keyboardWillShow),
                                                name: UIResponder.keyboardWillShowNotification,
@@ -128,7 +134,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
                                                object: nil)
     }
     
-
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self,
@@ -170,9 +176,16 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
     }
     
     @objc func login() {
-        let profileViewController = ProfileViewController()
-            navigationController?.pushViewController(profileViewController, animated: false)
-            navigationController?.setViewControllers([profileViewController], animated: true)
+        
+        var userService: UserService
+        
+#if release
+        userService = CurrentUserService()
+#elseif DEBUG
+        userService = TestUserService()
+#endif
+        let profileViewController = ProfileViewController(userService: userService, name: userName.text ?? "")
+        navigationController?.setViewControllers([profileViewController], animated: true)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
