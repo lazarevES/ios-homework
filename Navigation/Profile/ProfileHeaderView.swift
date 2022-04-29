@@ -6,12 +6,12 @@
 //
 
 import UIKit
+import SnapKit
 
 class ProfileHeaderView: UITableViewHeaderFooterView {
     
-    var userName: UILabel = {
+    lazy var userName: UILabel = {
         let userName = UILabel()
-        userName.toAutoLayout()
         userName.text = "Киря"
         userName.textAlignment = .natural
         userName.textColor = .black
@@ -21,7 +21,6 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     lazy var avatar: UIImageView = {
         let avatar = UIImageView(image: UIImage(named: "avatar"))
-        avatar.toAutoLayout()
         avatar.clipsToBounds = true
         avatar.layer.cornerRadius = 50
         avatar.layer.borderWidth = 3
@@ -32,9 +31,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return avatar
     }()
     
-    var status: UILabel = {
+    lazy var status: UILabel = {
         let status = UILabel()
-        status.toAutoLayout()
         status.text = "В ожидании еды"
         status.textAlignment = .natural
         status.textColor = .gray
@@ -43,9 +41,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return status
     }()
     
-    var statusButton: UIButton = {
+    lazy var statusButton: UIButton = {
         let statusButton = UIButton()
-        statusButton.toAutoLayout()
         statusButton.backgroundColor = #colorLiteral(red: 0.05408742279, green: 0.4763534069, blue: 0.9996182323, alpha: 1)
         statusButton.layer.cornerRadius = 4
         statusButton.layer.shadowColor = UIColor.black.cgColor
@@ -58,9 +55,8 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         return statusButton
     }()
     
-    var setStatusField: UITextField = {
+    lazy var setStatusField: UITextField = {
         let setStatusField = UITextField()
-        setStatusField.toAutoLayout()
         setStatusField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         setStatusField.placeholder = "Ввести статус"
         setStatusField.textColor = .black
@@ -77,17 +73,15 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     lazy var foneView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-        view.toAutoLayout()
         view.backgroundColor = .darkGray
         view.isHidden = true
         view.alpha = 0
         return view
     }()
     
-    var closeButton: UIButton = {
+    lazy var closeButton: UIButton = {
         let button = UIButton()
         button.isHidden = true
-        button.toAutoLayout()
         button.imageView?.contentMode = .scaleAspectFit
         button.backgroundColor = .darkGray
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
@@ -126,31 +120,40 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     private func useConstraint() {
         
         //тут установим привязки
-        NSLayoutConstraint.activate([avatar.widthAnchor.constraint(equalToConstant: Const.bigSize),
-                                     avatar.heightAnchor.constraint(equalTo: avatar.widthAnchor),
-                                     avatar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
-                                     avatar.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Const.indent),
-                                     
-                                     closeButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
-                                     closeButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Const.indent),
-                                     
-                                     userName.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: Const.smallSize),
-                                     userName.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
-                                     userName.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
-                                     
-                                     status.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: Const.smallSize),
-                                     status.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
-                                     status.bottomAnchor.constraint(equalTo: setStatusField.topAnchor, constant: -6),
-                                     
-                                     statusButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-                                     statusButton.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
-                                     statusButton.topAnchor.constraint(equalTo: avatar.bottomAnchor, constant: Const.indent),
-                                     statusButton.heightAnchor.constraint(equalToConstant: Const.size),
-                                     
-                                     setStatusField.leftAnchor.constraint(equalTo: avatar.rightAnchor, constant: Const.smallSize),
-                                     setStatusField.bottomAnchor.constraint(equalTo: statusButton.topAnchor, constant: -10),
-                                     setStatusField.rightAnchor.constraint(greaterThanOrEqualTo: contentView.rightAnchor, constant: Const.trailingMargin),
-                                     setStatusField.heightAnchor.constraint(equalToConstant: 40)])
+        avatar.snp.makeConstraints { (make) -> Void in
+            make.top.equalToSuperview().offset(Const.indent)
+            make.leading.equalToSuperview().offset(Const.leadingMargin)
+            make.height.width.equalTo(Const.bigSize)
+        }
+        
+        closeButton.snp.makeConstraints { (make) -> Void in
+            make.top.trailing.equalToSuperview().inset(Const.indent)
+        }
+        
+        userName.snp.makeConstraints { (make) -> Void in
+            make.trailing.equalToSuperview().offset(Const.trailingMargin)
+            make.top.equalToSuperview().offset(27)
+            make.leading.equalTo(avatar.snp.trailing).offset(Const.smallSize)
+        }
+        
+        status.snp.makeConstraints { (make) -> Void in
+            make.right.equalToSuperview().offset(Const.trailingMargin)
+            make.leading.equalTo(avatar.snp.trailing).offset(Const.smallSize)
+            make.bottom.equalTo(setStatusField.snp.top).offset(-12)
+        }
+        
+        statusButton.snp.makeConstraints { (make) -> Void in
+            make.leading.trailing.equalToSuperview().inset(Const.leadingMargin)
+            make.top.equalTo(avatar.snp.bottom).offset(Const.indent)
+            make.height.equalTo(Const.size)
+        }
+        
+        setStatusField.snp.makeConstraints { (make) -> Void in
+            make.leading.equalTo(avatar.snp.trailing).offset(Const.smallSize)
+            make.bottom.equalTo(statusButton.snp.top).inset(-10)
+            make.trailing.equalToSuperview().offset(Const.trailingMargin)
+            make.height.equalTo(40)
+        }
         
     }
     

@@ -9,7 +9,7 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    let stackView: UIStackView = {
+    lazy var stackView: UIStackView = {
         
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
@@ -21,7 +21,7 @@ class FeedViewController: UIViewController {
         return stack
     }()
     
-    let firstButton: UIButton = {
+    lazy var firstButton: UIButton = {
         let button = UIButton()
         button.toAutoLayout()
         button.backgroundColor = .clear
@@ -39,7 +39,7 @@ class FeedViewController: UIViewController {
         return button
     }()
     
-    let secondButton: UIButton = {
+    lazy var secondButton: UIButton = {
         let button = UIButton()
         button.toAutoLayout()
         button.backgroundColor = .clear
