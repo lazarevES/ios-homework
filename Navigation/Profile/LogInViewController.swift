@@ -66,23 +66,23 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         return password
     }()
     
-    lazy var logIn: UIButton = {
-        let logIn = UIButton()
-        logIn.toAutoLayout()
-        logIn.setTitle("Вход", for: .normal)
+    lazy var logIn: CustomButton = {
+        let logIn = CustomButton(vc: self,
+                                 text: "Вход",
+                                 backgroundColor: nil,
+                                 backgroundImage: nil,
+                                 tag: nil,
+                                 shadow: false) {(vc: UIViewController, _ sender: CustomButton) in
+            self.loginAction(self)
+        }
         
         if let image = UIImage(named: "blue_pixel") {
+            logIn.imageView?.contentMode = .scaleAspectFill
             logIn.setBackgroundImage(image.imageWithAlpha(alpha: 1), for: .normal)
             logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.8), for: .selected)
             logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.8), for: .highlighted)
             logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.8), for: .disabled)
         }
-        
-        logIn.imageView?.contentMode = .scaleAspectFill
-        logIn.titleLabel?.textColor = .white
-        logIn.layer.cornerRadius = 10
-        logIn.addTarget(self, action: #selector(login), for: .touchUpInside)
-        logIn.clipsToBounds = true
         return logIn
     }()
     
@@ -99,6 +99,29 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         return stackView
     }()
     
+    let loginAction =  {(vc: LogInViewController) in
+        
+        if let loginInspector = vc.delegate {
+            if loginInspector.checkPassword(login: vc.userName.text ?? "", password: vc.password.text ?? "") {
+                vc.logined()
+            }
+            else {
+                let alertController = UIAlertController(title: "Ошибка авторизации", message: "Не верный логин или пароль", preferredStyle: .alert)
+                let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+                alertController.addAction(action)
+                vc.present(alertController, animated: true, completion: nil)
+            }
+        }
+        else
+        {
+            let alertController = UIAlertController(title: "Ошибка авторизации", message: "Критическая ошибка авторизации, попробуйте перезапустить приложение", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+            alertController.addAction(action)
+            vc.present(alertController, animated: true, completion: nil)
+        }
+        
+    }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -177,27 +200,31 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
                                      logIn.heightAnchor.constraint(equalToConstant: Const.size)])
     }
     
-    @objc func login() {
-        
-        if let loginInspector = delegate {
-            if loginInspector.checkPassword(login: userName.text ?? "", password: password.text ?? "") {
-                logined()
-            }
-            else {
-                let alertController = UIAlertController(title: "Ошибка авторизации", message: "Не верный логин или пароль", preferredStyle: .alert)
-                let action = UIAlertAction(title: "ок", style: .default, handler: nil)
-                alertController.addAction(action)
-                self.present(alertController, animated: true, completion: nil)
-            }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardRectangle = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            //scrollView.contentOffset.y = keyboardRectangle.height - (scrollView.frame.height - logIn.frame.minY) + Const.indent
+            scrollView.contentInset.bottom = keyboardRectangle.height
+            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardRectangle.height, right: 0)
         }
-        else
-        {
-            let alertController = UIAlertController(title: "Ошибка авторизации", message: "Критическая ошибка авторизации, попробуйте перезапустить приложение", preferredStyle: .alert)
-            let action = UIAlertAction(title: "ок", style: .default, handler: nil)
-            alertController.addAction(action)
-            self.present(alertController, animated: true, completion: nil)
-        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
         
+        //scrollView.contentOffset = CGPoint(x: 0, y: 0)
+        scrollView.contentInset.bottom = .zero
+        scrollView.verticalScrollIndicatorInsets = .zero
+    }
+    
+    @objc func tap() {
+        password.resignFirstResponder()
+        userName.resignFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        password.resignFirstResponder()
+        userName.resignFirstResponder()
+        return true;
     }
     
     func logined() {
@@ -236,31 +263,6 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         
     }
     
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardRectangle = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            //scrollView.contentOffset.y = keyboardRectangle.height - (scrollView.frame.height - logIn.frame.minY) + Const.indent
-            scrollView.contentInset.bottom = keyboardRectangle.height
-            scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardRectangle.height, right: 0)
-        }
-    }
-    
-    @objc func keyboardWillHide(notification: NSNotification) {
-        
-        //scrollView.contentOffset = CGPoint(x: 0, y: 0)
-        scrollView.contentInset.bottom = .zero
-        scrollView.verticalScrollIndicatorInsets = .zero
-    }
-    
-    @objc func tap() {
-        password.resignFirstResponder()
-        userName.resignFirstResponder()
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        password.resignFirstResponder()
-        userName.resignFirstResponder()
-        return true;
-    }
 }
 
 extension UIImage {

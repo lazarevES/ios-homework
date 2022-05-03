@@ -21,18 +21,40 @@ class InfoViewController: UIViewController {
         return label
     }()
     
-    lazy var button: UIButton = {
-        let button = UIButton(frame: CGRect(x: UIScreen.main.bounds.width/2-50, y: UIScreen.main.bounds.height/2-25, width: 100, height: 50))
-        button.backgroundColor = UIColor.black
-        button.setTitle("Like", for: .normal)
+    lazy var button: CustomButton = {
+        let button = CustomButton(vc: self,
+                                  text: "Like",
+                                  backgroundColor: UIColor.black,
+                                  backgroundImage: nil,
+                                  tag: nil,
+                                  shadow: false,
+                                  tapAction: showAlert)
+        button.frame = CGRect(x: UIScreen.main.bounds.width/2-50, y: UIScreen.main.bounds.height/2-25, width: 100, height: 50)
         button.titleLabel?.lineBreakMode = NSLineBreakMode.byWordWrapping
         button.titleLabel?.textAlignment = .center
         button.titleLabel?.accessibilityIgnoresInvertColors = true
-        button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
-        button.toAutoLayout()
+
         
         return button
     }()
+    
+    let showAlert = {(vc: UIViewController, sender: CustomButton) in
+        
+        let alertController = UIAlertController(title: "Важный вопрос", message: "Нравится??", preferredStyle: .alert)
+        
+        let yesAction = UIAlertAction(title: "Да", style: .default) { (action) -> Void in
+            print("Лайкнул")
+        }
+        
+        let noAction = UIAlertAction(title: "Нет", style: .default) { (action) -> Void in
+            print("Ну и ок чо")
+        }
+        
+        alertController.addAction(yesAction)
+        alertController.addAction(noAction)
+        
+        vc.present(alertController, animated: true, completion: nil)
+    }
     
     init(title: String) {
         super.init(nibName: nil, bundle: nil)
@@ -63,24 +85,5 @@ class InfoViewController: UIViewController {
                                      button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                                      button.widthAnchor.constraint(equalToConstant: Const.bigSize)])
     }
-    
-    @objc func showAlert() {
         
-        let alertController = UIAlertController(title: "Важный вопрос", message: "Нравится??", preferredStyle: .alert)
-        
-        let yesAction = UIAlertAction(title: "Да", style: .default) { (action) -> Void in
-            print("Лайкнул")
-        }
-        
-        let noAction = UIAlertAction(title: "Нет", style: .default) { (action) -> Void in
-            print("Ну и ок чо")
-        }
-        
-        alertController.addAction(yesAction)
-        alertController.addAction(noAction)
-        
-        self.present(alertController, animated: true, completion: nil)
-    }
-    
-    
 }

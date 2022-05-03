@@ -12,7 +12,7 @@ class FeedViewController: UIViewController {
     lazy var stackView: UIStackView = {
         
         let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
+        stack.toAutoLayout()
         stack.axis = .vertical
         stack.distribution = .fillEqually
         stack.spacing = 10
@@ -21,41 +21,84 @@ class FeedViewController: UIViewController {
         return stack
     }()
     
-    lazy var firstButton: UIButton = {
-        let button = UIButton()
-        button.toAutoLayout()
-        button.backgroundColor = .clear
+    lazy var questionsStackView: UIStackView = {
+        
+        let stack = UIStackView()
+        stack.toAutoLayout()
+        stack.axis = .vertical
+        stack.distribution = .fillEqually
+        stack.spacing = 10
+        stack.alignment = .fill
+        stack.backgroundColor = .clear
+        return stack
+    }()
+    
+    lazy var firstButton: CustomButton = {
+        let button = CustomButton(vc: self,
+                                  text: "Дом - милый дом",
+                                  backgroundColor: .clear,
+                                  backgroundImage: UIImage(named: "home"),
+                                  tag: 0,
+                                  shadow: true) {
+            (vc: UIViewController, sender: CustomButton) in
+            self.showPost(sender: sender)
+        }
+        
         button.layer.cornerRadius = 4
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 4, height: 4)
-        button.layer.shadowOpacity = 0.7
-        button.layer.shadowRadius = 4
-        button.setTitle("Дом - милый дом", for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.setImage(UIImage(named: "home"), for: .normal)
-        button.setTitleColor(.white, for: .highlighted)
-        button.addTarget(self, action: #selector(showPost), for: .touchUpInside)
-        button.tag = 0
         return button
     }()
     
     lazy var secondButton: UIButton = {
-        let button = UIButton()
-        button.toAutoLayout()
-        button.backgroundColor = .clear
+        let button =  CustomButton(vc: self,
+                                   text: "Лего сокол тысячелетия",
+                                   backgroundColor: .clear,
+                                   backgroundImage: UIImage(named: "LegoMillenniumFalcon"),
+                                   tag: 1,
+                                   shadow: true) {
+            (vc: UIViewController, sender: CustomButton) in
+            self.showPost(sender: sender)
+        }
         button.layer.cornerRadius = 4
-        button.layer.shadowColor = UIColor.black.cgColor
-        button.layer.shadowOffset = CGSize(width: 4, height: 4)
-        button.layer.shadowOpacity = 0.7
-        button.layer.shadowRadius = 4
-        button.setTitle("Лего сокол тысячелетия", for: .normal)
-        button.setImage(UIImage(named: "LegoMillenniumFalcon"), for: .normal)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.setTitleColor(.white, for: .highlighted)
-        button.addTarget(self, action: #selector(showPost), for: .touchUpInside)
-        button.tag = 1
+       
         return button
     }()
+    
+    lazy var answerTextField: UITextField = {
+        let textField = UITextField()
+        textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        textField.placeholder = "Зеленый"
+        textField.textColor = .black
+        textField.backgroundColor = .white
+        textField.textAlignment = .natural
+        textField.layer.cornerRadius = 12
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = CGColor(red: 0, green: 0, blue: 0, alpha: 1)
+        textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 20))
+        textField.leftViewMode = .always
+        return textField
+    }()
+   
+    lazy var answerButton: CustomButton = {
+        let button = CustomButton(vc: self,
+                                  text: "Проверить текст",
+                                  backgroundColor: #colorLiteral(red: 0.05408742279, green: 0.4763534069, blue: 0.9996182323, alpha: 1),
+                                  backgroundImage: nil,
+                                  tag: 0,
+                                  shadow: true) {
+            (vc:UIViewController, sender: CustomButton) in
+            if self.check(word: self.answerTextField.text!) {
+                sender.notification = {sender.textFieldArray.forEach({$0.textColor = UIColor.green})}
+            }
+            else {
+                sender.notification = {sender.textFieldArray.forEach({$0.textColor = UIColor.red})}
+            }
+        }
+        
+        button.layer.cornerRadius = 4
+        button.addTextField(textField: answerTextField)
+        return button
+    }()
+
     
     var infoArray = ["Вот так выглядит моя витрина, а чего добился ты?", "На эту гребанную штуку потратил 74тыс руб"] //Сугубо для эксперементов
     
@@ -64,8 +107,11 @@ class FeedViewController: UIViewController {
         
         title = "Новости"
         
+        questionsStackView.addArrangedSubview(answerTextField)
+        questionsStackView.addArrangedSubview(answerButton)
         stackView.addArrangedSubview(firstButton)
         stackView.addArrangedSubview(secondButton)
+        stackView.addArrangedSubview(questionsStackView)
         
         view.addSubview(stackView)
         useConstraint()
@@ -73,19 +119,20 @@ class FeedViewController: UIViewController {
     }
     
     func useConstraint() {
-        NSLayoutConstraint.activate([stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                                     stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+        NSLayoutConstraint.activate([stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                                      stackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: Const.trailingMargin),
                                      stackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 1.5)])
     }
     
-    @objc func showPost(sender: UIButton) {
+    func showPost(sender: UIButton) {
         let postViewController = PostViewController(post:Post_old(title: sender.title(for: .normal)!,
                                                                   image: sender.image(for: .normal)!,
                                                                   info: infoArray[sender.tag]))
         self.navigationController?.pushViewController(postViewController, animated: true)
     }
     
-    
+    func check(word: String) -> Bool {
+            return word == "Зеленый"
+    }
     
 }
