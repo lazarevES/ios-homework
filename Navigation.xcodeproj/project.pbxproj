@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		39E86D3ABD1D144189199533 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFE1FDECCDAD2136908EFE3 /* Pods_Navigation.framework */; };
 		47144F6627CE355800F360E8 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47144F6527CE355800F360E8 /* PhotosTableViewCell.swift */; };
 		47144F6827CE755B00F360E8 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47144F6727CE755B00F360E8 /* PhotosViewController.swift */; };
 		47144F6A27CE774500F360E8 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47144F6927CE774500F360E8 /* PhotosCollectionViewCell.swift */; };
@@ -29,7 +28,10 @@
 		479BB9CF27A992A100E6EB2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479BB9CE27A992A100E6EB2C /* SceneDelegate.swift */; };
 		479BB9D627A992A400E6EB2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 479BB9D527A992A400E6EB2C /* Assets.xcassets */; };
 		479BB9D927A992A400E6EB2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 479BB9D727A992A400E6EB2C /* LaunchScreen.storyboard */; };
+		47A1D23C2821370400DE771B /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A1D23B2821370400DE771B /* Authentication.swift */; };
 		47A8137927BAD42E0051BD8E /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A8137827BAD42E0051BD8E /* ProfileHeaderView.swift */; };
+		47BB7F5128110DAF0020B187 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAFE1FDECCDAD2136908EFE3 /* Pods_Navigation.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		47BB7F5228110DAF0020B187 /* Pods_Navigation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DAFE1FDECCDAD2136908EFE3 /* Pods_Navigation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		47CEDDA327C2628F002F22F8 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CEDDA227C2628F002F22F8 /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +52,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				47BB7F5228110DAF0020B187 /* Pods_Navigation.framework in Embed Frameworks */,
 				47993BDC28068C39008891CD /* StorageService.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -79,6 +82,7 @@
 		479BB9D527A992A400E6EB2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		479BB9D827A992A400E6EB2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		479BB9DA27A992A400E6EB2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		47A1D23B2821370400DE771B /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		47A8137827BAD42E0051BD8E /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		47CEDDA227C2628F002F22F8 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		4D1EBABCCF45426D62C5C3ED /* Pods-Navigation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.debug.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.debug.xcconfig"; sourceTree = "<group>"; };
@@ -99,8 +103,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				473EFE1828095F9E00157FF6 /* iOSIntPackage in Frameworks */,
+				47BB7F5128110DAF0020B187 /* Pods_Navigation.framework in Frameworks */,
 				47993BDB28068C39008891CD /* StorageService.framework in Frameworks */,
-				39E86D3ABD1D144189199533 /* Pods_Navigation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -131,6 +135,7 @@
 			children = (
 				4764DEAD280FB4CA0079BC65 /* UserData.swift */,
 				471D11FA27C6233F00810B1B /* General.swift */,
+				47A1D23B2821370400DE771B /* Authentication.swift */,
 			);
 			path = General;
 			sourceTree = "<group>";
@@ -397,6 +402,7 @@
 				476267BF27BBFA55008A4908 /* ViewController.swift in Sources */,
 				479BB9CF27A992A100E6EB2C /* SceneDelegate.swift in Sources */,
 				471D11FB27C6233F00810B1B /* General.swift in Sources */,
+				47A1D23C2821370400DE771B /* Authentication.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
