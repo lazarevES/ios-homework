@@ -51,7 +51,7 @@ class PhotosTableViewCell: UITableViewCell {
         
         for i in 0...3 {
             
-            let photo = UIImageView(image: UIImage(named: constPhotoArray[i]))
+            let photo = UIImageView(image: constPhotoArray[i])
             photo.toAutoLayout()
             photo.layer.cornerRadius = 6
             photo.clipsToBounds = true
