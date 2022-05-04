@@ -9,6 +9,8 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
+    let model: FeedModel = FeedModel()
+    
     lazy var stackView: UIStackView = {
         
         let stack = UIStackView()
@@ -86,7 +88,7 @@ class FeedViewController: UIViewController {
                                   tag: 0,
                                   shadow: true) {
             (vc:UIViewController, sender: CustomButton) in
-            if self.check(word: self.answerTextField.text!) {
+            if self.model.check(word: self.answerTextField.text!) {
                 sender.notification = {sender.textFieldArray.forEach({$0.textColor = UIColor.green})}
             }
             else {
@@ -130,9 +132,4 @@ class FeedViewController: UIViewController {
                                                                   info: infoArray[sender.tag]))
         self.navigationController?.pushViewController(postViewController, animated: true)
     }
-    
-    func check(word: String) -> Bool {
-            return word == "Зеленый"
-    }
-    
 }
