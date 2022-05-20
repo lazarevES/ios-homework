@@ -20,31 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let tabBarController = UITabBarController()
         tabBarController.tabBar.backgroundColor = .white
         
-        let feedViewController = FeedViewController()
-        feedViewController.view.backgroundColor = UIColor.white
-        let feedNavigationController = UINavigationController(rootViewController: feedViewController)
-        
         let logInViewController = LogInViewController()
         logInViewController.view.backgroundColor = .white
-        let profileNavigationController = UINavigationController(rootViewController: logInViewController)
-
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = UIColor.white
         
-        feedNavigationController.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(named: "Feed"), selectedImage: UIImage(named: "SelectedFeed"))
-        feedNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
-        feedNavigationController.navigationBar.barTintColor = UIColor.white
-        feedNavigationController.navigationBar.standardAppearance = appearance;
-        feedNavigationController.navigationBar.scrollEdgeAppearance = feedNavigationController.navigationBar.standardAppearance
-       
-        profileNavigationController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(named: "Profile"), selectedImage: UIImage(named: "SelectedProfile"))
-        profileNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
-        profileNavigationController.navigationBar.barTintColor = UIColor.white
-        profileNavigationController.navigationBar.standardAppearance = appearance;
-        profileNavigationController.navigationBar.scrollEdgeAppearance = profileNavigationController.navigationBar.standardAppearance
-       
-        tabBarController.viewControllers = [feedNavigationController, profileNavigationController]
+        let loginFactory = MyLoginFactory()
+        logInViewController.delegate = loginFactory.creatLoginInspector()
+        
+        let loginNavigationController = UINavigationController(rootViewController: logInViewController)
+        tabBarController.viewControllers = [loginNavigationController]
  
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()

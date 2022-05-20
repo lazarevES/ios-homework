@@ -9,6 +9,8 @@ import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate  {
     
+    var delegate: LoginViewControllerDelegate?
+    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.backgroundColor = .white
@@ -177,15 +179,61 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
     
     @objc func login() {
         
+        if let loginInspector = delegate {
+            if loginInspector.checkPassword(login: userName.text ?? "", password: password.text ?? "") {
+                logined()
+            }
+            else {
+                let alertController = UIAlertController(title: "Ошибка авторизации", message: "Не верный логин или пароль", preferredStyle: .alert)
+                let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+                alertController.addAction(action)
+                self.present(alertController, animated: true, completion: nil)
+            }
+        }
+        else
+        {
+            let alertController = UIAlertController(title: "Ошибка авторизации", message: "Критическая ошибка авторизации, попробуйте перезапустить приложение", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+            alertController.addAction(action)
+            self.present(alertController, animated: true, completion: nil)
+        }
+        
+    }
+    
+    func logined() {
         var userService: UserService
         
-#if release
-        userService = CurrentUserService()
-#elseif DEBUG
+#if DEBUG
         userService = TestUserService()
+#else
+        userService = CurrentUserService()
 #endif
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor.white
+        
         let profileViewController = ProfileViewController(userService: userService, name: userName.text ?? "")
-        navigationController?.setViewControllers([profileViewController], animated: true)
+        let feedViewController = FeedViewController()
+        
+        feedViewController.view.backgroundColor = UIColor.white
+        let feedNavigationController = UINavigationController(rootViewController: feedViewController)
+        
+        feedNavigationController.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(named: "Feed"), selectedImage: UIImage(named: "SelectedFeed"))
+        feedNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
+        feedNavigationController.navigationBar.barTintColor = UIColor.white
+        feedNavigationController.navigationBar.standardAppearance = appearance;
+        feedNavigationController.navigationBar.scrollEdgeAppearance = feedNavigationController.navigationBar.standardAppearance
+       
+        let profileNavigationController = UINavigationController(rootViewController: profileViewController)
+        profileNavigationController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(named: "Profile"), selectedImage: UIImage(named: "SelectedProfile"))
+        profileNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
+        profileNavigationController.navigationBar.barTintColor = UIColor.white
+        profileNavigationController.navigationBar.standardAppearance = appearance;
+        profileNavigationController.navigationBar.scrollEdgeAppearance = profileNavigationController.navigationBar.standardAppearance
+       
+        navigationController?.tabBarController!.viewControllers = [feedNavigationController, profileNavigationController]
+        
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
