@@ -11,6 +11,7 @@
 		47144F6827CE755B00F360E8 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47144F6727CE755B00F360E8 /* PhotosViewController.swift */; };
 		47144F6A27CE774500F360E8 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47144F6927CE774500F360E8 /* PhotosCollectionViewCell.swift */; };
 		471D11FB27C6233F00810B1B /* General.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471D11FA27C6233F00810B1B /* General.swift */; };
+		471F55CD2837422E002F4325 /* BrutForceHack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471F55CC2837422E002F4325 /* BrutForceHack.swift */; };
 		471F85AD282230E4001E1A66 /* FeedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471F85AC282230E4001E1A66 /* FeedModel.swift */; };
 		473EFE1828095F9E00157FF6 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 473EFE1728095F9E00157FF6 /* iOSIntPackage */; };
 		475FE25927B2D04F00353434 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25827B2D04F00353434 /* FeedViewController.swift */; };
@@ -74,6 +75,7 @@
 		47144F6727CE755B00F360E8 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		47144F6927CE774500F360E8 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
 		471D11FA27C6233F00810B1B /* General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = General.swift; sourceTree = "<group>"; };
+		471F55CC2837422E002F4325 /* BrutForceHack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrutForceHack.swift; sourceTree = "<group>"; };
 		471F85AC282230E4001E1A66 /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
 		475FE25827B2D04F00353434 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		475FE25A27B2D06C00353434 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 			children = (
 				47CEDDA227C2628F002F22F8 /* LogInViewController.swift */,
 				47A1D23B2821370400DE771B /* Authentication.swift */,
+				471F55CC2837422E002F4325 /* BrutForceHack.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				47144F6627CE355800F360E8 /* PhotosTableViewCell.swift in Sources */,
+				471F55CD2837422E002F4325 /* BrutForceHack.swift in Sources */,
 				47144F6A27CE774500F360E8 /* PhotosCollectionViewCell.swift in Sources */,
 				47144F6827CE755B00F360E8 /* PhotosViewController.swift in Sources */,
 				4764DEAE280FB4CA0079BC65 /* UserData.swift in Sources */,
