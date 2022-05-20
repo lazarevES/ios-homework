@@ -80,7 +80,7 @@ class PostTableViewCell: UITableViewCell {
                                      viewsView.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: Const.indent),
                                      viewsView.heightAnchor.constraint(equalToConstant: Const.indent)])
     }
-    
+        
     public func specifyFields(post: Post) {
         authorView.text = post.author
         descriptionView.text = post.description

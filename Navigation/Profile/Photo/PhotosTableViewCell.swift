@@ -48,17 +48,14 @@ class PhotosTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         contentView.addSubviews(titleLabel, titleButton, stackView)
-        let arrayFilters = [ColorFilter.process, ColorFilter.colorInvert, ColorFilter.posterize, ColorFilter.tonal]
         
         for i in 0...3 {
             
-            imageProcessor.processImage(sourceImage: UIImage(named: constPhotoArray[i])!, filter: arrayFilters[i]) { image in
-                
-                let photo = UIImageView(image: image)
-                photo.toAutoLayout()
-                photo.layer.cornerRadius = 6
-                photo.clipsToBounds = true
-                stackView.addArrangedSubview(photo) }
+            let photo = UIImageView(image: UIImage(named: constPhotoArray[i]))
+            photo.toAutoLayout()
+            photo.layer.cornerRadius = 6
+            photo.clipsToBounds = true
+            stackView.addArrangedSubview(photo)
         }
         useConstraint()
         

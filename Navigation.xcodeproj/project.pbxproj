@@ -18,6 +18,7 @@
 		475FE25F27B2E14100353434 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25E27B2E14100353434 /* PostViewController.swift */; };
 		475FE26327B2F08D00353434 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE26227B2F08D00353434 /* InfoViewController.swift */; };
 		476267BF27BBFA55008A4908 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 476267BE27BBFA55008A4908 /* ViewController.swift */; };
+		4764DEAE280FB4CA0079BC65 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4764DEAD280FB4CA0079BC65 /* UserData.swift */; };
 		477DA8C027C65F5F00FA6C89 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 477DA8BF27C65F5F00FA6C89 /* PostTableViewCell.swift */; };
 		47993BD728068C39008891CD /* StorageService.docc in Sources */ = {isa = PBXBuildFile; fileRef = 47993BD628068C39008891CD /* StorageService.docc */; };
 		47993BD828068C39008891CD /* StorageService.h in Headers */ = {isa = PBXBuildFile; fileRef = 47993BD528068C39008891CD /* StorageService.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -66,6 +67,7 @@
 		475FE25E27B2E14100353434 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		475FE26227B2F08D00353434 /* InfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewController.swift; sourceTree = "<group>"; };
 		476267BE27BBFA55008A4908 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		4764DEAD280FB4CA0079BC65 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 		477DA8BF27C65F5F00FA6C89 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		47993BD328068C39008891CD /* StorageService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = StorageService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		47993BD528068C39008891CD /* StorageService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StorageService.h; sourceTree = "<group>"; };
@@ -127,6 +129,7 @@
 		477DA8BE27C6579700FA6C89 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				4764DEAD280FB4CA0079BC65 /* UserData.swift */,
 				471D11FA27C6233F00810B1B /* General.swift */,
 			);
 			path = General;
@@ -382,6 +385,7 @@
 				47144F6627CE355800F360E8 /* PhotosTableViewCell.swift in Sources */,
 				47144F6A27CE774500F360E8 /* PhotosCollectionViewCell.swift in Sources */,
 				47144F6827CE755B00F360E8 /* PhotosViewController.swift in Sources */,
+				4764DEAE280FB4CA0079BC65 /* UserData.swift in Sources */,
 				477DA8C027C65F5F00FA6C89 /* PostTableViewCell.swift in Sources */,
 				475FE25F27B2E14100353434 /* PostViewController.swift in Sources */,
 				479BB9CD27A992A100E6EB2C /* AppDelegate.swift in Sources */,
