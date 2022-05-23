@@ -38,4 +38,4 @@ let constPostArray = [Post(author: "Киря", description: "my life...", image:
                  Post(author: "Киря", description: "my step...", image: "post3", likes: 11, views: 24),
                  Post(author: "Киря", description: "Кого не любят канибалы? Людей без вкуса!", image: "post4", likes: 0, views: 30)]
 
-let constPhotoArray = ["foto1", "foto2", "foto3", "foto4", "foto5", "foto6", "foto7", "foto8", "foto9", "foto10", "foto11", "foto12", "foto13", "foto14", "foto15", "foto16", "foto17", "foto18", "foto19", "foto20"]
+let constPhotoArray = [UIImage(named:"foto1")!, UIImage(named:"foto2")!, UIImage(named:"foto3")!, UIImage(named:"foto4")!, UIImage(named:"foto5")!, UIImage(named:"foto6")!, UIImage(named:"foto8")!, UIImage(named:"foto9")!, UIImage(named:"foto10")!, UIImage(named:"foto11")!, UIImage(named:"foto12")!, UIImage(named:"foto13")!, UIImage(named:"foto14")!, UIImage(named:"foto15")!, UIImage(named:"foto16")!, UIImage(named:"foto17")!, UIImage(named:"foto18")!, UIImage(named:"foto19")!, UIImage(named:"foto20")!]
