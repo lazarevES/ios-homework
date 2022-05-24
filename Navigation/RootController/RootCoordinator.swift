@@ -29,6 +29,5 @@ class UITabBarCoordinator: RootCoordinator {
         tabBar.tabBar.backgroundColor = .white
         return tabBar
     }
-
 }
 

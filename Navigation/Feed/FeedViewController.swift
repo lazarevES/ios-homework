@@ -98,9 +98,26 @@ class FeedViewController: UIViewController {
         button.addTextField(textField: answerTextField)
         return button
     }()
+    
+    lazy var timerTextView: UILabel = {
+        let textView = UILabel()
+        textView.toAutoLayout()
+        textView.textColor = .black
+        textView.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        textView.numberOfLines = 0
+        textView.textAlignment = .center
+        return textView
+    }()
 
     var coordinator: FeedCoordinator
     var model: FeedModel
+    var timer: Timer?
+    
+    var timerSecond: Int = 10 {
+        didSet {
+            timerTextView.text = "До вывода рекламного сообщения осталось \(timerSecond) сек."
+        }
+    }
     
     init(coordinator: FeedCoordinator, model: FeedModel) {
         self.model = model
@@ -122,21 +139,43 @@ class FeedViewController: UIViewController {
         stackView.addArrangedSubview(firstButton)
         stackView.addArrangedSubview(secondButton)
         stackView.addArrangedSubview(questionsStackView)
+        stackView.addArrangedSubview(timerTextView)
         
         view.addSubview(stackView)
         useConstraint()
         
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.timerSecond = 10
+        self.timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [self] timer in
+            timerSecond -= 1
+            if timerSecond == 0 {
+                coordinator.showSubscription()
+                timer.invalidate()
+                timerTextView.text = "Вы посмотрели всю рекламу нашего приложения"
+            }
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if let timer = self.timer, timer.isValid {
+            timer.invalidate()
+        }
+    }
+        
     func useConstraint() {
         NSLayoutConstraint.activate([stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
                                      stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Const.leadingMargin),
                                      stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Const.trailingMargin),
-                                     stackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 1.5)
+                                     stackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 1.2)
                                     ])
     }
     
     func showPost(sender: CustomButton) {
         model.getPost(sender: sender)
     }
+    
 }

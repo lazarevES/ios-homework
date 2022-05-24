@@ -10,8 +10,9 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-    weak var coordinator: UITabBarCoordinator?
+    var coordinator: UITabBarCoordinator?
     var authenticationData: (userService: UserService, name: String)?
+    var timer: Timer? = nil
     
     var activView: UITabBarCoordinator.action {
         didSet {
@@ -51,6 +52,7 @@ class TabBarController: UITabBarController {
                 self.viewControllers = [feedNavC, profileNavC]
             }
         }
+               
     }
     
     required init?(coder: NSCoder) {
@@ -83,5 +85,4 @@ class TabBarController: UITabBarController {
             }
         }
     }
-            
 }
