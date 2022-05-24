@@ -24,10 +24,12 @@ class ProfileViewController: UIViewController {
     var posts = constPostArray
     private let userService: UserService
     private let userName: String
+    let coordinator: VCCoordinator
     
-    init(userService: UserService, name: String){
+    init(coordinator: VCCoordinator, userService: UserService, name: String){
         self.userService = userService
         self.userName = name
+        self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
     }
     

@@ -8,9 +8,7 @@
 import UIKit
 
 class FeedViewController: UIViewController {
-    
-    let model: FeedModel = FeedModel()
-    
+        
     lazy var stackView: UIStackView = {
         
         let stack = UIStackView()
@@ -101,8 +99,18 @@ class FeedViewController: UIViewController {
         return button
     }()
 
+    var coordinator: FeedCoordinator
+    var model: FeedModel
     
-    var infoArray = ["Вот так выглядит моя витрина, а чего добился ты?", "На эту гребанную штуку потратил 74тыс руб"] //Сугубо для эксперементов
+    init(coordinator: FeedCoordinator, model: FeedModel) {
+        self.model = model
+        self.coordinator = coordinator
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -126,10 +134,7 @@ class FeedViewController: UIViewController {
                                      stackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 1.5)])
     }
     
-    func showPost(sender: UIButton) {
-        let postViewController = PostViewController(post:Post_old(title: sender.title(for: .normal)!,
-                                                                  image: sender.image(for: .normal)!,
-                                                                  info: infoArray[sender.tag]))
-        self.navigationController?.pushViewController(postViewController, animated: true)
+    func showPost(sender: CustomButton) {
+        model.getPost(sender: sender)
     }
 }
