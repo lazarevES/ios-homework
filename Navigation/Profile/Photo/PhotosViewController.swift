@@ -27,13 +27,9 @@ class PhotosViewController: UIViewController {
         return collectionView
     }()
     
-    var contentPhotoData: [UIImage] = [] {
-        didSet {
-            if contentPhotoData.count == constPhotoArray.count {
-                imagePublisherFacade.removeSubscription(for: self)
-            }
-        }
-    }
+    var contentPhotoData: [UIImage] = []
+    var timerCount = 0.0
+    var timer: Timer? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,8 +38,34 @@ class PhotosViewController: UIViewController {
         view.addSubview(collectionView)
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifire)
         useConstraint()
-        imagePublisherFacade.subscribe(self)
-        imagePublisherFacade.addImagesWithTimer(time: 0.5, repeat: constPhotoArray.count*10, userImages: constPhotoArray)
+        
+        let imageProcessor = ImageProcessor()
+        imageProcessor.processImagesOnThread(sourceImages: constPhotoArray, filter: .chrome, qos: .utility) {cgImages in
+            let images = cgImages.map({UIImage(cgImage: $0!)})
+            self.contentPhotoData.removeAll()
+            images.forEach({self.contentPhotoData.append($0)})
+            DispatchQueue.main.async{
+                self.collectionView.reloadData()
+            }
+        }
+        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
+        
+        /*
+         .default - 31.93 сек
+         .background - 150.13 сек
+         .userInitiated - 35.14 сек
+         .userInteractive - 30.01 сек
+         .utility - 36.36 сек
+         .
+        */
+    }
+    
+    @objc func updateTimer() {
+        timerCount += 0.01
+        if contentPhotoData.count > 0 {
+            print("Потрачено \(self.timerCount) секунд")
+            timer!.invalidate()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -58,7 +80,6 @@ class PhotosViewController: UIViewController {
                                      collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)])
     }
     
-
 }
 
 extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
@@ -81,20 +102,4 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     }
 }
 
-extension PhotosViewController: ImageLibrarySubscriber {
-    
-    func receive(images: [UIImage]) {
-        
-        images.forEach({ image in
-            if contentPhotoData.contains(where: {image == $0}) {
-               return
-            }
-            else {
-                contentPhotoData.append(image)
-            }
-        })
-        collectionView.reloadData()
-        
-    }
-    
-}
+

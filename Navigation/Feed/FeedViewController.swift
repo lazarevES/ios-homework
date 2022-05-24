@@ -130,8 +130,10 @@ class FeedViewController: UIViewController {
     
     func useConstraint() {
         NSLayoutConstraint.activate([stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                                     stackView.widthAnchor.constraint(equalTo: view.widthAnchor, constant: Const.trailingMargin),
-                                     stackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 1.5)])
+                                     stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Const.leadingMargin),
+                                     stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Const.trailingMargin),
+                                     stackView.heightAnchor.constraint(equalToConstant: view.bounds.height / 1.5)
+                                    ])
     }
     
     func showPost(sender: CustomButton) {
