@@ -87,6 +87,26 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         return logIn
     }()
     
+    lazy var hackPasswordBtn: CustomButton = {
+        let logIn = CustomButton(vc: self,
+                                 text: "Подобрать пароль",
+                                 backgroundColor: nil,
+                                 backgroundImage: nil,
+                                 tag: nil,
+                                 shadow: false) {(vc: UIViewController, _ sender: CustomButton) in
+            self.hackPassword(self)
+        }
+        
+        if let image = UIImage(named: "blue_pixel") {
+            logIn.imageView?.contentMode = .scaleAspectFill
+            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 1), for: .normal)
+            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.8), for: .selected)
+            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.8), for: .highlighted)
+            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.8), for: .disabled)
+        }
+        return logIn
+    }()
+    
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.toAutoLayout()
@@ -98,6 +118,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         stackView.backgroundColor = .systemGray6
         stackView.clipsToBounds = true
         return stackView
+    }()
+    
+    lazy var indicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .gray)
+        indicator.toAutoLayout()
+        indicator.isHidden = true
+        return indicator
     }()
     
     let loginAction =  {(vc: LogInViewController) in
@@ -122,6 +149,35 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         }
         
     }
+    var queue: DispatchQueue? = nil
+    let hackPassword = {(vc: LogInViewController) in
+        
+        if let newQueue = vc.queue {
+            let alertController = UIAlertController(title: "Ошибка запуска подбора пароля", message: "Процедура уже начата", preferredStyle: .alert)
+            let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+            alertController.addAction(action)
+            vc.present(alertController, animated: true, completion: nil)
+        }
+        else
+        {
+            vc.queue = DispatchQueue(label: "brutForceHack", qos: .default)
+            let login = vc.userName.text ?? ""
+            vc.indicator.isHidden = false
+            vc.indicator.startAnimating()
+            vc.queue!.async {
+                let hackMachin = BrutForceHack(login: login, loginInspector: vc.delegate!) { password in
+                    DispatchQueue.main.async {
+                        vc.password.text = password
+                        vc.password.isSecureTextEntry = false
+                        vc.indicator.isHidden = true
+                        vc.indicator.stopAnimating()
+                        vc.queue = nil
+                    }
+                }
+                hackMachin.bruteForce()
+            }
+        }
+    }
     
     init(callback: @escaping (_ authenticationData: (userService: UserService, name: String)) -> Void) {
         self.callback = callback
@@ -138,7 +194,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         view.backgroundColor = .white
         scrollView.contentSize = CGSize(width: view.frame.width, height: max(view.frame.width, view.frame.height))
         
-        contentView.addSubviews(logo, stackView, logIn)
+        contentView.addSubviews(logo, stackView, logIn, hackPasswordBtn, indicator)
         stackView.addArrangedSubview(userName)
         stackView.addArrangedSubview(password)
         scrollView.addSubview(contentView)
@@ -207,7 +263,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
                                      logIn.topAnchor.constraint(equalTo: password.bottomAnchor, constant: Const.indent),
                                      logIn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
                                      logIn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
-                                     logIn.heightAnchor.constraint(equalToConstant: Const.size)])
+                                     logIn.heightAnchor.constraint(equalToConstant: Const.size),
+                                    
+                                     hackPasswordBtn.topAnchor.constraint(equalTo: logIn.bottomAnchor, constant: Const.indent),
+                                     hackPasswordBtn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
+                                     hackPasswordBtn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
+                                     hackPasswordBtn.heightAnchor.constraint(equalToConstant: Const.size),
+                                    
+                                     indicator.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
+                                     indicator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
+                                     indicator.trailingAnchor.constraint(equalTo: stackView.leadingAnchor),
+                                     indicator.heightAnchor.constraint(equalToConstant: Const.bigSize/2)])
     }
     
     
