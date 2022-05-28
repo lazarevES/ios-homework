@@ -14,7 +14,7 @@ protocol RootCoordinator {
 
 protocol VCCoordinator {
     var navigationController: UINavigationController? { get set }
-    func Start() -> UINavigationController?
+    func Start() throws -> UINavigationController?
 }
 
 class UITabBarCoordinator: RootCoordinator {

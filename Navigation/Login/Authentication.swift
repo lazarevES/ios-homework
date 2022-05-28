@@ -8,14 +8,17 @@
 import Foundation
 
 protocol LoginViewControllerDelegate: AnyObject {
-    
+    var counter: Int { get }
     func checkPassword(login: String, password: String) -> Bool
 }
 
 class LoginInspector: LoginViewControllerDelegate  {
     
+    var counter: Int = 3
+    
     func checkPassword(login: String, password: String) -> Bool {
-        Checker.shared.checkUserData(checkLogin: login.hash, checkPassword: password.hash)
+        counter -= 1
+       return Checker.shared.checkUserData(checkLogin: login.hash, checkPassword: password.hash)
     }
     
 }

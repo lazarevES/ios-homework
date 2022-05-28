@@ -21,6 +21,13 @@ struct Const {
     
 }
 
+enum AppError: Error {
+    case unauthorized
+    case notFound
+    case badData
+    case internalServer
+}
+
 public extension UIView {
 
     func toAutoLayout() {
