@@ -76,7 +76,7 @@ final class RootFactory {
             let videoPlayerViewController = VideoPlayer(coordinator: coordinator as! VideoPlayerCoordinator)
             let videoPlayerNavigationController = UINavigationController(rootViewController: videoPlayerViewController)
             
-            videoPlayerNavigationController.tabBarItem = UITabBarItem(title: "Музыка", image: UIImage(named: "music"), selectedImage: UIImage(named: "SelectedMusic"))
+            videoPlayerNavigationController.tabBarItem = UITabBarItem(title: "Видео", image: UIImage(named: "music"), selectedImage: UIImage(named: "SelectedMusic"))
             videoPlayerNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
             videoPlayerNavigationController.navigationBar.barTintColor = UIColor.white
             videoPlayerNavigationController.navigationBar.standardAppearance = appearance;
