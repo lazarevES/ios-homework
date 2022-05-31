@@ -12,7 +12,7 @@ class FeedCoordinator: VCCoordinator {
     
     var navigationController: UINavigationController?
     
-    func Start() -> UINavigationController? {
+    func Start() throws -> UINavigationController? {
         let factory = RootFactory(state: .feed)
         navigationController = factory.startModule(coordinator: self, data: nil)
         return navigationController
@@ -26,6 +26,11 @@ class FeedCoordinator: VCCoordinator {
     func showInfoPost(info: String) {
         let infoViewController = InfoViewController(title: info)
         navigationController!.present(infoViewController, animated: true, completion: nil)
+    }
+    
+    func showSubscription() {
+        let subscription = Subscription()
+        navigationController?.present(subscription, animated: true)
     }
     
 }

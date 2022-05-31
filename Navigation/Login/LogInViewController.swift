@@ -128,26 +128,64 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
     }()
     
     let loginAction =  {(vc: LogInViewController) in
+       
+        let userName = vc.userName.text ?? ""
+        let password = vc.password.text ?? ""
         
-        if let loginInspector = vc.delegate {
-            if loginInspector.checkPassword(login: vc.userName.text ?? "", password: vc.password.text ?? "") {
-                vc.logined()
-            }
-            else {
-                let alertController = UIAlertController(title: "Ошибка авторизации", message: "Не верный логин или пароль", preferredStyle: .alert)
-                let action = UIAlertAction(title: "ок", style: .default, handler: nil)
-                alertController.addAction(action)
-                vc.present(alertController, animated: true, completion: nil)
+        DispatchQueue.global().async {
+            vc.authorization(loginInspector: vc.delegate,
+                             userName: userName,
+                             password: password) { result in
+                switch result {
+                case .success(true) :
+                    DispatchQueue.main.async {
+                        vc.logined()
+                    }
+                case .success(false):
+                    DispatchQueue.main.async {
+                        let alertController = UIAlertController(title: "Ошибка авторизации", message: "Не верный логин или пароль", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+                        alertController.addAction(action)
+                        vc.present(alertController, animated: true, completion: nil)
+                    }
+                    
+                case .failure(.unauthorized):
+                    DispatchQueue.main.async {
+                        let alertController = UIAlertController(title: "Ошибка авторизации", message: "Не верный логин или пароль", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+                        alertController.addAction(action)
+                        vc.present(alertController, animated: true, completion: nil)
+                    }
+                default:
+                    DispatchQueue.main.async {
+                        let alertController = UIAlertController(title: "Ошибка авторизации", message: "Критическая ошибка авторизации, попробуйте перезапустить приложение", preferredStyle: .alert)
+                        let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+                        alertController.addAction(action)
+                        vc.present(alertController, animated: true) { fatalError() }
+                        
+                    }
+                }
             }
         }
-        else
-        {
-            let alertController = UIAlertController(title: "Ошибка авторизации", message: "Критическая ошибка авторизации, попробуйте перезапустить приложение", preferredStyle: .alert)
-            let action = UIAlertAction(title: "ок", style: .default, handler: nil)
-            alertController.addAction(action)
-            vc.present(alertController, animated: true, completion: nil)
+    }
+    
+    func authorization(loginInspector: LoginViewControllerDelegate?,
+                       userName: String,
+                       password: String ,
+                       comletion: (Result<Bool, AppError>) -> Void) {
+        if let loginInspector = loginInspector {
+            if loginInspector.checkPassword(login: userName, password: password) {
+                comletion(.success(true))
+            } else {
+                if loginInspector.counter == 0 {
+                    comletion(.failure(.badData))
+                } else {
+                    comletion(.failure(.unauthorized))
+                }
+            }
+        }  else {
+            comletion(.failure(.badData))
         }
-        
     }
     var queue: DispatchQueue? = nil
     let hackPassword = {(vc: LogInViewController) in

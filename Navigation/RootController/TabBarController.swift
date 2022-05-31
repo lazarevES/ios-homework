@@ -10,8 +10,9 @@ import UIKit
 
 class TabBarController: UITabBarController {
     
-    weak var coordinator: UITabBarCoordinator?
+    var coordinator: UITabBarCoordinator?
     var authenticationData: (userService: UserService, name: String)?
+    var timer: Timer? = nil
     
     var activView: UITabBarCoordinator.action {
         didSet {
@@ -20,7 +21,7 @@ class TabBarController: UITabBarController {
     }
     
     init(coordinator: UITabBarCoordinator, activView: UITabBarCoordinator.action, authenticationData: (userService: UserService, name: String)?) {
-
+        
         self.coordinator = coordinator
         self.activView = activView
         self.authenticationData = authenticationData
@@ -29,7 +30,7 @@ class TabBarController: UITabBarController {
         
         switch self.activView {
         case .autorization:
-           
+            
             let logInViewController = LogInViewController() {(authenticationData: (userService: UserService, name: String)) in
                 self.authenticationData = authenticationData
                 self.activView = .allApp
@@ -43,14 +44,20 @@ class TabBarController: UITabBarController {
             self.viewControllers = [loginNavigationController]
             
         case .allApp:
-            let feedCoordinator = FeedCoordinator()
-            let feedNavigationController = feedCoordinator.Start()
-            let profileCoordinator = ProfileCoordinator(data: authenticationData!)
-            let profileNavigationController = profileCoordinator.Start()
-            if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController {
-                self.viewControllers = [feedNavC, profileNavC]
+            do {
+                let feedCoordinator = FeedCoordinator()
+                let feedNavigationController = try feedCoordinator.Start()
+                let profileCoordinator = ProfileCoordinator(data: authenticationData!)
+                let profileNavigationController = try profileCoordinator.Start()
+                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController {
+                    self.viewControllers = [feedNavC, profileNavC]
+                }
+            } catch {
+                preconditionFailure("Критическая ошибка")
             }
+            
         }
+        
     }
     
     required init?(coder: NSCoder) {
@@ -60,7 +67,7 @@ class TabBarController: UITabBarController {
     func switchApp() {
         switch self.activView {
         case .autorization:
-           
+            
             let logInViewController = LogInViewController() {(authenticationData: (userService: UserService, name: String)) in
                 self.authenticationData = authenticationData
                 self.activView = .allApp
@@ -74,14 +81,17 @@ class TabBarController: UITabBarController {
             self.viewControllers = [loginNavigationController]
             
         case .allApp:
-            let feedCoordinator = FeedCoordinator()
-            let feedNavigationController = feedCoordinator.Start()
-            let profileCoordinator = ProfileCoordinator(data: authenticationData!)
-            let profileNavigationController = profileCoordinator.Start()
-            if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController {
-                self.viewControllers = [feedNavC, profileNavC]
+            do {
+                let feedCoordinator = FeedCoordinator()
+                let feedNavigationController = try feedCoordinator.Start()
+                let profileCoordinator = ProfileCoordinator(data: authenticationData!)
+                let profileNavigationController = try profileCoordinator.Start()
+                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController {
+                    self.viewControllers = [feedNavC, profileNavC]
+                }
+            } catch {
+                fatalError()
             }
         }
     }
-            
 }

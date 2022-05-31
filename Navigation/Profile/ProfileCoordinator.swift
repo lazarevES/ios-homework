@@ -19,12 +19,14 @@ class ProfileCoordinator: VCCoordinator {
         self.name = data.name
     }
     
-    func Start() -> UINavigationController? {
+    func Start() throws -> UINavigationController? {
+
         let factory = RootFactory(state: .profile)
         if let unRapUserService = userService, let unRapName = name {
             navigationController = factory.startModule(coordinator: self, data: (userService: unRapUserService, name: unRapName))
             return navigationController
+        } else {
+            throw AppError.badData
         }
-        return nil
     }
 }
