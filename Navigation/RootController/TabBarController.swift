@@ -49,8 +49,10 @@ class TabBarController: UITabBarController {
                 let feedNavigationController = try feedCoordinator.Start()
                 let profileCoordinator = ProfileCoordinator(data: authenticationData!)
                 let profileNavigationController = try profileCoordinator.Start()
-                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController {
-                    self.viewControllers = [feedNavC, profileNavC]
+                let playerCoordinator = AudioPlayerCordinator()
+                let playerNavigationController = try playerCoordinator.Start()
+                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController {
+                    self.viewControllers = [feedNavC, profileNavC, playerNavC]
                 }
             } catch {
                 preconditionFailure("Критическая ошибка")
@@ -86,8 +88,10 @@ class TabBarController: UITabBarController {
                 let feedNavigationController = try feedCoordinator.Start()
                 let profileCoordinator = ProfileCoordinator(data: authenticationData!)
                 let profileNavigationController = try profileCoordinator.Start()
-                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController {
-                    self.viewControllers = [feedNavC, profileNavC]
+                let playerCoordinator = AudioPlayerCordinator()
+                let playerNavigationController = try playerCoordinator.Start()
+                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController {
+                    self.viewControllers = [feedNavC, profileNavC, playerNavC]
                 }
             } catch {
                 fatalError()

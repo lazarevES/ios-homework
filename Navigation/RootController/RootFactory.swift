@@ -13,6 +13,7 @@ final class RootFactory {
     enum State {
         case feed
         case profile
+        case player
     }
     
     var state: State
@@ -56,7 +57,22 @@ final class RootFactory {
                 return profileNavigationController
             }
             
-            return nil
+        case .player:
+            
+            let playerViewController = AudioPlayer(coordinator: coordinator as! AudioPlayerCordinator)
+            let playerNavigationController = UINavigationController(rootViewController: playerViewController)
+            
+            playerNavigationController.tabBarItem = UITabBarItem(title: "Музыка", image: UIImage(named: "music"), selectedImage: UIImage(named: "SelectedMusic"))
+            playerNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
+            playerNavigationController.navigationBar.barTintColor = UIColor.white
+            playerNavigationController.navigationBar.standardAppearance = appearance;
+            playerNavigationController.navigationBar.scrollEdgeAppearance = playerNavigationController.navigationBar.standardAppearance
+            
+            return playerNavigationController
+            
         }
+        
+        return nil
+        
     }
 }
