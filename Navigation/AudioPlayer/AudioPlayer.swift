@@ -177,6 +177,7 @@ class AudioPlayer: UIViewController {
             nameLabel.text = library[counter].name
             player.prepareToPlay()
             player.play()
+            playButton.setImage(UIImage(named: "musicPause"), for: .normal)
         }
         catch {
             print(error.localizedDescription)
@@ -194,6 +195,7 @@ class AudioPlayer: UIViewController {
             nameLabel.text = library[counter].name
             player.prepareToPlay()
             player.play()
+            playButton.setImage(UIImage(named: "musicPause"), for: .normal)
         }
         catch {
             print(error.localizedDescription)
