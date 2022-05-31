@@ -14,6 +14,7 @@ final class RootFactory {
         case feed
         case profile
         case player
+        case video
     }
     
     var state: State
@@ -70,6 +71,18 @@ final class RootFactory {
             
             return playerNavigationController
             
+        case .video:
+            
+            let videoPlayerViewController = VideoPlayer(coordinator: coordinator as! VideoPlayerCoordinator)
+            let videoPlayerNavigationController = UINavigationController(rootViewController: videoPlayerViewController)
+            
+            videoPlayerNavigationController.tabBarItem = UITabBarItem(title: "Музыка", image: UIImage(named: "music"), selectedImage: UIImage(named: "SelectedMusic"))
+            videoPlayerNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
+            videoPlayerNavigationController.navigationBar.barTintColor = UIColor.white
+            videoPlayerNavigationController.navigationBar.standardAppearance = appearance;
+            videoPlayerNavigationController.navigationBar.scrollEdgeAppearance = videoPlayerNavigationController.navigationBar.standardAppearance
+            
+            return videoPlayerNavigationController
         }
         
         return nil

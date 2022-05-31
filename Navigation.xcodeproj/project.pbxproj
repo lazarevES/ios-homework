@@ -22,6 +22,9 @@
 		4745D40D28468CE0006032DC /* Тапок 5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4745D40828468CDE006032DC /* Тапок 5.mp3 */; };
 		4745D40E28468CE0006032DC /* Тапок 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4745D40928468CDF006032DC /* Тапок 2.mp3 */; };
 		4745D40F28468CE0006032DC /* Тапок 4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4745D40A28468CE0006032DC /* Тапок 4.mp3 */; };
+		4745D4122846A233006032DC /* VideoPlayerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4745D4112846A233006032DC /* VideoPlayerCoordinator.swift */; };
+		4745D4142846A261006032DC /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4745D4132846A261006032DC /* VideoPlayer.swift */; };
+		4745D4162846A591006032DC /* VideoPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4745D4152846A591006032DC /* VideoPlayerCell.swift */; };
 		475FE25927B2D04F00353434 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25827B2D04F00353434 /* FeedViewController.swift */; };
 		475FE25B27B2D06C00353434 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25A27B2D06C00353434 /* ProfileViewController.swift */; };
 		475FE25F27B2E14100353434 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25E27B2E14100353434 /* PostViewController.swift */; };
@@ -93,6 +96,9 @@
 		4745D40828468CDE006032DC /* Тапок 5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Тапок 5.mp3"; sourceTree = "<group>"; };
 		4745D40928468CDF006032DC /* Тапок 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Тапок 2.mp3"; sourceTree = "<group>"; };
 		4745D40A28468CE0006032DC /* Тапок 4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Тапок 4.mp3"; sourceTree = "<group>"; };
+		4745D4112846A233006032DC /* VideoPlayerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerCoordinator.swift; sourceTree = "<group>"; };
+		4745D4132846A261006032DC /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
+		4745D4152846A591006032DC /* VideoPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerCell.swift; sourceTree = "<group>"; };
 		475FE25827B2D04F00353434 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		475FE25A27B2D06C00353434 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		475FE25E27B2E14100353434 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -196,6 +202,16 @@
 			path = MusicLibrary;
 			sourceTree = "<group>";
 		};
+		4745D4102846A20F006032DC /* VideoPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				4745D4112846A233006032DC /* VideoPlayerCoordinator.swift */,
+				4745D4132846A261006032DC /* VideoPlayer.swift */,
+				4745D4152846A591006032DC /* VideoPlayerCell.swift */,
+			);
+			path = VideoPlayer;
+			sourceTree = "<group>";
+		};
 		477DA8BE27C6579700FA6C89 /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -239,6 +255,7 @@
 		479BB9CB27A992A100E6EB2C /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				4745D4102846A20F006032DC /* VideoPlayer */,
 				4745D40028468A7F006032DC /* AudioPlayer */,
 				4726F2A7283D58E100914928 /* Subscription */,
 				47C162262827D74C00B37DC3 /* Login */,
@@ -496,9 +513,11 @@
 				477DA8C027C65F5F00FA6C89 /* PostTableViewCell.swift in Sources */,
 				475FE25F27B2E14100353434 /* PostViewController.swift in Sources */,
 				479BB9CD27A992A100E6EB2C /* AppDelegate.swift in Sources */,
+				4745D4142846A261006032DC /* VideoPlayer.swift in Sources */,
 				47C1622A2827E32900B37DC3 /* RootFactory.swift in Sources */,
 				471F85AD282230E4001E1A66 /* FeedModel.swift in Sources */,
 				47C162282827D8D300B37DC3 /* TabBarController.swift in Sources */,
+				4745D4122846A233006032DC /* VideoPlayerCoordinator.swift in Sources */,
 				4745D40228468AA7006032DC /* AudioPlayer.swift in Sources */,
 				47CEDDA327C2628F002F22F8 /* LogInViewController.swift in Sources */,
 				475FE26327B2F08D00353434 /* InfoViewController.swift in Sources */,
@@ -506,6 +525,7 @@
 				478578202821AB9D0055AAB0 /* ViewElements.swift in Sources */,
 				47A8137927BAD42E0051BD8E /* ProfileHeaderView.swift in Sources */,
 				47C162322828EEBB00B37DC3 /* ProfileCoordinator.swift in Sources */,
+				4745D4162846A591006032DC /* VideoPlayerCell.swift in Sources */,
 				475FE25927B2D04F00353434 /* FeedViewController.swift in Sources */,
 				476267BF27BBFA55008A4908 /* ViewController.swift in Sources */,
 				479BB9CF27A992A100E6EB2C /* SceneDelegate.swift in Sources */,

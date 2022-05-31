@@ -51,8 +51,10 @@ class TabBarController: UITabBarController {
                 let profileNavigationController = try profileCoordinator.Start()
                 let playerCoordinator = AudioPlayerCordinator()
                 let playerNavigationController = try playerCoordinator.Start()
-                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController {
-                    self.viewControllers = [feedNavC, profileNavC, playerNavC]
+                let videoPlayerCoordinator = VideoPlayerCoordinator()
+                let videoPlayerNavigationController = try videoPlayerCoordinator.Start()
+                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController, let videoNavC = videoPlayerNavigationController {
+                    self.viewControllers = [feedNavC, profileNavC, playerNavC, videoNavC]
                 }
             } catch {
                 preconditionFailure("Критическая ошибка")
@@ -90,8 +92,10 @@ class TabBarController: UITabBarController {
                 let profileNavigationController = try profileCoordinator.Start()
                 let playerCoordinator = AudioPlayerCordinator()
                 let playerNavigationController = try playerCoordinator.Start()
-                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController {
-                    self.viewControllers = [feedNavC, profileNavC, playerNavC]
+                let videoPlayerCoordinator = VideoPlayerCoordinator()
+                let videoPlayerNavigationController = try videoPlayerCoordinator.Start()
+                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController, let videoNavC = videoPlayerNavigationController {
+                    self.viewControllers = [feedNavC, profileNavC, playerNavC, videoNavC]
                 }
             } catch {
                 fatalError()
