@@ -43,6 +43,7 @@
 		479BB9CF27A992A100E6EB2C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479BB9CE27A992A100E6EB2C /* SceneDelegate.swift */; };
 		479BB9D627A992A400E6EB2C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 479BB9D527A992A400E6EB2C /* Assets.xcassets */; };
 		479BB9D927A992A400E6EB2C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 479BB9D727A992A400E6EB2C /* LaunchScreen.storyboard */; };
+		479CF95B28601CCC00CCEF1C /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 479CF95A28601CCC00CCEF1C /* NetworkService.swift */; };
 		47A1D23C2821370400DE771B /* Authentication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A1D23B2821370400DE771B /* Authentication.swift */; };
 		47A1D23F2821810200DE771B /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 47A1D23E2821810200DE771B /* iOSIntPackage */; };
 		47A8137927BAD42E0051BD8E /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A8137827BAD42E0051BD8E /* ProfileHeaderView.swift */; };
@@ -117,6 +118,7 @@
 		479BB9D527A992A400E6EB2C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		479BB9D827A992A400E6EB2C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		479BB9DA27A992A400E6EB2C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		479CF95A28601CCC00CCEF1C /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		47A1D23B2821370400DE771B /* Authentication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authentication.swift; sourceTree = "<group>"; };
 		47A8137827BAD42E0051BD8E /* ProfileHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeaderView.swift; sourceTree = "<group>"; };
 		47C162242827D56100B37DC3 /* RootCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootCoordinator.swift; sourceTree = "<group>"; };
@@ -255,6 +257,7 @@
 		479BB9CB27A992A100E6EB2C /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				479CF95928601CB000CCEF1C /* Network */,
 				4745D4102846A20F006032DC /* VideoPlayer */,
 				4745D40028468A7F006032DC /* AudioPlayer */,
 				4726F2A7283D58E100914928 /* Subscription */,
@@ -271,6 +274,14 @@
 				479BB9DA27A992A400E6EB2C /* Info.plist */,
 			);
 			path = Navigation;
+			sourceTree = "<group>";
+		};
+		479CF95928601CB000CCEF1C /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				479CF95A28601CCC00CCEF1C /* NetworkService.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		47A8137427BAD32A0051BD8E /* Profile */ = {
@@ -533,6 +544,7 @@
 				4745D40428468AB8006032DC /* AudioPlayerCoordinator.swift in Sources */,
 				47C162252827D56100B37DC3 /* RootCoordinator.swift in Sources */,
 				471D11FB27C6233F00810B1B /* General.swift in Sources */,
+				479CF95B28601CCC00CCEF1C /* NetworkService.swift in Sources */,
 				47A1D23C2821370400DE771B /* Authentication.swift in Sources */,
 				4726F2A9283D591D00914928 /* Subscription.swift in Sources */,
 			);

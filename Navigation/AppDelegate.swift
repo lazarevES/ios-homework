@@ -29,12 +29,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Setting category to AVAudioSessionCategoryPlayback failed.")
         }
         
+        let appConfiguration = getRandomConfiguration()
+        NetworkService.URLSessionDataTask(appConfiguration)
+        
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
         
         return true
     }
-
     
+    private func getRandomConfiguration() -> AppConfiguration {
+        let array: [AppConfiguration] = [.people, .planets, .starships]
+        return array[Int.random(in: 1...2)]
+    }
+        
 }
 
