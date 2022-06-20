@@ -49,8 +49,12 @@ class TabBarController: UITabBarController {
                 let feedNavigationController = try feedCoordinator.Start()
                 let profileCoordinator = ProfileCoordinator(data: authenticationData!)
                 let profileNavigationController = try profileCoordinator.Start()
-                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController {
-                    self.viewControllers = [feedNavC, profileNavC]
+                let playerCoordinator = AudioPlayerCordinator()
+                let playerNavigationController = try playerCoordinator.Start()
+                let videoPlayerCoordinator = VideoPlayerCoordinator()
+                let videoPlayerNavigationController = try videoPlayerCoordinator.Start()
+                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController, let videoNavC = videoPlayerNavigationController {
+                    self.viewControllers = [feedNavC, profileNavC, playerNavC, videoNavC]
                 }
             } catch {
                 preconditionFailure("Критическая ошибка")
@@ -86,8 +90,12 @@ class TabBarController: UITabBarController {
                 let feedNavigationController = try feedCoordinator.Start()
                 let profileCoordinator = ProfileCoordinator(data: authenticationData!)
                 let profileNavigationController = try profileCoordinator.Start()
-                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController {
-                    self.viewControllers = [feedNavC, profileNavC]
+                let playerCoordinator = AudioPlayerCordinator()
+                let playerNavigationController = try playerCoordinator.Start()
+                let videoPlayerCoordinator = VideoPlayerCoordinator()
+                let videoPlayerNavigationController = try videoPlayerCoordinator.Start()
+                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController, let videoNavC = videoPlayerNavigationController {
+                    self.viewControllers = [feedNavC, profileNavC, playerNavC, videoNavC]
                 }
             } catch {
                 fatalError()
