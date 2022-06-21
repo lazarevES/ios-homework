@@ -93,7 +93,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifire, for: indexPath) as? PhotosCollectionViewCell
         else {
-            preconditionFailure("Произошло какое то говно при открытии вашего профиля")
+            preconditionFailure("Произошло какое то говно при открытии ленты новостей")
             return UICollectionViewCell()
         }
         cell.setupImage(contentPhotoData[indexPath.item])
@@ -104,6 +104,7 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         CGSize(width: (collectionView.frame.width - 40) / 3, height: (collectionView.frame.width - 40) / 3)
     }
+    
 }
 
 

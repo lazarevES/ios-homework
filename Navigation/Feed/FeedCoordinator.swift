@@ -18,19 +18,11 @@ class FeedCoordinator: VCCoordinator {
         return navigationController
     }
     
-    func pushPost(post: Post_old) {
-        let postViewController = PostViewController(coordinator: self, post: post)
-        self.navigationController?.pushViewController(postViewController, animated: true)
+    func showPost(_ post: FeedPost) {
+        navigationController?.pushViewController(PostViewController(coordinator: self, post: post), animated: true)
     }
     
-    func showInfoPost(info: String) {
-        let infoViewController = InfoViewController(title: info)
-        navigationController!.present(infoViewController, animated: true, completion: nil)
+    func showInfo(_ title: String, people: [String]?) {
+        navigationController?.present(InfoViewController(title: title, residentUrl: people), animated: true)
     }
-    
-    func showSubscription() {
-        let subscription = Subscription()
-        navigationController?.present(subscription, animated: true)
-    }
-    
 }

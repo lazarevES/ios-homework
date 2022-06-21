@@ -7,18 +7,12 @@
 
 import UIKit
 
-struct Post_old {
-    var title: String
-    var image: UIImage
-    var info: String
-}
-
 class PostViewController: UIViewController {
 
-    var post: Post_old
+    var post: FeedPost
     let coordinator: FeedCoordinator
     
-    init(coordinator: FeedCoordinator, post: Post_old) {
+    init(coordinator: FeedCoordinator, post: FeedPost) {
         self.post = post
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
@@ -51,7 +45,12 @@ class PostViewController: UIViewController {
     }
     
     @objc func showInfo() {
-        coordinator.showInfoPost(info: post.info)
+        NetworkService.URLSessionDataTask(postInfo: post.info, type: post.postType) { title, people in
+            DispatchQueue.main.async {
+                self.coordinator.showInfo(title, people: people)
+            }
+        }
+        
     }
 
 }
