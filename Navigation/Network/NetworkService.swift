@@ -35,8 +35,8 @@ struct NetworkService {
         do {
             switch type {
             case .testStruct:
-                let decodeData = try decoder.decode(TestStruct.self, from: data)
-                callback(decodeData.title, nil)
+                let decodeData = try JSONSerialization.jsonObject(with: data, options: []) as! Dictionary<String, Any>
+                callback(decodeData["title"] as! String, nil)
             case .planet:
                 let decodeData = try decoder.decode(Planet.self, from: data )
                 callback("Период вращения планеты: " + decodeData.orbitalPeriod, decodeData.residents)
