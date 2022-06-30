@@ -15,32 +15,39 @@ enum AppConfiguration: String {
 
 struct NetworkService {
     
-    static func URLSessionDataTask(_ configuration: AppConfiguration) {
-        if let url = URL(string: configuration.rawValue){
-           
+    static func URLSessionDataTask(postInfo: String, type: PostType, callback: @escaping (_ title: String, _ people: [String]?)->Void) {
+        
+        if let url = URL(string: postInfo) {
             let urlRequest = URLRequest(url: url)
             let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-                
                 if let data = data {
-                    print("A: \(String(data: data, encoding: .utf8) ?? "")")
-                }
-                if let response = response {
-                    print("B header: allHeaderFields")
-                    let array: [String: String]? = response.value(forKey: "allHeaderFields") as? [String : String]
-                    if let array = array {
-                        array.forEach { key, value in
-                            print("\(key) : \(value)")
-                        }
-                    }
-                    print("B status code: \(response.value(forKey: "statusCode") ?? "")")
-                }
-                if let error = error {
-                    print("C: \(error.localizedDescription)")
+                    NetworkService.decodePostData(data: data, type: type, callback: callback)
                 }
             }
             
             task.resume()
-            
         }
     }
+    
+    static func decodePostData(data: Data, type: PostType, callback: @escaping (_ title: String, _ people: [String]?)->Void) {
+        
+        let decoder = JSONDecoder()
+        do {
+            switch type {
+            case .testStruct:
+                let decodeData = try JSONSerialization.jsonObject(with: data, options: []) as! Dictionary<String, Any>
+                callback(decodeData["title"] as! String, nil)
+            case .planet:
+                let decodeData = try decoder.decode(Planet.self, from: data )
+                callback("Период вращения планеты: " + decodeData.orbitalPeriod, decodeData.residents)
+            case .resident:
+                let decodeData = try decoder.decode(Resident.self, from: data)
+                callback(decodeData.name, nil)
+            }
+        }
+        catch {
+            print("Ошибка чтения json \(String(describing: String(data: data, encoding: .utf8)))")
+        }
+    }
+    
 }

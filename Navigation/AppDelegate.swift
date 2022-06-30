@@ -29,8 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Setting category to AVAudioSessionCategoryPlayback failed.")
         }
         
-        let appConfiguration = getRandomConfiguration()
-        NetworkService.URLSessionDataTask(appConfiguration)
+       // let appConfiguration = getRandomConfiguration()
+        //NetworkService.URLSessionDataTask(appConfiguration)
         
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
