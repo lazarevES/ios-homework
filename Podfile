@@ -5,6 +5,9 @@ target 'Navigation' do
   use_frameworks!
 
   # Pods for Navigation
+	pod 'FirebaseCore'
+	pod 'Firebase/Auth'
 	pod 'SnapKit', '~> 5.0.0'
+
 end
 
