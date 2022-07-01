@@ -28,15 +28,17 @@ class CurrentUserService: UserService {
     
     //я так понимаю в будущем тут мы будет авторизовываться
     
-    private let user: User? = nil
+    private let user: User
+    
+    init(name: String, avatar: String, status: String) {
+        self.user = User(name: name, avatar: UIImage(named: avatar), status: status)
+    }
     
     func getUser(name: String) -> User? {
-        if let activeUser = user {
-            if name == activeUser.name {
-                return user
-            }
+        if name == user.name {
+            return user
         }
-        return nil
+       return nil        
     }
     
 }
@@ -45,8 +47,8 @@ class TestUserService: UserService {
     
     private let user: User
     
-    init() {
-        self.user = User(name: "Киря", avatar: UIImage(named: "avatar"), status: "В ожидании еды")
+    init(name: String, avatar: String, status: String) {
+        self.user = User(name: name, avatar: UIImage(named: avatar), status: status)
     }
     
     func getUser(name: String) -> User? {

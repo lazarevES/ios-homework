@@ -13,10 +13,12 @@ class ProfileCoordinator: VCCoordinator {
     var navigationController: UINavigationController?
     let userService: UserService?
     let name: String?
+    let callback: () -> Void
     
-    init(data:(userService: UserService, name: String)) {
+    init(data:(userService: UserService, name: String), callback: @escaping () -> Void) {
         self.userService = data.userService
         self.name = data.name
+        self.callback = callback
     }
     
     func Start() throws -> UINavigationController? {
@@ -29,4 +31,9 @@ class ProfileCoordinator: VCCoordinator {
             throw AppError.badData
         }
     }
+    
+    func DissmisApp() {
+        callback()
+    }
+    
 }

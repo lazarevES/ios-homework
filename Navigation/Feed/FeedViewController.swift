@@ -43,7 +43,7 @@ class FeedViewController: UIViewController {
         super.viewDidLoad()
         
         title = "Новости"
-        
+            
         view.addSubview(collectionView)
         collectionView.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: PostCollectionViewCell.identifire)
         contentPostData = model.getPost()

@@ -47,6 +47,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         userName.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: userName.frame.height))
         userName.leftViewMode = .always
         userName.returnKeyType = .done
+        userName.addTarget(self, action: #selector(editingEnded), for: .editingChanged)
         return userName
     }()
     
@@ -64,47 +65,56 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         password.leftViewMode = .always
         password.placeholder = "Пароль"
         password.returnKeyType = UIReturnKeyType.default
+        password.addTarget(self, action: #selector(editingEnded), for: .editingChanged)
         return password
     }()
     
-    lazy var logIn: CustomButton = {
-        let logIn = CustomButton(vc: self,
-                                 text: "Вход",
-                                 backgroundColor: nil,
-                                 backgroundImage: nil,
-                                 tag: nil,
-                                 shadow: false) {(vc: UIViewController, _ sender: CustomButton) in
-            self.loginAction(self)
-        }
-        
+    lazy var logIn: UIButton = {
+        let logIn = UIButton()
+        logIn.toAutoLayout()
+        logIn.layer.cornerRadius = 10
+        logIn.clipsToBounds = true
+        logIn.setTitle("Вход", for: .normal)
+        logIn.titleLabel?.textColor = .white
+        logIn.layer.shadowColor = UIColor.black.cgColor
+        logIn.layer.shadowOffset = CGSize(width: 4, height: 4)
+        logIn.layer.shadowOpacity = 0.7
+        logIn.layer.shadowRadius = 4
+        logIn.addTarget(self, action: #selector(signIn), for: .touchUpInside)
+        logIn.isEnabled = false
+                
         if let image = UIImage(named: "blue_pixel") {
             logIn.imageView?.contentMode = .scaleAspectFill
             logIn.setBackgroundImage(image.imageWithAlpha(alpha: 1), for: .normal)
-            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.8), for: .selected)
-            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.8), for: .highlighted)
-            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.8), for: .disabled)
+            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.6), for: .selected)
+            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.6), for: .highlighted)
+            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.2), for: .disabled)
         }
         return logIn
     }()
     
-    lazy var hackPasswordBtn: CustomButton = {
-        let logIn = CustomButton(vc: self,
-                                 text: "Подобрать пароль",
-                                 backgroundColor: nil,
-                                 backgroundImage: nil,
-                                 tag: nil,
-                                 shadow: false) {(vc: UIViewController, _ sender: CustomButton) in
-            self.hackPassword(self)
-        }
-        
+    lazy var regIn: UIButton = {
+        let regIn = UIButton()
+        regIn.toAutoLayout()
+        regIn.layer.cornerRadius = 10
+        regIn.clipsToBounds = true
+        regIn.setTitle("Регистрация", for: .normal)
+        regIn.titleLabel?.textColor = .white
+        regIn.layer.shadowColor = UIColor.black.cgColor
+        regIn.layer.shadowOffset = CGSize(width: 4, height: 4)
+        regIn.layer.shadowOpacity = 0.7
+        regIn.layer.shadowRadius = 4
+        regIn.addTarget(self, action: #selector(registerIn), for: .touchUpInside)
+        regIn.isEnabled = false
+                
         if let image = UIImage(named: "blue_pixel") {
-            logIn.imageView?.contentMode = .scaleAspectFill
-            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 1), for: .normal)
-            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.8), for: .selected)
-            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.8), for: .highlighted)
-            logIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.8), for: .disabled)
+            regIn.imageView?.contentMode = .scaleAspectFill
+            regIn.setBackgroundImage(image.imageWithAlpha(alpha: 1), for: .normal)
+            regIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.6), for: .selected)
+            regIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.6), for: .highlighted)
+            regIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.2), for: .disabled)
         }
-        return logIn
+        return regIn
     }()
     
     lazy var stackView: UIStackView = {
@@ -119,103 +129,8 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         stackView.clipsToBounds = true
         return stackView
     }()
-    
-    lazy var indicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .gray)
-        indicator.toAutoLayout()
-        indicator.isHidden = true
-        return indicator
-    }()
-    
-    let loginAction =  {(vc: LogInViewController) in
        
-        let userName = vc.userName.text ?? ""
-        let password = vc.password.text ?? ""
-        
-        DispatchQueue.global().async {
-            vc.authorization(loginInspector: vc.delegate,
-                             userName: userName,
-                             password: password) { result in
-                switch result {
-                case .success(true) :
-                    DispatchQueue.main.async {
-                        vc.logined()
-                    }
-                case .success(false):
-                    DispatchQueue.main.async {
-                        let alertController = UIAlertController(title: "Ошибка авторизации", message: "Не верный логин или пароль", preferredStyle: .alert)
-                        let action = UIAlertAction(title: "ок", style: .default, handler: nil)
-                        alertController.addAction(action)
-                        vc.present(alertController, animated: true, completion: nil)
-                    }
-                    
-                case .failure(.unauthorized):
-                    DispatchQueue.main.async {
-                        let alertController = UIAlertController(title: "Ошибка авторизации", message: "Не верный логин или пароль", preferredStyle: .alert)
-                        let action = UIAlertAction(title: "ок", style: .default, handler: nil)
-                        alertController.addAction(action)
-                        vc.present(alertController, animated: true, completion: nil)
-                    }
-                default:
-                    DispatchQueue.main.async {
-                        let alertController = UIAlertController(title: "Ошибка авторизации", message: "Критическая ошибка авторизации, попробуйте перезапустить приложение", preferredStyle: .alert)
-                        let action = UIAlertAction(title: "ок", style: .default, handler: nil)
-                        alertController.addAction(action)
-                        vc.present(alertController, animated: true) { fatalError() }
-                        
-                    }
-                }
-            }
-        }
-    }
-    
-    func authorization(loginInspector: LoginViewControllerDelegate?,
-                       userName: String,
-                       password: String ,
-                       comletion: (Result<Bool, AppError>) -> Void) {
-        if let loginInspector = loginInspector {
-            if loginInspector.checkPassword(login: userName, password: password) {
-                comletion(.success(true))
-            } else {
-                if loginInspector.counter == 0 {
-                    comletion(.failure(.badData))
-                } else {
-                    comletion(.failure(.unauthorized))
-                }
-            }
-        }  else {
-            comletion(.failure(.badData))
-        }
-    }
     var queue: DispatchQueue? = nil
-    let hackPassword = {(vc: LogInViewController) in
-        
-        if let newQueue = vc.queue {
-            let alertController = UIAlertController(title: "Ошибка запуска подбора пароля", message: "Процедура уже начата", preferredStyle: .alert)
-            let action = UIAlertAction(title: "ок", style: .default, handler: nil)
-            alertController.addAction(action)
-            vc.present(alertController, animated: true, completion: nil)
-        }
-        else
-        {
-            vc.queue = DispatchQueue(label: "brutForceHack", qos: .default)
-            let login = vc.userName.text ?? ""
-            vc.indicator.isHidden = false
-            vc.indicator.startAnimating()
-            vc.queue!.async {
-                let hackMachin = BrutForceHack(login: login, loginInspector: vc.delegate!) { password in
-                    DispatchQueue.main.async {
-                        vc.password.text = password
-                        vc.password.isSecureTextEntry = false
-                        vc.indicator.isHidden = true
-                        vc.indicator.stopAnimating()
-                        vc.queue = nil
-                    }
-                }
-                hackMachin.bruteForce()
-            }
-        }
-    }
     
     init(callback: @escaping (_ authenticationData: (userService: UserService, name: String)) -> Void) {
         self.callback = callback
@@ -232,7 +147,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         view.backgroundColor = .white
         scrollView.contentSize = CGSize(width: view.frame.width, height: max(view.frame.width, view.frame.height))
         
-        contentView.addSubviews(logo, stackView, logIn, hackPasswordBtn, indicator)
+        contentView.addSubviews(logo, stackView, logIn, regIn)
         stackView.addArrangedSubview(userName)
         stackView.addArrangedSubview(password)
         scrollView.addSubview(contentView)
@@ -246,7 +161,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
 #if release
         userName.text = ""
 #elseif DEBUG
-        userName.text = "Киря"
+        userName.text = "lazarev_es@sima-land.ru"
 #endif
                 
     }
@@ -300,32 +215,24 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
                                      
                                      logIn.topAnchor.constraint(equalTo: password.bottomAnchor, constant: Const.indent),
                                      logIn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
-                                     logIn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
+                                     logIn.widthAnchor.constraint(equalToConstant: view.frame.width / 2 -  Const.leadingMargin),
                                      logIn.heightAnchor.constraint(equalToConstant: Const.size),
-                                    
-                                     hackPasswordBtn.topAnchor.constraint(equalTo: logIn.bottomAnchor, constant: Const.indent),
-                                     hackPasswordBtn.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
-                                     hackPasswordBtn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
-                                     hackPasswordBtn.heightAnchor.constraint(equalToConstant: Const.size),
-                                    
-                                     indicator.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
-                                     indicator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Const.leadingMargin),
-                                     indicator.trailingAnchor.constraint(equalTo: stackView.leadingAnchor),
-                                     indicator.heightAnchor.constraint(equalToConstant: Const.bigSize/2)])
+                                     
+                                     regIn.topAnchor.constraint(equalTo: password.bottomAnchor, constant: Const.indent),
+                                     regIn.leadingAnchor.constraint(equalTo: logIn.trailingAnchor, constant: Const.leadingMargin),
+                                     regIn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
+                                     regIn.heightAnchor.constraint(equalToConstant: Const.size)])
     }
     
     
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardRectangle = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            //scrollView.contentOffset.y = keyboardRectangle.height - (scrollView.frame.height - logIn.frame.minY) + Const.indent
             scrollView.contentInset.bottom = keyboardRectangle.height
             scrollView.verticalScrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: keyboardRectangle.height, right: 0)
         }
     }
     
     @objc func keyboardWillHide(notification: NSNotification) {
-        
-        //scrollView.contentOffset = CGPoint(x: 0, y: 0)
         scrollView.contentInset.bottom = .zero
         scrollView.verticalScrollIndicatorInsets = .zero
     }
@@ -335,23 +242,97 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         userName.resignFirstResponder()
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        password.resignFirstResponder()
-        userName.resignFirstResponder()
-        return true;
+    @objc func editingEnded() {
+        regIn.isEnabled = self.userName.text != "" && self.password.text != ""
+        logIn.isEnabled = regIn.isEnabled
     }
     
     func logined() {
-        var userService: UserService
-        
-#if DEBUG
-        userService = TestUserService()
-#else
-        userService = CurrentUserService()
-#endif
-        
+        let userService = CurrentUserService(name: userName.text ?? "", avatar: "avatar", status: "В ожидании еды")
         callback((userService: userService, name: userName.text ?? ""))
+    }
+    
+    @objc func signIn() {
+        if let delegate = delegate {
+            let userName = self.userName.text ?? ""
+            let password = self.password.text ?? ""
+            
+            DispatchQueue.global().async {
+                delegate.signIn(login: userName, password: password) { (result, message) in
+                    switch result {
+                    case .success(true) :
+                        DispatchQueue.main.async {
+                            self.logined()
+                        }
+                    case .success(false):
+                        DispatchQueue.main.async {
+                            let alertController = UIAlertController(title: "Ошибка авторизации", message: message, preferredStyle: .alert)
+                            let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+                            alertController.addAction(action)
+                            self.present(alertController, animated: true, completion: nil)
+                        }
+                        
+                    case .failure(.unauthorized):
+                        DispatchQueue.main.async {
+                            let alertController = UIAlertController(title: "Ошибка авторизации", message: message, preferredStyle: .alert)
+                            let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+                            alertController.addAction(action)
+                            self.present(alertController, animated: true, completion: nil)
+                        }
+                    default:
+                        DispatchQueue.main.async {
+                            let alertController = UIAlertController(title: "Ошибка авторизации", message: "Критическая ошибка авторизации, попробуйте перезапустить приложение", preferredStyle: .alert)
+                            let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+                            alertController.addAction(action)
+                            self.present(alertController, animated: true) { fatalError() }
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    @objc func registerIn() {
         
+        if let delegate = delegate {
+            let userName = self.userName.text ?? ""
+            let password = self.password.text ?? ""
+            
+            DispatchQueue.global().async {
+                delegate.registerIn(login: userName, password: password) { result, message in
+                    switch result {
+                    case .success(true) :
+                        DispatchQueue.main.async {
+                            self.logined()
+                        }
+                    case .success(false):
+                        DispatchQueue.main.async {
+                            let alertController = UIAlertController(title: "Ошибка авторизации", message: message, preferredStyle: .alert)
+                            let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+                            alertController.addAction(action)
+                            self.present(alertController, animated: true, completion: nil)
+                        }
+                        
+                    case .failure(.unauthorized):
+                        DispatchQueue.main.async {
+                            let alertController = UIAlertController(title: "Ошибка авторизации", message: message, preferredStyle: .alert)
+                            let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+                            alertController.addAction(action)
+                            self.present(alertController, animated: true, completion: nil)
+                        }
+                    default:
+                        DispatchQueue.main.async {
+                            let alertController = UIAlertController(title: "Ошибка авторизации", message: "Критическая ошибка авторизации, попробуйте перезапустить приложение", preferredStyle: .alert)
+                            let action = UIAlertAction(title: "ок", style: .default, handler: nil)
+                            alertController.addAction(action)
+                            self.present(alertController, animated: true) { fatalError() }
+                            
+                        }
+                    }
+                }
+            }
+        }
     }
     
 }

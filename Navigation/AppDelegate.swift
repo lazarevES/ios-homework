@@ -7,6 +7,7 @@
 
 import UIKit
 import AVFoundation
+import FirebaseCore
 
 @main
 
@@ -34,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
+        
+        FirebaseApp.configure()
         
         return true
     }
