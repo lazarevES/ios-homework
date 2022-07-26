@@ -7,16 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1F0B73FE-DD65-4771-8C1B-D54142006A09"
+            uuid = "17EA5CD7-372A-47E5-82A8-DA1EA3071A58"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Navigation/RealmDataBase/RealmCoordinator.swift"
+            filePath = "Navigation/Feed/FeedViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "73"
-            endingLineNumber = "73"
-            landmarkName = "delete(_:predicate:completion:)"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "removePostFromFavorites(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

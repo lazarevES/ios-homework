@@ -54,10 +54,11 @@ class TabBarController: UITabBarController {
                 let profileNavigationController = try profileCoordinator.Start()
                 let playerCoordinator = AudioPlayerCordinator()
                 let playerNavigationController = try playerCoordinator.Start()
-                let videoPlayerCoordinator = VideoPlayerCoordinator()
-                let videoPlayerNavigationController = try videoPlayerCoordinator.Start()
-                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController, let videoNavC = videoPlayerNavigationController {
-                    self.viewControllers = [feedNavC, profileNavC, playerNavC, videoNavC]
+                let favoriteCoordinator = FavoriteCoordinator()
+                let favoriteNavigationController = try favoriteCoordinator.Start()
+                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController,
+                   let favNavC = favoriteNavigationController {
+                    self.viewControllers = [feedNavC, profileNavC, playerNavC, favNavC]
                 }
             } catch {
                 preconditionFailure("Критическая ошибка")
@@ -98,10 +99,11 @@ class TabBarController: UITabBarController {
                 let profileNavigationController = try profileCoordinator.Start()
                 let playerCoordinator = AudioPlayerCordinator()
                 let playerNavigationController = try playerCoordinator.Start()
-                let videoPlayerCoordinator = VideoPlayerCoordinator()
-                let videoPlayerNavigationController = try videoPlayerCoordinator.Start()
-                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController, let videoNavC = videoPlayerNavigationController {
-                    self.viewControllers = [feedNavC, profileNavC, playerNavC, videoNavC]
+                let favoriteCoordinator = FavoriteCoordinator()
+                let favoriteNavigationController = try favoriteCoordinator.Start()
+                if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController,
+                   let favNavC = favoriteNavigationController {
+                    self.viewControllers = [feedNavC, profileNavC, playerNavC, favNavC]
                 }
             } catch {
                 fatalError()

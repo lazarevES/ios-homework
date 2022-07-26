@@ -10,9 +10,9 @@ import UIKit
 class PostViewController: UIViewController {
 
     var post: FeedPost
-    let coordinator: FeedCoordinator
+    var coordinator: VCCoordinator
     
-    init(coordinator: FeedCoordinator, post: FeedPost) {
+    init(coordinator: VCCoordinator, post: FeedPost) {
         self.post = post
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
@@ -47,7 +47,12 @@ class PostViewController: UIViewController {
     @objc func showInfo() {
         NetworkService.URLSessionDataTask(postInfo: post.info, type: post.postType) { title, people in
             DispatchQueue.main.async {
-                self.coordinator.showInfo(title, people: people)
+                guard let coordinator = self.coordinator as? FeedCoordinator else {
+                    let coordinator = self.coordinator as? FavoriteCoordinator
+                    coordinator?.showInfo(title, people: people)
+                    return
+                }
+                coordinator.showInfo(title, people: people)
             }
         }
         

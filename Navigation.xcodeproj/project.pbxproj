@@ -8,12 +8,13 @@
 
 /* Begin PBXBuildFile section */
 		2824EA14BA5EE6569279986A /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E748978B7435B31A04C12208 /* Pods_Navigation.framework */; };
-		47057A03287FC64300513CA4 /* RealmData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47057A02287FC64300513CA4 /* RealmData.swift */; };
-		47057A07287FC7B800513CA4 /* RealmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47057A06287FC7B800513CA4 /* RealmCoordinator.swift */; };
-		47057A0B287FCF8D00513CA4 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 47057A0A287FCF8D00513CA4 /* Realm */; };
-		47057A0D287FCF8D00513CA4 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 47057A0C287FCF8D00513CA4 /* RealmSwift */; };
 		4709F4422862270F00569535 /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709F4412862270F00569535 /* PostCollectionViewCell.swift */; };
 		4709F445286242F000569535 /* InfoTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4709F444286242F000569535 /* InfoTableCell.swift */; };
+		4711217128905F0800B1D9E9 /* Favorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4711217028905F0800B1D9E9 /* Favorite.swift */; };
+		4711217328905F6200B1D9E9 /* FavoriteCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4711217228905F6200B1D9E9 /* FavoriteCoordinator.swift */; };
+		47112175289062EE00B1D9E9 /* FavoriteViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47112174289062EE00B1D9E9 /* FavoriteViewCell.swift */; };
+		471121782890668000B1D9E9 /* PostCoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 471121762890668000B1D9E9 /* PostCoreDataModel.xcdatamodeld */; };
+		4711217B2890681500B1D9E9 /* DataBaseCoordinators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4711217A2890681500B1D9E9 /* DataBaseCoordinators.swift */; };
 		47144F6627CE355800F360E8 /* PhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47144F6527CE355800F360E8 /* PhotosTableViewCell.swift */; };
 		47144F6827CE755B00F360E8 /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47144F6727CE755B00F360E8 /* PhotosViewController.swift */; };
 		47144F6A27CE774500F360E8 /* PhotosCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47144F6927CE774500F360E8 /* PhotosCollectionViewCell.swift */; };
@@ -30,9 +31,6 @@
 		4745D40D28468CE0006032DC /* Тапок 5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4745D40828468CDE006032DC /* Тапок 5.mp3 */; };
 		4745D40E28468CE0006032DC /* Тапок 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4745D40928468CDF006032DC /* Тапок 2.mp3 */; };
 		4745D40F28468CE0006032DC /* Тапок 4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4745D40A28468CE0006032DC /* Тапок 4.mp3 */; };
-		4745D4122846A233006032DC /* VideoPlayerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4745D4112846A233006032DC /* VideoPlayerCoordinator.swift */; };
-		4745D4142846A261006032DC /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4745D4132846A261006032DC /* VideoPlayer.swift */; };
-		4745D4162846A591006032DC /* VideoPlayerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4745D4152846A591006032DC /* VideoPlayerCell.swift */; };
 		475FE25927B2D04F00353434 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25827B2D04F00353434 /* FeedViewController.swift */; };
 		475FE25B27B2D06C00353434 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25A27B2D06C00353434 /* ProfileViewController.swift */; };
 		475FE25F27B2E14100353434 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25E27B2E14100353434 /* PostViewController.swift */; };
@@ -61,6 +59,7 @@
 		47C1622A2827E32900B37DC3 /* RootFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C162292827E32900B37DC3 /* RootFactory.swift */; };
 		47C1622E2827E5DD00B37DC3 /* FeedCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C1622D2827E5DD00B37DC3 /* FeedCoordinator.swift */; };
 		47C162322828EEBB00B37DC3 /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C162312828EEBB00B37DC3 /* ProfileCoordinator.swift */; };
+		47CC960B288115EC008D61D5 /* CoreDataCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CC960A288115EC008D61D5 /* CoreDataCoordinator.swift */; };
 		47CEDDA327C2628F002F22F8 /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47CEDDA227C2628F002F22F8 /* LogInViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -90,10 +89,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		47057A02287FC64300513CA4 /* RealmData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmData.swift; sourceTree = "<group>"; };
-		47057A06287FC7B800513CA4 /* RealmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCoordinator.swift; sourceTree = "<group>"; };
 		4709F4412862270F00569535 /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCell.swift; sourceTree = "<group>"; };
 		4709F444286242F000569535 /* InfoTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTableCell.swift; sourceTree = "<group>"; };
+		4711217028905F0800B1D9E9 /* Favorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favorite.swift; sourceTree = "<group>"; };
+		4711217228905F6200B1D9E9 /* FavoriteCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteCoordinator.swift; sourceTree = "<group>"; };
+		47112174289062EE00B1D9E9 /* FavoriteViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewCell.swift; sourceTree = "<group>"; };
+		471121772890668000B1D9E9 /* PostCoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = PostCoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		4711217A2890681500B1D9E9 /* DataBaseCoordinators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseCoordinators.swift; sourceTree = "<group>"; };
 		47144F6527CE355800F360E8 /* PhotosTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosTableViewCell.swift; sourceTree = "<group>"; };
 		47144F6727CE755B00F360E8 /* PhotosViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		47144F6927CE774500F360E8 /* PhotosCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -109,9 +111,6 @@
 		4745D40828468CDE006032DC /* Тапок 5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Тапок 5.mp3"; sourceTree = "<group>"; };
 		4745D40928468CDF006032DC /* Тапок 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Тапок 2.mp3"; sourceTree = "<group>"; };
 		4745D40A28468CE0006032DC /* Тапок 4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Тапок 4.mp3"; sourceTree = "<group>"; };
-		4745D4112846A233006032DC /* VideoPlayerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerCoordinator.swift; sourceTree = "<group>"; };
-		4745D4132846A261006032DC /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
-		4745D4152846A591006032DC /* VideoPlayerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerCell.swift; sourceTree = "<group>"; };
 		475FE25827B2D04F00353434 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		475FE25A27B2D06C00353434 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		475FE25E27B2E14100353434 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -138,6 +137,7 @@
 		47C162292827E32900B37DC3 /* RootFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootFactory.swift; sourceTree = "<group>"; };
 		47C1622D2827E5DD00B37DC3 /* FeedCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCoordinator.swift; sourceTree = "<group>"; };
 		47C162312828EEBB00B37DC3 /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
+		47CC960A288115EC008D61D5 /* CoreDataCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataCoordinator.swift; sourceTree = "<group>"; };
 		47CEDDA227C2628F002F22F8 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		606B729912D6AA90A1351478 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
 		663F524956D5F0C4558F2EC6 /* Pods-Navigation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.debug.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.debug.xcconfig"; sourceTree = "<group>"; };
@@ -156,9 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				47057A0B287FCF8D00513CA4 /* Realm in Frameworks */,
 				473EFE1828095F9E00157FF6 /* iOSIntPackage in Frameworks */,
-				47057A0D287FCF8D00513CA4 /* RealmSwift in Frameworks */,
 				47993BDB28068C39008891CD /* StorageService.framework in Frameworks */,
 				47A1D23F2821810200DE771B /* iOSIntPackage in Frameworks */,
 				479B705E2831FC4100F215CF /* iOSIntPackage in Frameworks */,
@@ -178,15 +176,6 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		47057A01287FC62100513CA4 /* RealmDataBase */ = {
-			isa = PBXGroup;
-			children = (
-				47057A02287FC64300513CA4 /* RealmData.swift */,
-				47057A06287FC7B800513CA4 /* RealmCoordinator.swift */,
-			);
-			path = RealmDataBase;
-			sourceTree = "<group>";
-		};
 		4709F440286226EA00569535 /* FeedPost */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +193,16 @@
 				4709F444286242F000569535 /* InfoTableCell.swift */,
 			);
 			path = InfoPost;
+			sourceTree = "<group>";
+		};
+		4711216F28905EED00B1D9E9 /* Favorite */ = {
+			isa = PBXGroup;
+			children = (
+				4711217028905F0800B1D9E9 /* Favorite.swift */,
+				4711217228905F6200B1D9E9 /* FavoriteCoordinator.swift */,
+				47112174289062EE00B1D9E9 /* FavoriteViewCell.swift */,
+			);
+			path = Favorite;
 			sourceTree = "<group>";
 		};
 		473EFE1528095EA100157FF6 /* Photo */ = {
@@ -236,16 +235,6 @@
 				4745D40828468CDE006032DC /* Тапок 5.mp3 */,
 			);
 			path = MusicLibrary;
-			sourceTree = "<group>";
-		};
-		4745D4102846A20F006032DC /* VideoPlayer */ = {
-			isa = PBXGroup;
-			children = (
-				4745D4112846A233006032DC /* VideoPlayerCoordinator.swift */,
-				4745D4132846A261006032DC /* VideoPlayer.swift */,
-				4745D4152846A591006032DC /* VideoPlayerCell.swift */,
-			);
-			path = VideoPlayer;
 			sourceTree = "<group>";
 		};
 		477DA8BE27C6579700FA6C89 /* General */ = {
@@ -291,9 +280,9 @@
 		479BB9CB27A992A100E6EB2C /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				47057A01287FC62100513CA4 /* RealmDataBase */,
+				4711216F28905EED00B1D9E9 /* Favorite */,
+				47CC9608288115BC008D61D5 /* DataBase */,
 				479CF95928601CB000CCEF1C /* Network */,
-				4745D4102846A20F006032DC /* VideoPlayer */,
 				4745D40028468A7F006032DC /* AudioPlayer */,
 				47C162262827D74C00B37DC3 /* Login */,
 				47C162232827D53D00B37DC3 /* RootController */,
@@ -363,6 +352,24 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		47CC9608288115BC008D61D5 /* DataBase */ = {
+			isa = PBXGroup;
+			children = (
+				47CC9609288115C6008D61D5 /* CoreData */,
+			);
+			path = DataBase;
+			sourceTree = "<group>";
+		};
+		47CC9609288115C6008D61D5 /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				47CC960A288115EC008D61D5 /* CoreDataCoordinator.swift */,
+				471121762890668000B1D9E9 /* PostCoreDataModel.xcdatamodeld */,
+				4711217A2890681500B1D9E9 /* DataBaseCoordinators.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
 		A3132DAADA72C8D6CEFD386A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -424,8 +431,6 @@
 				473EFE1728095F9E00157FF6 /* iOSIntPackage */,
 				47A1D23E2821810200DE771B /* iOSIntPackage */,
 				479B705D2831FC4100F215CF /* iOSIntPackage */,
-				47057A0A287FCF8D00513CA4 /* Realm */,
-				47057A0C287FCF8D00513CA4 /* RealmSwift */,
 			);
 			productName = Navigation;
 			productReference = 479BB9C927A992A100E6EB2C /* Navigation.app */;
@@ -462,7 +467,6 @@
 				473EFE1628095F9E00157FF6 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
 				47A1D23D2821810200DE771B /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
 				479B705C2831FC4100F215CF /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
-				47057A09287FCF8D00513CA4 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 479BB9CA27A992A100E6EB2C /* Products */;
 			projectDirPath = "";
@@ -559,33 +563,34 @@
 				4709F445286242F000569535 /* InfoTableCell.swift in Sources */,
 				47144F6A27CE774500F360E8 /* PhotosCollectionViewCell.swift in Sources */,
 				47144F6827CE755B00F360E8 /* PhotosViewController.swift in Sources */,
-				47057A03287FC64300513CA4 /* RealmData.swift in Sources */,
 				4709F4422862270F00569535 /* PostCollectionViewCell.swift in Sources */,
 				4764DEAE280FB4CA0079BC65 /* UserData.swift in Sources */,
+				47CC960B288115EC008D61D5 /* CoreDataCoordinator.swift in Sources */,
 				477DA8C027C65F5F00FA6C89 /* PostTableViewCell.swift in Sources */,
 				475FE25F27B2E14100353434 /* PostViewController.swift in Sources */,
 				479BB9CD27A992A100E6EB2C /* AppDelegate.swift in Sources */,
-				4745D4142846A261006032DC /* VideoPlayer.swift in Sources */,
 				47C1622A2827E32900B37DC3 /* RootFactory.swift in Sources */,
 				471F85AD282230E4001E1A66 /* FeedModel.swift in Sources */,
 				47C162282827D8D300B37DC3 /* TabBarController.swift in Sources */,
-				4745D4122846A233006032DC /* VideoPlayerCoordinator.swift in Sources */,
+				4711217128905F0800B1D9E9 /* Favorite.swift in Sources */,
 				4745D40228468AA7006032DC /* AudioPlayer.swift in Sources */,
 				47CEDDA327C2628F002F22F8 /* LogInViewController.swift in Sources */,
 				475FE26327B2F08D00353434 /* InfoViewController.swift in Sources */,
+				4711217B2890681500B1D9E9 /* DataBaseCoordinators.swift in Sources */,
 				475FE25B27B2D06C00353434 /* ProfileViewController.swift in Sources */,
 				478578202821AB9D0055AAB0 /* ViewElements.swift in Sources */,
 				47A8137927BAD42E0051BD8E /* ProfileHeaderView.swift in Sources */,
-				47057A07287FC7B800513CA4 /* RealmCoordinator.swift in Sources */,
 				47C162322828EEBB00B37DC3 /* ProfileCoordinator.swift in Sources */,
-				4745D4162846A591006032DC /* VideoPlayerCell.swift in Sources */,
 				475FE25927B2D04F00353434 /* FeedViewController.swift in Sources */,
 				476267BF27BBFA55008A4908 /* ViewController.swift in Sources */,
+				471121782890668000B1D9E9 /* PostCoreDataModel.xcdatamodeld in Sources */,
 				479BB9CF27A992A100E6EB2C /* SceneDelegate.swift in Sources */,
+				47112175289062EE00B1D9E9 /* FavoriteViewCell.swift in Sources */,
 				471CDEC8286DF5F700B905F3 /* Checker.swift in Sources */,
 				47C1622E2827E5DD00B37DC3 /* FeedCoordinator.swift in Sources */,
 				4745D40428468AB8006032DC /* AudioPlayerCoordinator.swift in Sources */,
 				47C162252827D56100B37DC3 /* RootCoordinator.swift in Sources */,
+				4711217328905F6200B1D9E9 /* FavoriteCoordinator.swift in Sources */,
 				471D11FB27C6233F00810B1B /* General.swift in Sources */,
 				479CF95B28601CCC00CCEF1C /* NetworkService.swift in Sources */,
 				47A1D23C2821370400DE771B /* LoginFactory.swift in Sources */,
@@ -892,14 +897,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		47057A09287FCF8D00513CA4 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/realm/realm-swift";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 10.27.0;
-			};
-		};
 		473EFE1628095F9E00157FF6 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
@@ -927,16 +924,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		47057A0A287FCF8D00513CA4 /* Realm */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 47057A09287FCF8D00513CA4 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = Realm;
-		};
-		47057A0C287FCF8D00513CA4 /* RealmSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 47057A09287FCF8D00513CA4 /* XCRemoteSwiftPackageReference "realm-swift" */;
-			productName = RealmSwift;
-		};
 		473EFE1728095F9E00157FF6 /* iOSIntPackage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 473EFE1628095F9E00157FF6 /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
@@ -953,6 +940,19 @@
 			productName = iOSIntPackage;
 		};
 /* End XCSwiftPackageProductDependency section */
+
+/* Begin XCVersionGroup section */
+		471121762890668000B1D9E9 /* PostCoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				471121772890668000B1D9E9 /* PostCoreDataModel.xcdatamodel */,
+			);
+			currentVersion = 471121772890668000B1D9E9 /* PostCoreDataModel.xcdatamodel */;
+			path = PostCoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 479BB9C127A992A100E6EB2C /* Project object */;
 }

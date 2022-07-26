@@ -14,7 +14,7 @@ final class RootFactory {
         case feed
         case profile
         case player
-        case video
+        case favorite
     }
     
     var state: State
@@ -31,8 +31,9 @@ final class RootFactory {
         
         switch state {
         case .feed:
+            let dataBaseCoordinator = CreateDataBase()
             let viewModel = FeedModel(coordinator: coordinator as! FeedCoordinator)
-            let feedViewController = FeedViewController(coordinator: coordinator as! FeedCoordinator, model: viewModel)
+            let feedViewController = FeedViewController(coordinator: coordinator as! FeedCoordinator, model: viewModel, dbCoordinator: dataBaseCoordinator)
             feedViewController.view.backgroundColor = UIColor.white
             let feedNavigationController = UINavigationController(rootViewController: feedViewController)
             
@@ -71,21 +72,41 @@ final class RootFactory {
             
             return playerNavigationController
             
-        case .video:
+        case .favorite:
             
-            let videoPlayerViewController = VideoPlayer(coordinator: coordinator as! VideoPlayerCoordinator)
-            let videoPlayerNavigationController = UINavigationController(rootViewController: videoPlayerViewController)
+            let dataBaseCoordinator = CreateDataBase()
+            let favoriteViewController = Favorite(coordinator: coordinator as! FavoriteCoordinator, dbCoordinator: dataBaseCoordinator)
+            favoriteViewController.view.backgroundColor = UIColor.white
+            let favoriteNavigationController = UINavigationController(rootViewController: favoriteViewController)
             
-            videoPlayerNavigationController.tabBarItem = UITabBarItem(title: "Видео", image: UIImage(named: "music"), selectedImage: UIImage(named: "SelectedMusic"))
-            videoPlayerNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
-            videoPlayerNavigationController.navigationBar.barTintColor = UIColor.white
-            videoPlayerNavigationController.navigationBar.standardAppearance = appearance;
-            videoPlayerNavigationController.navigationBar.scrollEdgeAppearance = videoPlayerNavigationController.navigationBar.standardAppearance
-            
-            return videoPlayerNavigationController
+            favoriteNavigationController.tabBarItem = UITabBarItem(title: "Избранное", image: UIImage(named: "Feed"), selectedImage: UIImage(named: "SelectedFeed"))
+            favoriteNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
+            favoriteNavigationController.navigationBar.barTintColor = UIColor.white
+            favoriteNavigationController.navigationBar.standardAppearance = appearance;
+            favoriteNavigationController.navigationBar.scrollEdgeAppearance = favoriteNavigationController.navigationBar.standardAppearance
+            return favoriteNavigationController
         }
         
         return nil
         
+    }
+    
+    private func CreateDataBase() -> DatabaseCoordinatable {
+        let bundle = Bundle.main
+        guard let url = bundle.url(forResource: "PostCoreDataModel", withExtension: "momd") else {
+            fatalError("Can't find DatabaseDemo.xcdatamodelId in main Bundle")
+        }
+        
+        switch CoreDataCoordinator.create(url: url) {
+        case .success(let database):
+            return database
+        case .failure:
+            switch CoreDataCoordinator.create(url: url) {
+            case .success(let database):
+                return database
+            case .failure(let error):
+                fatalError("Unable to create CoreData Database. Error - \(error.localizedDescription)")
+            }
+        }
     }
 }

@@ -9,16 +9,49 @@ import Foundation
 import UIKit
 
 struct FeedPost {
+    
+    var id: Int
     var title: String
-    var image: UIImage
+    var imageName: String
+    var image: UIImage {
+        get {
+            UIImage(named: imageName)!
+        }
+    }
     var info: String
     var postType: PostType
+    
+    var keyedValues: [String: Any] {
+        return [
+            "id": self.id,
+            "title": self.title,
+            "imageName": self.imageName,
+            "info": self.info,
+            "postType": self.postType.rawValue,
+        ]
+    }
+    
+    init(PostCoreDataModel: FavoriteFeedPost) {
+        self.id = Int(PostCoreDataModel.id)
+        self.title = PostCoreDataModel.title!
+        self.imageName = PostCoreDataModel.imageName!
+        self.postType = PostType.init(rawValue: Int(PostCoreDataModel.postType))!
+        self.info = PostCoreDataModel.info!
+    }
+    
+    init(id: Int, title: String, imageName: String, info: String, postType: PostType) {
+        self.id = id
+        self.title = title
+        self.imageName = imageName
+        self.postType = postType
+        self.info = info
+    }
 }
 
-enum PostType {
-    case testStruct
-    case planet
-    case resident
+enum PostType: Int {
+    case testStruct = 1
+    case planet = 2
+    case resident = 3
 }
 
 struct TestStruct: Codable {
@@ -40,7 +73,7 @@ struct Resident: Codable {
 }
 
 class FeedModel {
-   
+    
     weak var coordinator: FeedCoordinator?
     
     init(coordinator:FeedCoordinator){
@@ -50,19 +83,21 @@ class FeedModel {
     func getPost() -> [FeedPost] {
         
         var postArray = [FeedPost]()
-        let firstPost = FeedPost(title: "Первое задание",
-                                 image: UIImage(named: "zadanie-1.png")!,
+        let firstPost = FeedPost(id: 1,
+                                 title: "Первое задание",
+                                 imageName: "zadanie-1.png",
                                  info: "https://jsonplaceholder.typicode.com/todos/" + String(Int.random(in: 1...20)),
                                  postType: .testStruct)
         
         postArray.append(firstPost)
-        let secondPost = FeedPost(title: "Татуин",
-                                  image: UIImage(named: "Татуин.jgp")!,
+        let secondPost = FeedPost(id: 2,
+                                  title: "Татуин",
+                                  imageName: "Татуин.jgp",
                                   info: "https://swapi.dev/api/planets/1",
                                   postType: .planet)
         
         postArray.append(secondPost)
         return postArray
     }
-        
+    
 }
