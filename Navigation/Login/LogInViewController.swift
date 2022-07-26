@@ -143,7 +143,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+                
         view.backgroundColor = .white
         scrollView.contentSize = CGSize(width: view.frame.width, height: max(view.frame.width, view.frame.height))
         
@@ -176,6 +176,15 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
                                                 #selector(keyboardWillHide),
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
+        
+        if let delegate = delegate {
+            let data = delegate.checkUserToDataBase { [weak self] user in
+                self?.userName.text = user.name
+                DispatchQueue.main.async {
+                    self?.logined()
+                }
+            }
+        }
     }
     
     

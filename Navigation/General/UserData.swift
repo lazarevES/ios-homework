@@ -7,16 +7,44 @@
 
 import Foundation
 import UIKit
+import RealmSwift
 
-class User {
-    let name: String
-    let avatar: UIImage?
-    let status: String
+class User: Object  {
     
-    init(name: String, avatar: UIImage?, status: String) {
+    @objc dynamic var name: String?
+    @objc dynamic var password: String?
+    @objc dynamic var status: String?
+    @objc dynamic var avatarName: String?
+    @objc dynamic var avatar: UIImage? {
+        get {
+            if let avatarName = avatarName {
+                return UIImage(named: avatarName)
+            } else {
+                return nil
+            }
+        }
+    }
+    
+    var keyedValues: [String: Any] {
+        return [
+            "name": self.name ?? "",
+            "password": self.password ?? "",
+            "status": self.status ?? "",
+            "avatarName": self.avatarName ?? ""
+        ]
+    }
+    
+    override static func primaryKey() -> String? {
+        return "name"
+    }
+    
+    convenience init(name: String, password: String, status: String, avatarName: String) {
+        self.init()
         self.name = name
-        self.avatar = avatar
+        self.password = password
         self.status = status
+        self.avatarName = avatarName
+
     }
 }
 
@@ -31,7 +59,7 @@ class CurrentUserService: UserService {
     private let user: User
     
     init(name: String, avatar: String, status: String) {
-        self.user = User(name: name, avatar: UIImage(named: avatar), status: status)
+        self.user = User(name: name, password: "", status: status, avatarName: avatar)
     }
     
     func getUser(name: String) -> User? {
@@ -48,7 +76,7 @@ class TestUserService: UserService {
     private let user: User
     
     init(name: String, avatar: String, status: String) {
-        self.user = User(name: name, avatar: UIImage(named: avatar), status: status)
+        self.user = User(name: name, password: "", status: status, avatarName: avatar)
     }
     
     func getUser(name: String) -> User? {

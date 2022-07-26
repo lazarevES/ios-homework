@@ -33,7 +33,10 @@ class ProfileCoordinator: VCCoordinator {
     }
     
     func DissmisApp() {
-        callback()
+        let realmCoordinator = RealmCoordinator()
+        realmCoordinator.delete(User.self, predicate: nil) { [weak self] result in
+            self?.callback()
+        }
     }
     
 }
