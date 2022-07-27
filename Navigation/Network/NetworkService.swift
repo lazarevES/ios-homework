@@ -34,7 +34,7 @@ struct NetworkService {
         let decoder = JSONDecoder()
         do {
             switch type {
-            case .testStruct:
+            case .webDescription:
                 let decodeData = try JSONSerialization.jsonObject(with: data, options: []) as! Dictionary<String, Any>
                 callback(decodeData["title"] as! String, nil)
             case .planet:
@@ -43,6 +43,8 @@ struct NetworkService {
             case .resident:
                 let decodeData = try decoder.decode(Resident.self, from: data)
                 callback(decodeData.name, nil)
+            default:
+                callback("", nil)
             }
         }
         catch {

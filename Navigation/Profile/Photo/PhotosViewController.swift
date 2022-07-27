@@ -94,7 +94,6 @@ extension PhotosViewController: UICollectionViewDataSource, UICollectionViewDele
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PhotosCollectionViewCell.identifire, for: indexPath) as? PhotosCollectionViewCell
         else {
             preconditionFailure("Произошло какое то говно при открытии ленты новостей")
-            return UICollectionViewCell()
         }
         cell.setupImage(contentPhotoData[indexPath.item])
         return cell

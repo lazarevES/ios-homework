@@ -13,22 +13,16 @@ protocol FavoritePostCollectionViewCellDelegate: AnyObject {
     func showPost(post: FeedPost)
 }
 
-class FavoritePostCollectionViewCell: UICollectionViewCell {
+class FavoritePostCollectionViewCell: UITableViewCell {
 
     static let identifire = "FavoritePostCollectionViewCell"
     weak var delegate: FavoritePostCollectionViewCellDelegate?
     var post: FeedPost?
+    let postView = PostView()
     
-    let photo: UIImageView = {
-        let photo = UIImageView()
-        photo.toAutoLayout()
-        photo.isUserInteractionEnabled = true
-        return photo
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: .zero)
-        contentView.addSubview(photo)
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        contentView.addSubview(postView)
         
         let firstTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         firstTapGestureRecognizer.numberOfTapsRequired = 1
@@ -53,16 +47,16 @@ class FavoritePostCollectionViewCell: UICollectionViewCell {
     }
     
     func useConstraint() {
-        NSLayoutConstraint.activate([photo.topAnchor.constraint(equalTo: contentView.topAnchor),
-                                     photo.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-                                     photo.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                                     photo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+        NSLayoutConstraint.activate([postView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                                     postView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+                                     postView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                                     postView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
                                     ])
     }
     
     func setupPost(_ post: FeedPost) {
         self.post = post
-        photo.image = post.image
+        postView.setupPost(post: post)
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)

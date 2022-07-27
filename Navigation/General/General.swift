@@ -18,6 +18,8 @@ struct Const {
     static let size: CGFloat = 50
     static let bigSize: CGFloat = 100
     static let bigIndent: CGFloat = 120
+    static let postSizeWidth: CGFloat = UIScreen.main.bounds.width - 32
+    static let postSizeHeight: CGFloat = UIScreen.main.bounds.width + 100
     
 }
 
@@ -45,10 +47,54 @@ extension NSNotification.Name {
     static let didRemovePostFromFavorites = NSNotification.Name("didRemovePostFromFavorites")
 }
 
-let constPostArray = [Post(author: "Киря", description: "my life...", image: "post1", likes: 7, views: 9),
-                 Post(author: "Киря", description: "my bathroom...", image: "post2", likes: 7, views: 12),
-                 Post(author: "Киря", description: "my step...", image: "post3", likes: 11, views: 24),
-                 Post(author: "Киря", description: "Кого не любят канибалы? Людей без вкуса!", image: "post4", likes: 0, views: 30)]
+let constPosts = [FeedPost(id: 1,
+                           title: "Первое задание",
+                           author: "Скайвокер",
+                           description: "https://jsonplaceholder.typicode.com/todos/" + String(Int.random(in: 1...20)),
+                           image: "zadanie-1.png",
+                           likes: 6,
+                           views: 7,
+                           postType: .webDescription),
+                  FeedPost(id: 2,
+                           title: "Татуин",
+                           author: "Вейдер",
+                           description: "https://swapi.dev/api/planets/1",
+                           image: "Татуин.jgp",
+                           likes: 32424122,
+                           views: 32423123,
+                           postType: .planet),
+                  FeedPost(id: 3,
+                           title: "my life",
+                           author: "Киря",
+                           description: "my life...",
+                           image: "post1",
+                           likes: 7,
+                           views: 9,
+                           postType: .post),
+                  FeedPost(id: 4,
+                           title: "my bathroom",
+                           author: "Киря",
+                           description: "my bathroom...",
+                           image: "post2",
+                           likes: 7,
+                           views: 12,
+                           postType: .post),
+                  FeedPost(id: 5,
+                           title: "my step",
+                           author: "Киря",
+                           description: "my step...",
+                           image: "post3",
+                           likes: 11,
+                           views: 24,
+                           postType: .post),
+                  FeedPost(id: 6,
+                           title: "Шутка",
+                           author: "Киря",
+                           description: "Кого не любят канибалы? Людей без вкуса!",
+                           image: "post4",
+                           likes: 0,
+                           views: 30,
+                           postType: .post)]
 
 let constPhotoArray = [UIImage(named:"foto1")!, UIImage(named:"foto2")!, UIImage(named:"foto3")!, UIImage(named:"foto4")!, UIImage(named:"foto5")!, UIImage(named:"foto6")!, UIImage(named:"foto8")!, UIImage(named:"foto9")!, UIImage(named:"foto10")!, UIImage(named:"foto11")!, UIImage(named:"foto12")!, UIImage(named:"foto13")!, UIImage(named:"foto14")!, UIImage(named:"foto15")!, UIImage(named:"foto16")!, UIImage(named:"foto17")!, UIImage(named:"foto18")!, UIImage(named:"foto19")!, UIImage(named:"foto20")!]
 

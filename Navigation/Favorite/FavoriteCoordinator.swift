@@ -22,7 +22,7 @@ class FavoriteCoordinator: VCCoordinator {
         navigationController?.pushViewController(PostViewController(coordinator: self, post: post), animated: true)
     }
     
-    func showInfo(_ title: String, people: [String]?) {
+    func showInfo(_ title: String, people: [String]? = nil) {
         navigationController?.present(InfoViewController(title: title, residentUrl: people), animated: true)
     }
 }

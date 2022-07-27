@@ -21,34 +21,22 @@ class PostCollectionViewCell: UICollectionViewCell {
     var post: FeedPost?
     var isFavorite = false
     
-    let photo: UIImageView = {
-        let photo = UIImageView()
-        photo.toAutoLayout()
-        photo.isUserInteractionEnabled = true
-        return photo
-    }()
-    
-    let like: UILabel = {
-        let label = UILabel()
-        label.toAutoLayout()
-        return label
-    }()
-    
+    let postView = PostView()
+
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        contentView.addSubviews(photo, like)
+        contentView.addSubviews(postView)
         
         let firstTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped))
         firstTapGestureRecognizer.numberOfTapsRequired = 1
         firstTapGestureRecognizer.numberOfTouchesRequired = 1
-        firstTapGestureRecognizer.isEnabled = true
-        
         
         let secondTapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageDoubleTapped))
         secondTapGestureRecognizer.numberOfTapsRequired = 2
         secondTapGestureRecognizer.numberOfTouchesRequired = 1
-        secondTapGestureRecognizer.isEnabled = true
+        
         contentView.isUserInteractionEnabled = true
+       
         firstTapGestureRecognizer.require(toFail: secondTapGestureRecognizer)
         contentView.addGestureRecognizer(firstTapGestureRecognizer)
         contentView.addGestureRecognizer(secondTapGestureRecognizer)
@@ -61,25 +49,16 @@ class PostCollectionViewCell: UICollectionViewCell {
     }
     
     func useConstraint() {
-        NSLayoutConstraint.activate([photo.topAnchor.constraint(equalTo: contentView.topAnchor),
-                                     photo.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-                                     photo.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-                                     photo.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-                                     like.bottomAnchor.constraint(equalTo: photo.bottomAnchor, constant: -5),
-                                     like.trailingAnchor.constraint(equalTo: photo.trailingAnchor, constant: -5),
-                                     like.heightAnchor.constraint(equalToConstant: 10)
+        NSLayoutConstraint.activate([postView.topAnchor.constraint(equalTo: contentView.topAnchor),
+                                     postView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+                                     postView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                                     postView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
                                     ])
     }
     
     func setupPost(_ post: FeedPost, isFavorite: Bool) {
+        postView.setupPost(post: post, isFavorite: isFavorite)
         self.post = post
-        photo.image = post.image
-        self.isFavorite = isFavorite
-        if isFavorite {
-            like.text = "❤️"
-        } else {
-            like.text = "🖤"
-        }
     }
     
     @objc func imageTapped()
@@ -93,6 +72,7 @@ class PostCollectionViewCell: UICollectionViewCell {
     {
         if let delegate = delegate, let post = post {
             delegate.tapToPost(with: post, isFavorite: isFavorite)
+            isFavorite.toggle()
         }
     }
     

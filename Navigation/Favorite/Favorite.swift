@@ -13,21 +13,80 @@ class Favorite: UIViewController {
     var coordinator: FavoriteCoordinator
     var dbCoordinator: DatabaseCoordinatable
     
-    lazy var layout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
-        layout.scrollDirection = .vertical
-        return layout
+    lazy var postTable: UITableView = {
+        let postTable = UITableView(frame: .zero, style: .plain)
+        postTable.toAutoLayout()
+        postTable.refreshControl = UIRefreshControl()
+        postTable.isScrollEnabled = true
+        postTable.separatorInset = .zero
+        postTable.refreshControl?.addTarget(self, action: #selector(updatePostTable), for: .valueChanged)
+        postTable.rowHeight = UITableView.automaticDimension
+        
+        return postTable
     }()
     
-    lazy var collectionView: UICollectionView = {
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-        collectionView.toAutoLayout()
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        return collectionView
+    lazy var searchButton: UIButton = {
+        let button = UIButton()
+        button.toAutoLayout()
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.setTitle("Поиск", for: .normal)
+        button.titleLabel?.textColor = .white
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        button.layer.shadowOpacity = 0.7
+        button.layer.shadowRadius = 4
+        button.addTarget(self, action: #selector(SearchPost), for: .touchUpInside)
+                
+        if let image = UIImage(named: "blue_pixel") {
+            button.imageView?.contentMode = .scaleAspectFill
+            button.setBackgroundImage(image.imageWithAlpha(alpha: 1), for: .normal)
+            button.setBackgroundImage(image.imageWithAlpha(alpha: 0.6), for: .selected)
+            button.setBackgroundImage(image.imageWithAlpha(alpha: 0.6), for: .highlighted)
+            button.setBackgroundImage(image.imageWithAlpha(alpha: 0.2), for: .disabled)
+        }
+        return button
     }()
     
+    lazy var clearSearchButton: UIButton = {
+        let button = UIButton()
+        button.toAutoLayout()
+        button.layer.cornerRadius = 10
+        button.clipsToBounds = true
+        button.setTitle("Очистить", for: .normal)
+        button.titleLabel?.textColor = .white
+        button.layer.shadowColor = UIColor.black.cgColor
+        button.layer.shadowOffset = CGSize(width: 4, height: 4)
+        button.layer.shadowOpacity = 0.7
+        button.layer.shadowRadius = 4
+        button.addTarget(self, action: #selector(cleanSearchPost), for: .touchUpInside)
+                
+        if let image = UIImage(named: "blue_pixel") {
+            button.imageView?.contentMode = .scaleAspectFill
+            button.setBackgroundImage(image.imageWithAlpha(alpha: 1), for: .normal)
+            button.setBackgroundImage(image.imageWithAlpha(alpha: 0.6), for: .selected)
+            button.setBackgroundImage(image.imageWithAlpha(alpha: 0.6), for: .highlighted)
+            button.setBackgroundImage(image.imageWithAlpha(alpha: 0.2), for: .disabled)
+        }
+        return button
+    }()
+    
+    lazy var searchNameLabel: UILabel = {
+        let label = UILabel()
+        label.toAutoLayout()
+        label.text = ""
+        label.textAlignment = .natural
+        label.textColor = .black
+        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        return label
+    }()
+    
+    var searchName = "" {
+        didSet {
+            searchNameLabel.text = searchName
+        }
+    }
+    var searchIsEnable = false
     var contentPostData: [FeedPost] = []
     
     init(coordinator: FavoriteCoordinator, dbCoordinator: DatabaseCoordinatable) {
@@ -55,30 +114,59 @@ class Favorite: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Новости"
+        title = "Избранное"
         
-        view.addSubview(collectionView)
-        collectionView.register(FavoritePostCollectionViewCell.self, forCellWithReuseIdentifier: FavoritePostCollectionViewCell.identifire)
+        view.addSubviews(postTable, searchButton, clearSearchButton, searchNameLabel)
+        postTable.dataSource = self
+        postTable.delegate = self
+        postTable.register(FavoritePostCollectionViewCell.self, forCellReuseIdentifier: FavoritePostCollectionViewCell.identifire)
         getPost()
         useConstraint()
     }
     
     
     func useConstraint() {
-        NSLayoutConstraint.activate([collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-                                     collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-                                     collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-                                     collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)])
+        NSLayoutConstraint.activate([
+            searchButton.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Const.leadingMargin),
+            searchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Const.indent),
+            searchButton.heightAnchor.constraint(equalToConstant: Const.smallSize),
+            searchButton.widthAnchor.constraint(equalToConstant: Const.bigSize),
+            searchNameLabel.leadingAnchor.constraint(equalTo: searchButton.trailingAnchor, constant: Const.leadingMargin),
+            searchNameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Const.indent),
+            searchNameLabel.heightAnchor.constraint(equalToConstant: Const.smallSize),
+            clearSearchButton.leadingAnchor.constraint(equalTo: searchNameLabel.trailingAnchor, constant: Const.leadingMargin),
+            clearSearchButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Const.indent),
+            clearSearchButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: Const.trailingMargin),
+            clearSearchButton.heightAnchor.constraint(equalToConstant: Const.smallSize),
+            clearSearchButton.widthAnchor.constraint(equalToConstant: Const.bigSize),
+            postTable.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            postTable.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            postTable.topAnchor.constraint(equalTo: searchButton.bottomAnchor, constant: Const.indent),
+            postTable.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)])
     }
     
     func getPost() {
-        self.dbCoordinator.fetchAll(FavoriteFeedPost.self) { result in
-            switch result {
-            case .success(let FavoriteFeedPost):
-                self.contentPostData = FavoriteFeedPost.map{ FeedPost(PostCoreDataModel: $0) }
-                self.collectionView.reloadData()
-            case .failure(let error):
-                print("Ошибка загрузки из БД \(error)")
+        if searchIsEnable {
+           let predicate = NSPredicate(format: "author == %@", searchName)
+            self.dbCoordinator.fetch(FavoriteFeedPost.self, predicate: predicate) { result in
+                switch result {
+                case .success(let FavoriteFeedPost):
+                    self.contentPostData = FavoriteFeedPost.map{ FeedPost(postCoreDataModel: $0) }
+                    self.postTable.reloadData()
+                case .failure(let error):
+                    print("Ошибка загрузки из БД \(error)")
+                }
+            }
+            
+        } else {
+            self.dbCoordinator.fetchAll(FavoriteFeedPost.self) { result in
+                switch result {
+                case .success(let FavoriteFeedPost):
+                    self.contentPostData = FavoriteFeedPost.map{ FeedPost(postCoreDataModel: $0) }
+                    self.postTable.reloadData()
+                case .failure(let error):
+                    print("Ошибка загрузки из БД \(error)")
+                }
             }
         }
     }
@@ -86,62 +174,122 @@ class Favorite: UIViewController {
     @objc func removePostFromFavorites(_ notification: NSNotification) {
         if let id = notification.userInfo?["id"] as? Int {
             self.contentPostData.removeAll(where: { $0.id == id } )
-            self.collectionView.reloadData()
+            self.postTable.reloadData()
         }
-     }
+    }
     
     @objc func addPostFromFavorites(_ notification: NSNotification) {
         if let post = notification.userInfo?["post"] as? FeedPost {
             self.contentPostData.append(post)
-            self.collectionView.reloadData()
+            self.postTable.reloadData()
         }
-     }
+    }
+    
+    @objc func SearchPost() {
+        let alertController = UIAlertController(title: "Поиск по автору",
+                                                message: "Введите имя автора",
+                                                preferredStyle: .alert)
+        
+        alertController.addTextField( configurationHandler: {(textField: UITextField!) in
+            textField.placeholder = "Киря"
+        })
+        
+        let action = UIAlertAction(title: "Принять",
+                                   style: UIAlertAction.Style.default) {[weak self] (paramAction:UIAlertAction!) in
+            if let textFields = alertController.textFields {
+                let theTextFields = textFields as [UITextField]
+                let enteredText = theTextFields[0].text
+                self?.searchName = enteredText ?? ""
+                self?.searchIsEnable = true
+                self?.getPost()
+                
+            }
+        }
+        
+        alertController.addAction(action)
+        
+        self.present(alertController,
+                     animated: true,
+                     completion: nil)
+    }
+    
+    @objc func cleanSearchPost() {
+        self.searchIsEnable = false
+        self.searchName = ""
+        self.getPost()
+    }
     
     private func removePostFromDatabase(_ post: FeedPost, using data:[FeedPost]) {
         let predicate = NSPredicate(format: "id == %ld", post.id)
         self.contentPostData.removeAll(where: { $0.id == Int(post.id) } )
-        self.collectionView.reloadData()
+        self.postTable.reloadData()
         
         NotificationCenter.default.post(name: .didRemovePostFromFavorites, object: nil, userInfo: ["id" : post.id])
         
-        self.dbCoordinator.delete(FavoriteFeedPost.self, predicate: predicate) { [weak self] result in
-
-            guard let self = self else { return }
+        self.dbCoordinator.delete(FavoriteFeedPost.self, predicate: predicate) { result in
             
             switch result {
-            case .success(let post):
-                ()
+            case .success(_):
+                print("запись удалена из бд")
             case .failure(let error):
                 print("Ошибка удаления из бд \(error)")
             }
         }
     }
+    
+    @objc func updatePostTable() {
+        getPost()
+        postTable.refreshControl?.endRefreshing()
+    }
 }
 
-extension Favorite: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension Favorite: UITableViewDelegate, UITableViewDataSource {
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FavoritePostCollectionViewCell.identifire, for: indexPath) as? FavoritePostCollectionViewCell
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        contentPostData.count
+
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = postTable.dequeueReusableCell(withIdentifier: FavoritePostCollectionViewCell.identifire, for: indexPath) as? FavoritePostCollectionViewCell
         else {
             preconditionFailure("Произошло какое то говно при открытии вашего профиля")
-            return UICollectionViewCell()
         }
-        cell.setupPost(contentPostData[indexPath.item])
+        cell.setupPost(contentPostData[indexPath.row])
         cell.delegate = self
         return cell
+    
     }
     
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        contentPostData.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: (collectionView.frame.width - 40), height: (collectionView.frame.width - 40))
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //coordinator.showPost(contentPostData[indexPath.item])
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+       
+        let post = contentPostData[indexPath.row]
+        
+        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { (_ , _, completionHandler) in
+            
+            let predicate = NSPredicate(format: "id == %ld", post.id)
+            
+            self.dbCoordinator.delete(FavoriteFeedPost.self, predicate: predicate) { result in
+                switch result {
+                case .success(_):
+                    self.contentPostData.removeAll(where: { $0.id == Int(post.id) } )
+                    tableView.deleteRows(at: [indexPath], with: .automatic)
+                    NotificationCenter.default.post(name: .didRemovePostFromFavorites, object: nil, userInfo: ["id" : post.id])
+                    completionHandler(true)
+                case .failure(let error):
+                    print("Ошибка удаления из бд \(error)")
+                }
+            }
+            
+        }
+        let swipe = UISwipeActionsConfiguration(actions: [deleteAction])
+        return swipe
     }
     
 }
