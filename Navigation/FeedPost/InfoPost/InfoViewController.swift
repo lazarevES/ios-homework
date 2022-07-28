@@ -37,7 +37,7 @@ class InfoViewController: UIViewController {
         return table
     }()
     
-    init(title: String, residentUrl: [String]?) {
+    init(title: String, residentUrl: [String]? = nil) {
         super.init(nibName: nil, bundle: nil)
         textLabel.text = title
         self.residentUrl = residentUrl
