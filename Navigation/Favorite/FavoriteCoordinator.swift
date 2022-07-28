@@ -12,9 +12,9 @@ class FavoriteCoordinator: VCCoordinator {
     
     var navigationController: UINavigationController?
     
-    func Start() throws -> UINavigationController? {
+    func Start(dbCoordinator: DatabaseCoordinatable?) throws -> UINavigationController? {
         let factory = RootFactory(state: .favorite)
-        navigationController = factory.startModule(coordinator: self, data: nil)
+        navigationController = factory.startModule(coordinator: self, data: nil, dbCoordinator: dbCoordinator)
         return navigationController
     }
     
