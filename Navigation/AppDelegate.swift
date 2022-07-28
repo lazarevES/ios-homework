@@ -45,6 +45,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let array: [AppConfiguration] = [.people, .planets, .starships]
         return array[Int.random(in: 1...2)]
     }
-        
+    
+
 }
 
