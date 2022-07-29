@@ -4,7 +4,6 @@
 //
 //  Created by Егор Лазарев on 20.02.2022.
 //
-
 import UIKit
 
 class LogInViewController: UIViewController, UITextFieldDelegate  {
@@ -177,6 +176,14 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
                                                name: UIResponder.keyboardWillHideNotification,
                                                object: nil)
         
+        if let delegate = delegate {
+            _ = delegate.checkUserToDataBase { [weak self] user in
+                self?.userName.text = user.name
+                DispatchQueue.main.async {
+                    self?.logined()
+                }
+            }
+        }
     }
     
     
