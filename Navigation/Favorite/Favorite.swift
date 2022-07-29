@@ -7,11 +7,13 @@
 
 import Foundation
 import UIKit
+import CoreData
 
 class Favorite: UIViewController {
         
     var coordinator: FavoriteCoordinator
     var dbCoordinator: DatabaseCoordinatable
+    var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>?
     
     lazy var postTable: UITableView = {
         let postTable = UITableView(frame: .zero, style: .plain)
@@ -93,20 +95,9 @@ class Favorite: UIViewController {
         self.coordinator = coordinator
         self.dbCoordinator = dbCoordinator
         super.init(nibName: nil, bundle: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(removePostFromFavorites(_:)),
-                                               name: .didRemovePostFromFavorites,
-                                               object: nil)
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(addPostFromFavorites(_:)),
-                                               name: .wasLikedPost,
-                                               object: nil)
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
-    }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -122,6 +113,7 @@ class Favorite: UIViewController {
         postTable.register(FavoritePostCollectionViewCell.self, forCellReuseIdentifier: FavoritePostCollectionViewCell.identifire)
         getPost()
         useConstraint()
+        
     }
     
     
@@ -146,43 +138,34 @@ class Favorite: UIViewController {
     }
     
     func getPost() {
+        
+        let entityDescription = NSEntityDescription.entity(forEntityName: "FavoriteFeedPost", in: dbCoordinator.mainContext)
+
+        let request = NSFetchRequest<NSFetchRequestResult>()
+        request.entity = entityDescription
+        
+        let idSortDescriptor = NSSortDescriptor(key: "id", ascending: true)
+        request.sortDescriptors = [idSortDescriptor]
+    
         if searchIsEnable {
-           let predicate = NSPredicate(format: "author == %@", searchName)
-            self.dbCoordinator.fetch(FavoriteFeedPost.self, predicate: predicate) { result in
-                switch result {
-                case .success(let FavoriteFeedPost):
-                    self.contentPostData = FavoriteFeedPost.map{ FeedPost(postCoreDataModel: $0) }
-                    self.postTable.reloadData()
-                case .failure(let error):
-                    print("Ошибка загрузки из БД \(error)")
-                }
-            }
-            
-        } else {
-            self.dbCoordinator.fetchAll(FavoriteFeedPost.self) { result in
-                switch result {
-                case .success(let FavoriteFeedPost):
-                    self.contentPostData = FavoriteFeedPost.map{ FeedPost(postCoreDataModel: $0) }
-                    self.postTable.reloadData()
-                case .failure(let error):
-                    print("Ошибка загрузки из БД \(error)")
-                }
-            }
+            let predicate = NSPredicate(format: "author == %@", searchName)
+            request.predicate = predicate
         }
-    }
-    
-    @objc func removePostFromFavorites(_ notification: NSNotification) {
-        if let id = notification.userInfo?["id"] as? Int {
-            self.contentPostData.removeAll(where: { $0.id == id } )
-            self.postTable.reloadData()
+        
+        fetchedResultsController = NSFetchedResultsController(fetchRequest: request,
+                                                              managedObjectContext: dbCoordinator.mainContext,
+                                                              sectionNameKeyPath: nil,
+                                                              cacheName: nil)
+        fetchedResultsController?.delegate = self
+        
+        do {
+            try fetchedResultsController?.performFetch()
+        } catch {
+            print(error)
         }
-    }
-    
-    @objc func addPostFromFavorites(_ notification: NSNotification) {
-        if let post = notification.userInfo?["post"] as? FeedPost {
-            self.contentPostData.append(post)
-            self.postTable.reloadData()
-        }
+        
+        postTable.reloadData()
+                
     }
     
     @objc func SearchPost() {
@@ -221,8 +204,6 @@ class Favorite: UIViewController {
     
     private func removePostFromDatabase(_ post: FeedPost, using data:[FeedPost]) {
         let predicate = NSPredicate(format: "id == %ld", post.id)
-        self.contentPostData.removeAll(where: { $0.id == Int(post.id) } )
-        self.postTable.reloadData()
         
         NotificationCenter.default.post(name: .didRemovePostFromFavorites, object: nil, userInfo: ["id" : post.id])
         
@@ -238,18 +219,12 @@ class Favorite: UIViewController {
     }
     
     @objc func updatePostTable() {
-        getPost()
+        self.getPost()
         postTable.refreshControl?.endRefreshing()
     }
 }
 
 extension Favorite: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        contentPostData.count
-
-    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -261,7 +236,8 @@ extension Favorite: UITableViewDelegate, UITableViewDataSource {
         else {
             preconditionFailure("Произошло какое то говно при открытии вашего профиля")
         }
-        cell.setupPost(contentPostData[indexPath.row])
+        let post = fetchedResultsController?.object(at: indexPath) as! FavoriteFeedPost
+        cell.setupPost(FeedPost(postCoreDataModel: post))
         cell.delegate = self
         return cell
     
@@ -292,6 +268,11 @@ extension Favorite: UITableViewDelegate, UITableViewDataSource {
         return swipe
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            guard let sections = fetchedResultsController?.sections else { return 0 }
+            return sections[section].numberOfObjects
+        }
+    
 }
 
 extension Favorite: FavoritePostCollectionViewCellDelegate {
@@ -301,5 +282,69 @@ extension Favorite: FavoritePostCollectionViewCellDelegate {
     
     func tapToPost(with post: FeedPost) {
         self.removePostFromDatabase(post, using: [post])
+    }
+}
+
+extension Favorite: NSFetchedResultsControllerDelegate {
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, sectionIndexTitleForSectionName sectionName: String) -> String? {
+        return sectionName
+    }
+    
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        postTable.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController<NSFetchRequestResult>, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            postTable.insertSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+        case .delete:
+            postTable.deleteSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .fade)
+        case .update:
+            postTable.reloadSections(NSIndexSet(index: sectionIndex) as IndexSet, with: .automatic)
+        case .move:
+            break
+        @unknown default:
+            fatalError()
+        }
+    }
+
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any,
+                    at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType,
+                    newIndexPath: IndexPath?) {
+
+        switch type {
+        case .insert:
+            if let indexPath = newIndexPath {
+                postTable.insertRows(at: [indexPath as IndexPath], with: .automatic)
+            }
+        case .update:
+            if let indexPath = indexPath {
+                let favoriteFeedPost = fetchedResultsController?.object(at: indexPath as IndexPath) as! FavoriteFeedPost
+                guard let cell = postTable.cellForRow(at: indexPath as IndexPath) as? FavoritePostCollectionViewCell else { break }
+                cell.setupPost(FeedPost(postCoreDataModel: favoriteFeedPost))
+                cell.delegate = self
+            }
+        case .move:
+            if let indexPath = indexPath {
+                postTable.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+            }
+            if let newIndexPath = newIndexPath {
+                postTable.insertRows(at: [newIndexPath as IndexPath], with: .automatic)
+            }
+        case .delete:
+            if let indexPath = indexPath {
+                postTable.deleteRows(at: [indexPath as IndexPath], with: .automatic)
+            }
+        @unknown default:
+            fatalError("ХЗ что может произойти но сделаем обработчик")
+        }
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        postTable.endUpdates()
     }
 }

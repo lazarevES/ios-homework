@@ -45,8 +45,9 @@ class TabBarController: UITabBarController {
             
         case .allApp:
             do {
+                let coreDateCoordinator = CreateDataBase()
                 let feedCoordinator = FeedCoordinator()
-                let feedNavigationController = try feedCoordinator.Start()
+                let feedNavigationController = try feedCoordinator.Start(dbCoordinator: coreDateCoordinator)
                 let profileCoordinator = ProfileCoordinator(data: authenticationData!){
                     self.authenticationData = nil
                     self.activView = .autorization
@@ -55,7 +56,7 @@ class TabBarController: UITabBarController {
                 let playerCoordinator = AudioPlayerCordinator()
                 let playerNavigationController = try playerCoordinator.Start()
                 let favoriteCoordinator = FavoriteCoordinator()
-                let favoriteNavigationController = try favoriteCoordinator.Start()
+                let favoriteNavigationController = try favoriteCoordinator.Start(dbCoordinator: coreDateCoordinator)
                 if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController,
                    let favNavC = favoriteNavigationController {
                     self.viewControllers = [feedNavC, profileNavC, playerNavC, favNavC]
@@ -66,6 +67,25 @@ class TabBarController: UITabBarController {
             
         }
         
+    }
+    
+    private func CreateDataBase() -> DatabaseCoordinatable {
+        let bundle = Bundle.main
+        guard let url = bundle.url(forResource: "PostCoreDataModel", withExtension: "momd") else {
+            fatalError("Can't find DatabaseDemo.xcdatamodelId in main Bundle")
+        }
+        
+        switch CoreDataCoordinator.create(url: url) {
+        case .success(let database):
+            return database
+        case .failure:
+            switch CoreDataCoordinator.create(url: url) {
+            case .success(let database):
+                return database
+            case .failure(let error):
+                fatalError("Unable to create CoreData Database. Error - \(error.localizedDescription)")
+            }
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -90,8 +110,9 @@ class TabBarController: UITabBarController {
             
         case .allApp:
             do {
+                let coreDateCoordinator = CreateDataBase()
                 let feedCoordinator = FeedCoordinator()
-                let feedNavigationController = try feedCoordinator.Start()
+                let feedNavigationController = try feedCoordinator.Start(dbCoordinator: coreDateCoordinator)
                 let profileCoordinator = ProfileCoordinator(data: authenticationData!){
                     self.authenticationData = nil
                     self.activView = .autorization
@@ -100,7 +121,7 @@ class TabBarController: UITabBarController {
                 let playerCoordinator = AudioPlayerCordinator()
                 let playerNavigationController = try playerCoordinator.Start()
                 let favoriteCoordinator = FavoriteCoordinator()
-                let favoriteNavigationController = try favoriteCoordinator.Start()
+                let favoriteNavigationController = try favoriteCoordinator.Start(dbCoordinator: coreDateCoordinator)
                 if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController,
                    let favNavC = favoriteNavigationController {
                     self.viewControllers = [feedNavC, profileNavC, playerNavC, favNavC]

@@ -27,7 +27,7 @@ class CoreDataCoordinator {
             return masterContext
         }()
         
-        private lazy var mainContext: NSManagedObjectContext = {
+        lazy var mainContext: NSManagedObjectContext = {
             let mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
             mainContext.parent = self.masterContext
             mainContext.mergePolicy = NSOverwriteMergePolicy
@@ -323,5 +323,7 @@ class CoreDataCoordinator {
         func fetchAll<T>(_ model: T.Type, completion: @escaping (Result<[T], DatabaseError>) -> Void) where T : Storable {
             self.fetch(model, predicate: nil, completion: completion)
         }
+        
+        
         
     }

@@ -12,9 +12,9 @@ class FeedCoordinator: VCCoordinator {
     
     var navigationController: UINavigationController?
     
-    func Start() throws -> UINavigationController? {
+    func Start(dbCoordinator: DatabaseCoordinatable?) throws -> UINavigationController? {
         let factory = RootFactory(state: .feed)
-        navigationController = factory.startModule(coordinator: self, data: nil)
+        navigationController = factory.startModule(coordinator: self, data: nil, dbCoordinator: dbCoordinator)
         return navigationController
     }
     

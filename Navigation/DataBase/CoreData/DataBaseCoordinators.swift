@@ -25,6 +25,8 @@ enum DatabaseError: Error {
 }
 
 protocol DatabaseCoordinatable {
+    
+    var mainContext: NSManagedObjectContext { get set }
 
     func create<T: Storable>(_ model: T.Type, keyedValues: [[String: Any]], completion: @escaping (Result<[T], DatabaseError>) -> Void)
 
