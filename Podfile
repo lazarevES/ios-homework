@@ -8,6 +8,7 @@ target 'Navigation' do
 	pod 'FirebaseCore'
 	pod 'Firebase/Auth'
 	pod 'SnapKit', '~> 5.0.0'
+	pod 'KeychainAccess'
 
 end
 
