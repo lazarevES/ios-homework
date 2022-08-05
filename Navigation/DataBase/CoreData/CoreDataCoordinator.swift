@@ -185,8 +185,8 @@ class CoreDataCoordinator {
         }
     }
 
-    extension CoreDataCoordinator: DatabaseCoordinatable {
-        
+extension CoreDataCoordinator: DatabaseCoordinatable {
+         
         func create<T>(_ model: T.Type, keyedValues: [[String : Any]], completion: @escaping (Result<[T], DatabaseError>) -> Void) where T : Storable {
             self.saveContext.perform { [weak self] in
                 guard let self = self else { return }
