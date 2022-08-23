@@ -15,6 +15,7 @@ final class RootFactory {
         case profile
         case player
         case favorite
+        case map
     }
     
     var state: State
@@ -85,6 +86,20 @@ final class RootFactory {
             favoriteNavigationController.navigationBar.standardAppearance = appearance;
             favoriteNavigationController.navigationBar.scrollEdgeAppearance = favoriteNavigationController.navigationBar.standardAppearance
             return favoriteNavigationController
+            
+        case .map:
+            
+            let mapViewController = MapsViewController()
+            mapViewController.view.backgroundColor = UIColor.white
+            let mapavigationController = UINavigationController(rootViewController: mapViewController)
+            
+            mapavigationController.tabBarItem = UITabBarItem(title: "Карта", image: UIImage(named: "Profile"), selectedImage: UIImage(named: "SelectedProfile"))
+            mapavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
+            mapavigationController.navigationBar.barTintColor = UIColor.white
+            mapavigationController.navigationBar.standardAppearance = appearance;
+            mapavigationController.navigationBar.scrollEdgeAppearance = mapavigationController.navigationBar.standardAppearance
+            return mapavigationController
+            
         }
         
         return nil

@@ -57,9 +57,11 @@ class TabBarController: UITabBarController {
                 let playerNavigationController = try playerCoordinator.Start()
                 let favoriteCoordinator = FavoriteCoordinator()
                 let favoriteNavigationController = try favoriteCoordinator.Start(dbCoordinator: coreDateCoordinator)
+                let mapCoordinator = MapsCoordinator()
+                let mapNavigationController = try mapCoordinator.Start()
                 if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController,
-                   let favNavC = favoriteNavigationController {
-                    self.viewControllers = [feedNavC, profileNavC, playerNavC, favNavC]
+                   let favNavC = favoriteNavigationController, let mapNavC = mapNavigationController {
+                    self.viewControllers = [feedNavC, profileNavC, playerNavC, favNavC, mapNavC]
                 }
             } catch {
                 preconditionFailure("Критическая ошибка")
@@ -122,9 +124,11 @@ class TabBarController: UITabBarController {
                 let playerNavigationController = try playerCoordinator.Start()
                 let favoriteCoordinator = FavoriteCoordinator()
                 let favoriteNavigationController = try favoriteCoordinator.Start(dbCoordinator: coreDateCoordinator)
+                let mapCoordinator = MapsCoordinator()
+                let mapNavigationController = try mapCoordinator.Start()
                 if let feedNavC = feedNavigationController, let profileNavC = profileNavigationController, let playerNavC = playerNavigationController,
-                   let favNavC = favoriteNavigationController {
-                    self.viewControllers = [feedNavC, profileNavC, playerNavC, favNavC]
+                   let favNavC = favoriteNavigationController, let mapNavC = mapNavigationController {
+                    self.viewControllers = [feedNavC, profileNavC, playerNavC, favNavC, mapNavC]
                 }
             } catch {
                 fatalError()

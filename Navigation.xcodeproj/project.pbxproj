@@ -53,7 +53,7 @@
 		47A1D23C2821370400DE771B /* LoginFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A1D23B2821370400DE771B /* LoginFactory.swift */; };
 		47A1D23F2821810200DE771B /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 47A1D23E2821810200DE771B /* iOSIntPackage */; };
 		47A8137927BAD42E0051BD8E /* ProfileHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A8137827BAD42E0051BD8E /* ProfileHeaderView.swift */; };
-		47BB7F5228110DAF0020B187 /* BuildFile in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		47BB7F5228110DAF0020B187 /* (null) in Embed Frameworks */ = {isa = PBXBuildFile; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		47C162252827D56100B37DC3 /* RootCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C162242827D56100B37DC3 /* RootCoordinator.swift */; };
 		47C162282827D8D300B37DC3 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C162272827D8D300B37DC3 /* TabBarController.swift */; };
 		47C1622A2827E32900B37DC3 /* RootFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C162292827E32900B37DC3 /* RootFactory.swift */; };
@@ -64,6 +64,8 @@
 		47E4A4BC2893C191008374E9 /* RealmCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E4A4BB2893C191008374E9 /* RealmCoordinator.swift */; };
 		47E4A4BF2893C21F008374E9 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 47E4A4BE2893C21F008374E9 /* RealmSwift */; };
 		47E4A4C12893C30B008374E9 /* RealmDataBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E4A4C02893C30B008374E9 /* RealmDataBase.swift */; };
+		47F83F3528B53BEF0000F40A /* MapsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F83F3428B53BEF0000F40A /* MapsViewController.swift */; };
+		47F83F3728B53F720000F40A /* MapsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F83F3628B53F720000F40A /* MapsCoordinator.swift */; };
 		EEED7540E939CFA053D68018 /* Pods_Navigation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24D2F9905A1C0663A3A3E9A9 /* Pods_Navigation.framework */; };
 /* End PBXBuildFile section */
 
@@ -84,7 +86,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				47BB7F5228110DAF0020B187 /* BuildFile in Embed Frameworks */,
+				47BB7F5228110DAF0020B187 /* (null) in Embed Frameworks */,
 				47993BDC28068C39008891CD /* StorageService.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -147,6 +149,8 @@
 		47CEDDA227C2628F002F22F8 /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		47E4A4BB2893C191008374E9 /* RealmCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCoordinator.swift; sourceTree = "<group>"; };
 		47E4A4C02893C30B008374E9 /* RealmDataBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDataBase.swift; sourceTree = "<group>"; };
+		47F83F3428B53BEF0000F40A /* MapsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsViewController.swift; sourceTree = "<group>"; };
+		47F83F3628B53F720000F40A /* MapsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapsCoordinator.swift; sourceTree = "<group>"; };
 		D664A54F510FC6CCB39C745A /* Pods-Navigation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.debug.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.debug.xcconfig"; sourceTree = "<group>"; };
 		F52A41A2E84396C7A7A80C23 /* Pods-Navigation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Navigation.release.xcconfig"; path = "Target Support Files/Pods-Navigation/Pods-Navigation.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -288,6 +292,7 @@
 		479BB9CB27A992A100E6EB2C /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				47F83F3328B53BDB0000F40A /* Maps */,
 				4711216F28905EED00B1D9E9 /* Favorite */,
 				47CC9608288115BC008D61D5 /* DataBase */,
 				479CF95928601CB000CCEF1C /* Network */,
@@ -389,6 +394,15 @@
 			path = Realm;
 			sourceTree = "<group>";
 		};
+		47F83F3328B53BDB0000F40A /* Maps */ = {
+			isa = PBXGroup;
+			children = (
+				47F83F3428B53BEF0000F40A /* MapsViewController.swift */,
+				47F83F3628B53F720000F40A /* MapsCoordinator.swift */,
+			);
+			path = Maps;
+			sourceTree = "<group>";
+		};
 		6F85F4F6ECEC3BC194652964 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -484,9 +498,9 @@
 			);
 			mainGroup = 479BB9C027A992A100E6EB2C;
 			packageReferences = (
-				473EFE1628095F9E00157FF6 /* XCRemoteSwiftPackageReference "iOSIntPackage.git" */,
-				47A1D23D2821810200DE771B /* XCRemoteSwiftPackageReference "iOSIntPackage.git" */,
-				479B705C2831FC4100F215CF /* XCRemoteSwiftPackageReference "iOSIntPackage.git" */,
+				473EFE1628095F9E00157FF6 /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
+				47A1D23D2821810200DE771B /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
+				479B705C2831FC4100F215CF /* XCRemoteSwiftPackageReference "iOSIntPackage" */,
 				47E4A4BD2893C21F008374E9 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 479BB9CA27A992A100E6EB2C /* Products */;
@@ -614,10 +628,12 @@
 				47E4A4BC2893C191008374E9 /* RealmCoordinator.swift in Sources */,
 				4745D40428468AB8006032DC /* AudioPlayerCoordinator.swift in Sources */,
 				47C162252827D56100B37DC3 /* RootCoordinator.swift in Sources */,
+				47F83F3728B53F720000F40A /* MapsCoordinator.swift in Sources */,
 				4711217328905F6200B1D9E9 /* FavoriteCoordinator.swift in Sources */,
 				471D11FB27C6233F00810B1B /* General.swift in Sources */,
 				479CF95B28601CCC00CCEF1C /* NetworkService.swift in Sources */,
 				47A1D23C2821370400DE771B /* LoginFactory.swift in Sources */,
+				47F83F3528B53BEF0000F40A /* MapsViewController.swift in Sources */,
 				471CDEC6286DF5D900B905F3 /* LoginInspector.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -838,6 +854,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = VK;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разрешить использовать геолокацию";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
@@ -869,6 +886,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Navigation/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = VK;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Разрешить использовать геолокацию";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
@@ -921,7 +939,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		473EFE1628095F9E00157FF6 /* XCRemoteSwiftPackageReference "iOSIntPackage.git" */ = {
+		473EFE1628095F9E00157FF6 /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
 			requirement = {
@@ -929,7 +947,7 @@
 				minimumVersion = 2.0.0;
 			};
 		};
-		479B705C2831FC4100F215CF /* XCRemoteSwiftPackageReference "iOSIntPackage.git" */ = {
+		479B705C2831FC4100F215CF /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
 			requirement = {
@@ -937,7 +955,7 @@
 				kind = branch;
 			};
 		};
-		47A1D23D2821810200DE771B /* XCRemoteSwiftPackageReference "iOSIntPackage.git" */ = {
+		47A1D23D2821810200DE771B /* XCRemoteSwiftPackageReference "iOSIntPackage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/TrueMax/iOSIntPackage.git";
 			requirement = {
@@ -958,17 +976,17 @@
 /* Begin XCSwiftPackageProductDependency section */
 		473EFE1728095F9E00157FF6 /* iOSIntPackage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 473EFE1628095F9E00157FF6 /* XCRemoteSwiftPackageReference "iOSIntPackage.git" */;
+			package = 473EFE1628095F9E00157FF6 /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
 			productName = iOSIntPackage;
 		};
 		479B705D2831FC4100F215CF /* iOSIntPackage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 47A1D23D2821810200DE771B /* XCRemoteSwiftPackageReference "iOSIntPackage.git" */;
+			package = 47A1D23D2821810200DE771B /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
 			productName = iOSIntPackage;
 		};
 		47A1D23E2821810200DE771B /* iOSIntPackage */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 47A1D23D2821810200DE771B /* XCRemoteSwiftPackageReference "iOSIntPackage.git" */;
+			package = 47A1D23D2821810200DE771B /* XCRemoteSwiftPackageReference "iOSIntPackage" */;
 			productName = iOSIntPackage;
 		};
 		47E4A4BE2893C21F008374E9 /* RealmSwift */ = {
