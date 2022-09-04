@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>views</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@views@</string>
+		<key>views</key>
+		<dict>
+			<key>many</key>
+			<string>%d View&apos;s</string>
+			<key>few</key>
+			<string>%d View&apos;s</string>
+			<key>two</key>
+			<string>%d View&apos;s</string>
+			<key>one</key>
+			<string>%d View</string>
+			<key>zero</key>
+			<string>%d View&apos;s</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>other</key>
+			<string>%d View&apos;s</string>
+		</dict>
+	</dict>
+	<key>info</key>
+	<string>Info</string>
+	<key>setStatus</key>
+	<string>Set status</string>
+	<key>userNotFound</key>
+	<string>User not found</string>
+	<key>exit</key>
+	<string>Exit</string>
+	<key>photoGalery</key>
+	<string>Photo gallery</string>
+	<key>photos</key>
+	<string>Photos</string>
+	<key>music</key>
+	<string>Music</string>
+	<key>profile</key>
+	<string>Profile</string>
+	<key>feed</key>
+	<string>Feed</string>
+	<key>registration</key>
+	<string>Registration</string>
+	<key>enter</key>
+	<string>Enter</string>
+	<key>password</key>
+	<string>Password</string>
+	<key>emailOrPhone</key>
+	<string>Email or Phone</string>
+	<key>delete</key>
+	<string>Delete</string>
+	<key>agree</key>
+	<string>Agree</string>
+	<key>foundAuthorText</key>
+	<string>Enter author name</string>
+	<key>foundAuthor</key>
+	<string>Search by author</string>
+	<key>favorites</key>
+	<string>Favorites</string>
+	<key>clear</key>
+	<string>Clear</string>
+	<key>found</key>
+	<string>Found</string>
+	<key>maps</key>
+	<string>Map</string>
+	<key>like</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@like@</string>
+		<key>like</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d like</string>
+			<key>one</key>
+			<string>%d like</string>
+			<key>two</key>
+			<string>%d like&apos;s</string>
+			<key>few</key>
+			<string>%d like&apos;s</string>
+			<key>many</key>
+			<string>%d like&apos;s</string>
+			<key>other</key>
+			<string>%d like&apos;s</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

@@ -33,7 +33,7 @@ class PhotosViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Фото галлерея"
+        title = LocalizableService.getText(key: .photoGalery)
         view.backgroundColor = .white
         view.addSubview(collectionView)
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifire)

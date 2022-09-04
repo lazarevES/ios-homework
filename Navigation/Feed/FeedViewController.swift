@@ -55,7 +55,7 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Новости"
+        title = LocalizableService.getText(key: .feed)
             
         view.addSubview(collectionView)
         collectionView.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: PostCollectionViewCell.identifire)

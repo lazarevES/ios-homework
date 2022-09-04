@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>views</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@views@</string>
+		<key>views</key>
+		<dict>
+			<key>many</key>
+			<string>%d Просмотров</string>
+			<key>few</key>
+			<string>%d Просмотров</string>
+			<key>two</key>
+			<string>%d Просмотра</string>
+			<key>one</key>
+			<string>%d Просмотр</string>
+			<key>zero</key>
+			<string>%d Просмотров</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>other</key>
+			<string>%d Просмотров</string>
+		</dict>
+	</dict>
+	<key>info</key>
+	<string>Инфо</string>
+	<key>setStatus</key>
+	<string>Установить статус</string>
+	<key>userNotFound</key>
+	<string>Пользователь не найден</string>
+	<key>exit</key>
+	<string>Выход</string>
+	<key>photoGalery</key>
+	<string>Фото галлерея</string>
+	<key>photos</key>
+	<string>Фотографии</string>
+	<key>music</key>
+	<string>Музыка</string>
+	<key>profile</key>
+	<string>Профиль</string>
+	<key>feed</key>
+	<string>Новости</string>
+	<key>registration</key>
+	<string>Регистрация</string>
+	<key>enter</key>
+	<string>Вход</string>
+	<key>password</key>
+	<string>Пароль</string>
+	<key>emailOrPhone</key>
+	<string>Email или Телефон</string>
+	<key>delete</key>
+	<string>Удалить</string>
+	<key>agree</key>
+	<string>Принять</string>
+	<key>foundAuthorText</key>
+	<string>Введите имя автора</string>
+	<key>foundAuthor</key>
+	<string>Поиск по автору</string>
+	<key>favorites</key>
+	<string>Избранное</string>
+	<key>clear</key>
+	<string>Очистить</string>
+	<key>found</key>
+	<string>Поиск</string>
+	<key>maps</key>
+	<string>Карта</string>
+	<key>like</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@like@</string>
+		<key>like</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>%d Лайков</string>
+			<key>one</key>
+			<string>%d Лайк</string>
+			<key>two</key>
+			<string>%d Лайка</string>
+			<key>few</key>
+			<string>%d Лайков</string>
+			<key>many</key>
+			<string>%d Лайков</string>
+			<key>other</key>
+			<string>%d Лайков</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

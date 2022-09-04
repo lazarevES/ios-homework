@@ -64,11 +64,11 @@ class PostView: UIView {
         image.image = post.image
         descriptionView.text = post.description
         if let isFavorite = isFavorite {
-            likesView.text = "Лайки: \(String(post.likes + (isFavorite ? 1: 0))) \(isFavorite ? "❤️": "🖤")" //Костяем :D
+            likesView.text = LocalizableService.getText(key: .like, numeric: post.likes + (isFavorite ? 1: 0)) + (isFavorite ? "❤️": "🖤")
         } else {
-            likesView.text = "Лайки: \(String(post.likes))"
+            likesView.text = LocalizableService.getText(key: .like, numeric: post.likes)
         }
-        viewsView.text = "Просмотры: \(String(post.views))"
+        viewsView.text = LocalizableService.getText(key: .views, numeric: post.views)
     }
     
     func postToFullScreen() {
