@@ -43,7 +43,7 @@ class MapsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = LocalizableService.getText(key: .map)
+		title = "map".localized
         view.addSubviews(mapView, button)
         mapView.delegate = self
         

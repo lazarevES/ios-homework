@@ -14,7 +14,7 @@ class PostView: UIView {
         let authorView = UILabel()
         authorView.toAutoLayout()
         authorView.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        authorView.textColor = .black
+        authorView.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         authorView.numberOfLines = 2
         return authorView
     }()
@@ -23,7 +23,7 @@ class PostView: UIView {
         let descriptionView = UILabel()
         descriptionView.toAutoLayout()
         descriptionView.font = UIFont.systemFont(ofSize: 14)
-        descriptionView.textColor = UIColor.systemGray
+        descriptionView.textColor = UIColor.createColor(lightMode: .systemGray, darkMode: .systemGray6)
         descriptionView.numberOfLines = 0
         return descriptionView
     }()
@@ -32,7 +32,7 @@ class PostView: UIView {
         let image = UIImageView()
         image.toAutoLayout()
         image.contentMode = .scaleAspectFit
-        image.backgroundColor = .black
+        image.backgroundColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         return image
     }()
     
@@ -40,7 +40,7 @@ class PostView: UIView {
         let likesView = UILabel()
         likesView.toAutoLayout()
         likesView.font = UIFont.systemFont(ofSize: 16)
-        likesView.textColor = .black
+        likesView.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         return likesView
     }()
     
@@ -48,7 +48,7 @@ class PostView: UIView {
         let viewsView = UILabel()
         viewsView.toAutoLayout()
         viewsView.font = UIFont.systemFont(ofSize: 16)
-        viewsView.textColor = .black
+        viewsView.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         return viewsView
     }()
     
@@ -64,11 +64,12 @@ class PostView: UIView {
         image.image = post.image
         descriptionView.text = post.description
         if let isFavorite = isFavorite {
-            likesView.text = LocalizableService.getText(key: .like, numeric: post.likes + (isFavorite ? 1: 0)) + (isFavorite ? "❤️": "🖤")
+			let notLike = (traitCollection.userInterfaceStyle == .dark ? "🤍": "🖤")
+			likesView.text = "like".localizedNumeric(numeric: post.likes + (isFavorite ? 1: 0)) + (isFavorite ? "❤️": notLike)
         } else {
-            likesView.text = LocalizableService.getText(key: .like, numeric: post.likes)
+            likesView.text = "like".localizedNumeric(numeric: post.likes)
         }
-        viewsView.text = LocalizableService.getText(key: .views, numeric: post.views)
+        viewsView.text = "like".localizedNumeric(numeric: post.views)
     }
     
     func postToFullScreen() {
@@ -81,26 +82,28 @@ class PostView: UIView {
     }
     
     func useConstraint() {
-        NSLayoutConstraint.activate([authorView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Const.leadingMargin),
-                                     authorView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Const.trailingMargin),
-                                     authorView.topAnchor.constraint(equalTo: self.topAnchor, constant: Const.indent),
-                                     authorView.heightAnchor.constraint(equalToConstant: Const.smallSize),
-                                     image.topAnchor.constraint(equalTo: authorView.bottomAnchor, constant: Const.indent),
-                                     image.widthAnchor.constraint(equalTo: self.widthAnchor),
-                                     image.heightAnchor.constraint(equalTo: self.widthAnchor),
-                                     descriptionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Const.leadingMargin),
-                                     descriptionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Const.trailingMargin),
-                                     descriptionView.topAnchor.constraint(equalTo: image.bottomAnchor, constant: Const.indent),
-                                     //descriptionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -48),
-                                     descriptionView.heightAnchor.constraint(equalToConstant: 20),
-                                     likesView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Const.leadingMargin),
-                                     likesView.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: Const.indent),
-                                     likesView.heightAnchor.constraint(equalToConstant: Const.indent),
-                                     likesView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: Const.trailingMargin),
-                                     viewsView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Const.trailingMargin),
-                                     viewsView.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: Const.indent),
-                                     viewsView.heightAnchor.constraint(equalToConstant: Const.indent),
-                                     viewsView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: Const.trailingMargin)])
+        NSLayoutConstraint.activate([
+			authorView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Const.leadingMargin),
+			authorView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Const.trailingMargin),
+			authorView.topAnchor.constraint(equalTo: self.topAnchor, constant: Const.indent),
+			authorView.heightAnchor.constraint(equalToConstant: Const.smallSize),
+			image.topAnchor.constraint(equalTo: authorView.bottomAnchor, constant: Const.indent),
+			image.widthAnchor.constraint(equalTo: self.widthAnchor),
+			image.heightAnchor.constraint(equalTo: self.widthAnchor),
+			descriptionView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Const.leadingMargin),
+			descriptionView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Const.trailingMargin),
+			descriptionView.topAnchor.constraint(equalTo: image.bottomAnchor, constant: Const.indent),
+			//descriptionView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -48),
+			descriptionView.heightAnchor.constraint(equalToConstant: 20),
+			likesView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: Const.leadingMargin),
+			likesView.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: Const.indent),
+			likesView.heightAnchor.constraint(equalToConstant: Const.indent),
+			likesView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: Const.trailingMargin),
+			viewsView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: Const.trailingMargin),
+			viewsView.topAnchor.constraint(equalTo: descriptionView.bottomAnchor, constant: Const.indent),
+			viewsView.heightAnchor.constraint(equalToConstant: Const.indent),
+			viewsView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: Const.trailingMargin)
+		])
     }
     
 }

@@ -22,6 +22,7 @@ class PhotosViewController: UIViewController {
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.toAutoLayout()
+		collectionView.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -33,23 +34,14 @@ class PhotosViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = LocalizableService.getText(key: .photoGalery)
-        view.backgroundColor = .white
+		title = "photoGalery".localized
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
         view.addSubview(collectionView)
         collectionView.register(PhotosCollectionViewCell.self, forCellWithReuseIdentifier: PhotosCollectionViewCell.identifire)
         useConstraint()
         
-        let imageProcessor = ImageProcessor()
-        imageProcessor.processImagesOnThread(sourceImages: constPhotoArray, filter: .chrome, qos: .utility) {cgImages in
-            let images = cgImages.map({UIImage(cgImage: $0!)})
-            self.contentPhotoData.removeAll()
-            images.forEach({self.contentPhotoData.append($0)})
-            DispatchQueue.main.async{
-                self.collectionView.reloadData()
-            }
-        }
-        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-        
+		contentPhotoData = constPhotoArray
+		
         /*
          .default - 31.93 сек
          .background - 150.13 сек

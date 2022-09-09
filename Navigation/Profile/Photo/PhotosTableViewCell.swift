@@ -22,7 +22,7 @@ class PhotosTableViewCell: UITableViewCell {
         stackView.spacing = 8
         stackView.alignment = .leading
         stackView.distribution = .fillEqually
-        stackView.backgroundColor = .white
+        stackView.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
         
         return stackView
         
@@ -30,16 +30,17 @@ class PhotosTableViewCell: UITableViewCell {
     
     let titleLabel: UILabel = {
            let photosLabel = UILabel()
-           photosLabel.text = LocalizableService.getText(key: .photos)
+		photosLabel.text = "photos".localized
            photosLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
-           photosLabel.textColor = .black
+           photosLabel.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
            photosLabel.toAutoLayout()
            return photosLabel
        }()
 
        let titleButton: UIImageView = {
            let arrowImage = UIImageView()
-           arrowImage.image = UIImage(systemName: "arrow.right", withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))?.withTintColor(.black, renderingMode: .alwaysOriginal)
+           arrowImage.image = UIImage(systemName: "arrow.right",
+									  withConfiguration: UIImage.SymbolConfiguration(pointSize: 30))?.withTintColor(UIColor.createColor(lightMode: .black, darkMode: .white), renderingMode: .alwaysOriginal)
            arrowImage.toAutoLayout()
            return arrowImage
        }()

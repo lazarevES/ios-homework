@@ -23,6 +23,7 @@ class FeedViewController: UIViewController {
     lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.toAutoLayout()
+		collectionView.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
         collectionView.dataSource = self
         collectionView.delegate = self
         collectionView.isUserInteractionEnabled = true
@@ -55,7 +56,7 @@ class FeedViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = LocalizableService.getText(key: .feed)
+		title = "feed".localized
             
         view.addSubview(collectionView)
         collectionView.register(PostCollectionViewCell.self, forCellWithReuseIdentifier: PostCollectionViewCell.identifire)

@@ -42,18 +42,13 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = LocalizableService.getText(key: .profile)
+		title = "profile".localized
         
-        let exitBarButton = UIBarButtonItem(title: LocalizableService.getText(key: .exit), style: .plain, target: self, action: #selector(exitToProfile))
+		let exitBarButton = UIBarButtonItem(title: "exit".localized, style: .plain, target: self, action: #selector(exitToProfile))
         self.navigationItem.rightBarButtonItem  = exitBarButton
         
-#if release
-        view.backgroundColor = .lightGray
-        postTable.backgroundColor = .lightGray
-#elseif DEBUG
-        view.backgroundColor = .white
-        postTable.backgroundColor = .white
-#endif
+        view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
+        postTable.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
         
         postTable.dataSource = self
         postTable.delegate = self
@@ -129,10 +124,12 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 1 {
             let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.identifire, for: indexPath) as! PostTableViewCell
             cell.specifyFields(post: posts[indexPath.row])
+			cell.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
             return cell
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: PhotosTableViewCell.identifire, for: indexPath) as! PhotosTableViewCell
+		cell.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
         return cell
     
     }
@@ -144,6 +141,7 @@ extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
             if let user = userService.getUser(name: userName) {
                 headerView.initUserData(user: user)
             }
+			headerView.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
             return headerView
         } else
         { return nil }

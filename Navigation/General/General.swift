@@ -102,10 +102,20 @@ extension String {
     
     static let empty = ""
     static let whitespace: Character = " "
+	
+	var localized: String { NSLocalizedString(self, comment: "") }
     
     var isFirstCharacterWhitespace: Bool {
         return self.first == Self.whitespace
     }
+	
+	func localizedNumeric(numeric: Int) -> String {
+		
+		var string = NSLocalizedString(self, comment: "")
+		string = String.localizedStringWithFormat(string, numeric)
+		return string
+	}
+
 
     func toDate(withFormat format: String = "yyyy-MM-dd'T'HH:mm:ssZ") -> Date? {
         let dateFormatter = DateFormatter()
@@ -132,4 +142,16 @@ extension String {
       let letters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
       return String((0..<length).compactMap { _ in letters.randomElement() })
     }
+
+}
+
+extension UIColor {
+	static func createColor(lightMode: UIColor, darkMode: UIColor) -> UIColor {
+		guard #available(iOS 13.0, *) else {
+			return lightMode
+		}
+		return UIColor { (traitCollection) -> UIColor in
+			return traitCollection.userInterfaceStyle == .light ? lightMode : darkMode
+		}
+	}
 }

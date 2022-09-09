@@ -35,7 +35,7 @@ class TabBarController: UITabBarController {
                 self.authenticationData = authenticationData
                 self.activView = .allApp
             }
-            logInViewController.view.backgroundColor = .white
+            logInViewController.view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
             
             let loginFactory = MyLoginFactory()
             logInViewController.delegate = loginFactory.creatLoginInspector()
@@ -102,7 +102,7 @@ class TabBarController: UITabBarController {
                 self.authenticationData = authenticationData
                 self.activView = .allApp
             }
-            logInViewController.view.backgroundColor = .white
+            logInViewController.view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
             
             let loginFactory = MyLoginFactory()
             logInViewController.delegate = loginFactory.creatLoginInspector()

@@ -26,7 +26,7 @@ class UITabBarCoordinator: RootCoordinator {
     
     func startApp(authenticationData: (userService: UserService, name: String)?) -> UIViewController {
         let tabBar = TabBarController(coordinator: self, activView: .autorization, authenticationData: authenticationData)
-        tabBar.tabBar.backgroundColor = .white
+        tabBar.tabBar.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
         return tabBar
     }
 }
