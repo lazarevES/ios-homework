@@ -30,7 +30,7 @@ class PhotosTableViewCell: UITableViewCell {
     
     let titleLabel: UILabel = {
            let photosLabel = UILabel()
-           photosLabel.text = "Фотографии"
+           photosLabel.text = LocalizableService.getText(key: .photos)
            photosLabel.font = UIFont.systemFont(ofSize: 24, weight: .bold)
            photosLabel.textColor = .black
            photosLabel.toAutoLayout()

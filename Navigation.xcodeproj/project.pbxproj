@@ -32,6 +32,9 @@
 		4745D40D28468CE0006032DC /* Тапок 5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4745D40828468CDE006032DC /* Тапок 5.mp3 */; };
 		4745D40E28468CE0006032DC /* Тапок 2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4745D40928468CDF006032DC /* Тапок 2.mp3 */; };
 		4745D40F28468CE0006032DC /* Тапок 4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4745D40A28468CE0006032DC /* Тапок 4.mp3 */; };
+		475317EA28C379ED0085C699 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 475317EC28C379ED0085C699 /* Localizable.stringsdict */; };
+		475317EF28C37A0C0085C699 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 475317F128C37A0C0085C699 /* Localizable.stringsdict */; };
+		475317F328C4EA240085C699 /* LocalizableService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475317F228C4EA240085C699 /* LocalizableService.swift */; };
 		475FE25927B2D04F00353434 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25827B2D04F00353434 /* FeedViewController.swift */; };
 		475FE25B27B2D06C00353434 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25A27B2D06C00353434 /* ProfileViewController.swift */; };
 		475FE25F27B2E14100353434 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 475FE25E27B2E14100353434 /* PostViewController.swift */; };
@@ -119,6 +122,10 @@
 		4745D40828468CDE006032DC /* Тапок 5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Тапок 5.mp3"; sourceTree = "<group>"; };
 		4745D40928468CDF006032DC /* Тапок 2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Тапок 2.mp3"; sourceTree = "<group>"; };
 		4745D40A28468CE0006032DC /* Тапок 4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Тапок 4.mp3"; sourceTree = "<group>"; };
+		475317E728C379C30085C699 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		475317EB28C379ED0085C699 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ru; path = ru.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		475317F028C37A0C0085C699 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		475317F228C4EA240085C699 /* LocalizableService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizableService.swift; sourceTree = "<group>"; };
 		475FE25827B2D04F00353434 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
 		475FE25A27B2D06C00353434 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		475FE25E27B2E14100353434 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
@@ -250,6 +257,16 @@
 			path = MusicLibrary;
 			sourceTree = "<group>";
 		};
+		475317E628C379720085C699 /* Localized */ = {
+			isa = PBXGroup;
+			children = (
+				475317EC28C379ED0085C699 /* Localizable.stringsdict */,
+				475317F128C37A0C0085C699 /* Localizable.stringsdict */,
+				475317F228C4EA240085C699 /* LocalizableService.swift */,
+			);
+			path = Localized;
+			sourceTree = "<group>";
+		};
 		477DA8BE27C6579700FA6C89 /* General */ = {
 			isa = PBXGroup;
 			children = (
@@ -292,6 +309,7 @@
 		479BB9CB27A992A100E6EB2C /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				475317E628C379720085C699 /* Localized */,
 				47F83F3328B53BDB0000F40A /* Maps */,
 				4711216F28905EED00B1D9E9 /* Favorite */,
 				47CC9608288115BC008D61D5 /* DataBase */,
@@ -495,6 +513,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ru,
 			);
 			mainGroup = 479BB9C027A992A100E6EB2C;
 			packageReferences = (
@@ -527,9 +546,11 @@
 			files = (
 				479BB9D927A992A400E6EB2C /* LaunchScreen.storyboard in Resources */,
 				471CDECA286E01F100B905F3 /* GoogleService-Info.plist in Resources */,
+				475317EA28C379ED0085C699 /* Localizable.stringsdict in Resources */,
 				4745D40D28468CE0006032DC /* Тапок 5.mp3 in Resources */,
 				4745D40E28468CE0006032DC /* Тапок 2.mp3 in Resources */,
 				479BB9D627A992A400E6EB2C /* Assets.xcassets in Resources */,
+				475317EF28C37A0C0085C699 /* Localizable.stringsdict in Resources */,
 				4745D40F28468CE0006032DC /* Тапок 4.mp3 in Resources */,
 				4745D40B28468CE0006032DC /* Тапок 3.mp3 in Resources */,
 				4745D40C28468CE0006032DC /* Тапок 1.mp3 in Resources */,
@@ -631,6 +652,7 @@
 				47F83F3728B53F720000F40A /* MapsCoordinator.swift in Sources */,
 				4711217328905F6200B1D9E9 /* FavoriteCoordinator.swift in Sources */,
 				471D11FB27C6233F00810B1B /* General.swift in Sources */,
+				475317F328C4EA240085C699 /* LocalizableService.swift in Sources */,
 				479CF95B28601CCC00CCEF1C /* NetworkService.swift in Sources */,
 				47A1D23C2821370400DE771B /* LoginFactory.swift in Sources */,
 				47F83F3528B53BEF0000F40A /* MapsViewController.swift in Sources */,
@@ -649,10 +671,27 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		475317EC28C379ED0085C699 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				475317EB28C379ED0085C699 /* ru */,
+			);
+			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
+		475317F128C37A0C0085C699 /* Localizable.stringsdict */ = {
+			isa = PBXVariantGroup;
+			children = (
+				475317F028C37A0C0085C699 /* en */,
+			);
+			name = Localizable.stringsdict;
+			sourceTree = "<group>";
+		};
 		479BB9D727A992A400E6EB2C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				479BB9D827A992A400E6EB2C /* Base */,
+				475317E728C379C30085C699 /* ru */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -729,6 +768,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -791,6 +831,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";

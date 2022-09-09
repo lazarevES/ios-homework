@@ -32,7 +32,7 @@ class Favorite: UIViewController {
         button.toAutoLayout()
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
-        button.setTitle("Поиск", for: .normal)
+        button.setTitle(LocalizableService.getText(key: .found), for: .normal)
         button.titleLabel?.textColor = .white
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -55,7 +55,7 @@ class Favorite: UIViewController {
         button.toAutoLayout()
         button.layer.cornerRadius = 10
         button.clipsToBounds = true
-        button.setTitle("Очистить", for: .normal)
+        button.setTitle(LocalizableService.getText(key: .clear), for: .normal)
         button.titleLabel?.textColor = .white
         button.layer.shadowColor = UIColor.black.cgColor
         button.layer.shadowOffset = CGSize(width: 4, height: 4)
@@ -105,7 +105,7 @@ class Favorite: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Избранное"
+        title = LocalizableService.getText(key: .favorites)
         
         view.addSubviews(postTable, searchButton, clearSearchButton, searchNameLabel)
         postTable.dataSource = self
@@ -169,15 +169,15 @@ class Favorite: UIViewController {
     }
     
     @objc func SearchPost() {
-        let alertController = UIAlertController(title: "Поиск по автору",
-                                                message: "Введите имя автора",
+        let alertController = UIAlertController(title: LocalizableService.getText(key: .foundAuthor),
+                                                message: LocalizableService.getText(key: .foundAuthorText),
                                                 preferredStyle: .alert)
         
         alertController.addTextField( configurationHandler: {(textField: UITextField!) in
             textField.placeholder = "Киря"
         })
         
-        let action = UIAlertAction(title: "Принять",
+        let action = UIAlertAction(title: LocalizableService.getText(key: .agree),
                                    style: UIAlertAction.Style.default) {[weak self] (paramAction:UIAlertAction!) in
             if let textFields = alertController.textFields {
                 let theTextFields = textFields as [UITextField]
@@ -247,7 +247,7 @@ extension Favorite: UITableViewDelegate, UITableViewDataSource {
        
         let post = contentPostData[indexPath.row]
         
-        let deleteAction = UIContextualAction(style: .destructive, title: "Удалить") { (_ , _, completionHandler) in
+        let deleteAction = UIContextualAction(style: .destructive, title: LocalizableService.getText(key: .delete)) { (_ , _, completionHandler) in
             
             let predicate = NSPredicate(format: "id == %ld", post.id)
             

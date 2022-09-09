@@ -12,7 +12,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     lazy var userName: UILabel = {
         let userName = UILabel()
-        userName.text = "Пользователь не найден"
+        userName.text = LocalizableService.getText(key: .userNotFound)
         userName.textAlignment = .natural
         userName.textColor = .black
         userName.font = UIFont.systemFont(ofSize: 18, weight: .bold)
@@ -49,7 +49,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         statusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
         statusButton.layer.shadowOpacity = 0.7
         statusButton.layer.shadowRadius = 4
-        statusButton.setTitle("Установить статус", for: .normal)
+        statusButton.setTitle(LocalizableService.getText(key: .setStatus), for: .normal)
         statusButton.setTitleColor(.white, for: .highlighted)
         statusButton.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
         return statusButton
@@ -58,7 +58,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     lazy var setStatusField: UITextField = {
         let setStatusField = UITextField()
         setStatusField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        setStatusField.placeholder = "Ввести статус"
+        setStatusField.placeholder = LocalizableService.getText(key: .setStatus)
         setStatusField.textColor = .black
         setStatusField.backgroundColor = .white
         setStatusField.textAlignment = .natural

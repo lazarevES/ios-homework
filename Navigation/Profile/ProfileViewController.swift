@@ -42,9 +42,9 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Профиль"
+        title = LocalizableService.getText(key: .profile)
         
-        let exitBarButton = UIBarButtonItem(title: "Выйти", style: .plain, target: self, action: #selector(exitToProfile))
+        let exitBarButton = UIBarButtonItem(title: LocalizableService.getText(key: .exit), style: .plain, target: self, action: #selector(exitToProfile))
         self.navigationItem.rightBarButtonItem  = exitBarButton
         
 #if release

@@ -39,7 +39,7 @@ final class RootFactory {
             feedViewController.view.backgroundColor = UIColor.white
             let feedNavigationController = UINavigationController(rootViewController: feedViewController)
             
-            feedNavigationController.tabBarItem = UITabBarItem(title: "Лента", image: UIImage(named: "Feed"), selectedImage: UIImage(named: "SelectedFeed"))
+            feedNavigationController.tabBarItem = UITabBarItem(title: LocalizableService.getText(key: .feed), image: UIImage(named: "Feed"), selectedImage: UIImage(named: "SelectedFeed"))
             feedNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
             feedNavigationController.navigationBar.barTintColor = UIColor.white
             feedNavigationController.navigationBar.standardAppearance = appearance;
@@ -52,7 +52,7 @@ final class RootFactory {
                 let profileViewController = ProfileViewController(coordinator: coordinator as! ProfileCoordinator, userService: userData.userService, name: userData.name)
                 let profileNavigationController = UINavigationController(rootViewController: profileViewController)
                 
-                profileNavigationController.tabBarItem = UITabBarItem(title: "Профиль", image: UIImage(named: "Profile"), selectedImage: UIImage(named: "SelectedProfile"))
+                profileNavigationController.tabBarItem = UITabBarItem(title: LocalizableService.getText(key: .profile), image: UIImage(named: "Profile"), selectedImage: UIImage(named: "SelectedProfile"))
                 profileNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
                 profileNavigationController.navigationBar.barTintColor = UIColor.white
                 profileNavigationController.navigationBar.standardAppearance = appearance;
@@ -66,7 +66,7 @@ final class RootFactory {
             let playerViewController = AudioPlayer(coordinator: coordinator as! AudioPlayerCordinator)
             let playerNavigationController = UINavigationController(rootViewController: playerViewController)
             
-            playerNavigationController.tabBarItem = UITabBarItem(title: "Музыка", image: UIImage(named: "music"), selectedImage: UIImage(named: "SelectedMusic"))
+            playerNavigationController.tabBarItem = UITabBarItem(title: LocalizableService.getText(key: .music), image: UIImage(named: "music"), selectedImage: UIImage(named: "SelectedMusic"))
             playerNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
             playerNavigationController.navigationBar.barTintColor = UIColor.white
             playerNavigationController.navigationBar.standardAppearance = appearance;
@@ -80,7 +80,7 @@ final class RootFactory {
             favoriteViewController.view.backgroundColor = UIColor.white
             let favoriteNavigationController = UINavigationController(rootViewController: favoriteViewController)
             
-            favoriteNavigationController.tabBarItem = UITabBarItem(title: "Избранное", image: UIImage(named: "Feed"), selectedImage: UIImage(named: "SelectedFeed"))
+            favoriteNavigationController.tabBarItem = UITabBarItem(title: LocalizableService.getText(key: .favorites), image: UIImage(named: "Feed"), selectedImage: UIImage(named: "SelectedFeed"))
             favoriteNavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
             favoriteNavigationController.navigationBar.barTintColor = UIColor.white
             favoriteNavigationController.navigationBar.standardAppearance = appearance;
@@ -93,7 +93,7 @@ final class RootFactory {
             mapViewController.view.backgroundColor = UIColor.white
             let mapavigationController = UINavigationController(rootViewController: mapViewController)
             
-            mapavigationController.tabBarItem = UITabBarItem(title: "Карта", image: UIImage(named: "Profile"), selectedImage: UIImage(named: "SelectedProfile"))
+            mapavigationController.tabBarItem = UITabBarItem(title: LocalizableService.getText(key: .map), image: UIImage(named: "Profile"), selectedImage: UIImage(named: "SelectedProfile"))
             mapavigationController.navigationBar.titleTextAttributes = [ .foregroundColor: UIColor.black]
             mapavigationController.navigationBar.barTintColor = UIColor.white
             mapavigationController.navigationBar.standardAppearance = appearance;
