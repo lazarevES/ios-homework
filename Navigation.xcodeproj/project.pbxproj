@@ -27,6 +27,7 @@
 		473EFE1828095F9E00157FF6 /* iOSIntPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 473EFE1728095F9E00157FF6 /* iOSIntPackage */; };
 		47452E8C28D387E40057275A /* LoginInspectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47452E8B28D387E40057275A /* LoginInspectorTests.swift */; };
 		47452E9328D395360057275A /* PostCollectionViewCellTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47452E9228D395350057275A /* PostCollectionViewCellTest.swift */; };
+		47452E9528D39AB80057275A /* LocalAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47452E9428D39AB80057275A /* LocalAuthorizationService.swift */; };
 		4745D40228468AA7006032DC /* AudioPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4745D40128468AA7006032DC /* AudioPlayer.swift */; };
 		4745D40428468AB8006032DC /* AudioPlayerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4745D40328468AB8006032DC /* AudioPlayerCoordinator.swift */; };
 		4745D40B28468CE0006032DC /* Тапок 3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 4745D40628468CDD006032DC /* Тапок 3.mp3 */; };
@@ -126,6 +127,7 @@
 		47452E8928D387E40057275A /* NavigationTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NavigationTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		47452E8B28D387E40057275A /* LoginInspectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginInspectorTests.swift; sourceTree = "<group>"; };
 		47452E9228D395350057275A /* PostCollectionViewCellTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostCollectionViewCellTest.swift; sourceTree = "<group>"; };
+		47452E9428D39AB80057275A /* LocalAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalAuthorizationService.swift; sourceTree = "<group>"; };
 		4745D40128468AA7006032DC /* AudioPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayer.swift; sourceTree = "<group>"; };
 		4745D40328468AB8006032DC /* AudioPlayerCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlayerCoordinator.swift; sourceTree = "<group>"; };
 		4745D40628468CDD006032DC /* Тапок 3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Тапок 3.mp3"; sourceTree = "<group>"; };
@@ -407,6 +409,7 @@
 				47A1D23B2821370400DE771B /* LoginFactory.swift */,
 				471CDEC5286DF5D900B905F3 /* LoginInspector.swift */,
 				471CDEC7286DF5F700B905F3 /* Checker.swift */,
+				47452E9428D39AB80057275A /* LocalAuthorizationService.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -712,6 +715,7 @@
 				471DD32A28916AA600C5544D /* PostView.swift in Sources */,
 				471CDEC8286DF5F700B905F3 /* Checker.swift in Sources */,
 				47C1622E2827E5DD00B37DC3 /* FeedCoordinator.swift in Sources */,
+				47452E9528D39AB80057275A /* LocalAuthorizationService.swift in Sources */,
 				47E4A4BC2893C191008374E9 /* RealmCoordinator.swift in Sources */,
 				4745D40428468AB8006032DC /* AudioPlayerCoordinator.swift in Sources */,
 				47C162252827D56100B37DC3 /* RootCoordinator.swift in Sources */,
