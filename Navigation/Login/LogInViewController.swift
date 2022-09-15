@@ -179,12 +179,13 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
                                                object: nil)
         
         if let delegate = delegate {
-            _ = delegate.checkUserToDataBase { [weak self] user in
-                self?.userName.text = user.name
-                DispatchQueue.main.async {
-                    self?.logined()
-                }
-            }
+			let callback: (User)->Void = { [weak self] user in
+				self?.userName.text = user.name
+				DispatchQueue.main.async {
+					self?.logined()
+				}
+			}
+            _ = delegate.checkUserToDataBase(callback: callback, failureCallback: nil)
         }
     }
     

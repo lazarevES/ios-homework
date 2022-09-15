@@ -9,13 +9,14 @@ import Foundation
 protocol LoginViewControllerDelegate: AnyObject {
     func signIn(login: String, password: String, callback: @escaping (_ result: (Result<Bool, AppError>), _ message: String) -> Void)
     func registerIn(login: String, password: String, callback: @escaping (_ result: (Result<Bool, AppError>), _ message: String) -> Void)
-    func checkUserToDataBase(callback: @escaping (_ user: User)->Void)
+	func checkUserToDataBase(callback: @escaping (_ user: User)->Void, failureCallback: (()->Void)?)
 }
 
 class LoginInspector: LoginViewControllerDelegate  {
-    
+	
     var callback: ((Result<Bool, AppError>, _ message: String) -> Void)?
     var callbackDataBase: ((_ user: User)->Void)?
+	var failureCallback: (()->Void)?
     let dataBaseCoordinator: RealmDatabaseCoordinatable = RealmCoordinator()
     
     func signIn(login: String, password: String, callback: @escaping ((Result<Bool, AppError>), _ message: String) -> Void) {
@@ -44,20 +45,25 @@ class LoginInspector: LoginViewControllerDelegate  {
         }
     }
     
-    func checkUserToDataBase(callback: @escaping (_ user: User)->Void) {
-        callbackDataBase = callback
-        dataBaseCoordinator.fetch(User.self, predicate: nil) { result in
-            switch result {
-            case .success(let UserModels):
-                if UserModels.count > 0 {
-                    if let callbackDataBase = self.callbackDataBase, let _ = UserModels[0].name {
-                        print(UserModels[0])
-                        callbackDataBase(UserModels[0])
-                    }
-                }
-            case .failure:
-                break
-            }
+	func checkUserToDataBase(callback: @escaping (_ user: User)->Void, failureCallback: (()->Void)? = nil) {
+		self.callbackDataBase = callback
+		self.failureCallback = failureCallback
+		dataBaseCoordinator.fetch(User.self, predicate: nil) { result in
+			switch result {
+			case .success(let UserModels):
+				if UserModels.count > 0 {
+					if let callbackDataBase = self.callbackDataBase, let _ = UserModels[0].name {
+						callbackDataBase(UserModels[0])
+					} 
+				} else if let failureCallback = self.failureCallback {
+					failureCallback()
+				}
+			case .failure:
+				if let failureCallback = self.failureCallback {
+					failureCallback()
+				}
+				break
+			}
         }
     }
     
