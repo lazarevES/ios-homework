@@ -12,9 +12,9 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     lazy var userName: UILabel = {
         let userName = UILabel()
-        userName.text = LocalizableService.getText(key: .userNotFound)
+		userName.text = "userNotFound".localized
         userName.textAlignment = .natural
-        userName.textColor = .black
+        userName.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
         userName.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         return userName
     }()
@@ -35,7 +35,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         let status = UILabel()
         status.text = ""
         status.textAlignment = .natural
-        status.textColor = .gray
+        status.textColor = UIColor.createColor(lightMode: .gray, darkMode: .lightGray)
         status.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         status.isUserInteractionEnabled = true
         return status
@@ -49,7 +49,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         statusButton.layer.shadowOffset = CGSize(width: 4, height: 4)
         statusButton.layer.shadowOpacity = 0.7
         statusButton.layer.shadowRadius = 4
-        statusButton.setTitle(LocalizableService.getText(key: .setStatus), for: .normal)
+		statusButton.setTitle("setStatus".localized, for: .normal)
         statusButton.setTitleColor(.white, for: .highlighted)
         statusButton.addTarget(self, action: #selector(pressButton), for: .touchUpInside)
         return statusButton
@@ -58,9 +58,9 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     lazy var setStatusField: UITextField = {
         let setStatusField = UITextField()
         setStatusField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
-        setStatusField.placeholder = LocalizableService.getText(key: .setStatus)
-        setStatusField.textColor = .black
-        setStatusField.backgroundColor = .white
+		setStatusField.placeholder = "setStatus".localized
+        setStatusField.textColor = UIColor.createColor(lightMode: .black, darkMode: .white)
+        setStatusField.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
         setStatusField.textAlignment = .natural
         setStatusField.layer.cornerRadius = 12
         setStatusField.layer.borderWidth = 1
@@ -73,7 +73,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     lazy var foneView: UIView = {
         let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
-        view.backgroundColor = .darkGray
+        view.backgroundColor = UIColor.createColor(lightMode: .darkGray, darkMode: .lightGray)
         view.isHidden = true
         view.alpha = 0
         return view
@@ -83,7 +83,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
         let button = UIButton()
         button.isHidden = true
         button.imageView?.contentMode = .scaleAspectFit
-        button.backgroundColor = .darkGray
+        button.backgroundColor = UIColor.createColor(lightMode: .darkGray, darkMode: .lightGray)
         button.setImage(UIImage(systemName: "xmark"), for: .normal)
         button.addTarget(self, action: #selector(closeAvatar), for: .touchUpInside)
         return button
