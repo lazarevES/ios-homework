@@ -42,6 +42,10 @@
 	<string>Музыка</string>
 	<key>profile</key>
 	<string>Профиль</string>
+	<key>faceID</key>
+	<string>Face ID</string>
+	<key>touchID</key>
+	<string>Touch ID</string>
 	<key>feed</key>
 	<string>Новости</string>
 	<key>registration</key>

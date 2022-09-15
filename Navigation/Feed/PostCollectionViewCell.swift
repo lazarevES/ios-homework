@@ -59,6 +59,7 @@ class PostCollectionViewCell: UICollectionViewCell {
     func setupPost(_ post: FeedPost, isFavorite: Bool) {
         postView.setupPost(post: post, isFavorite: isFavorite)
         self.post = post
+		self.isFavorite = isFavorite
     }
     
     @objc func imageTapped()

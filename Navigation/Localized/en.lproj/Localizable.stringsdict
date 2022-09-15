@@ -36,6 +36,10 @@
 	<string>Exit</string>
 	<key>photoGalery</key>
 	<string>Photo gallery</string>
+	<key>touchID</key>
+	<string>Touch ID</string>
+	<key>faceID</key>
+	<string>Face ID</string>
 	<key>photos</key>
 	<string>Photos</string>
 	<key>music</key>

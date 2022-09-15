@@ -10,6 +10,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
     
     var delegate: LoginViewControllerDelegate?
     var callback: (_ authenticationData: (userService: UserService, name: String)) -> Void
+	var localAuthorizationService = LocalAuthorizationService()
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -117,6 +118,30 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         }
         return regIn
     }()
+	
+	lazy var biometricLogIn: UIButton = {
+		let biometricLogIn = UIButton()
+		biometricLogIn.toAutoLayout()
+		biometricLogIn.layer.cornerRadius = 10
+		biometricLogIn.clipsToBounds = true
+		biometricLogIn.isHidden = true
+		biometricLogIn.setTitle("touchID".localized, for: .normal)
+		biometricLogIn.titleLabel?.textColor = UIColor.createColor(lightMode: .white, darkMode: .black)
+		biometricLogIn.layer.shadowColor = UIColor.black.cgColor
+		biometricLogIn.layer.shadowOffset = CGSize(width: 4, height: 4)
+		biometricLogIn.layer.shadowOpacity = 0.7
+		biometricLogIn.layer.shadowRadius = 4
+		biometricLogIn.addTarget(self, action: #selector(useBiometric), for: .touchUpInside)
+				
+		if let image = UIImage(named: "blue_pixel") {
+			biometricLogIn.imageView?.contentMode = .scaleAspectFill
+			biometricLogIn.setBackgroundImage(image.imageWithAlpha(alpha: 1), for: .normal)
+			biometricLogIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.6), for: .selected)
+			biometricLogIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.6), for: .highlighted)
+			biometricLogIn.setBackgroundImage(image.imageWithAlpha(alpha: 0.2), for: .disabled)
+		}
+		return biometricLogIn
+	}()
     
     lazy var stackView: UIStackView = {
         let stackView = UIStackView()
@@ -132,6 +157,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
     }()
        
     var queue: DispatchQueue? = nil
+	let localAithorizationService = LocalAuthorizationService()
     
     init(callback: @escaping (_ authenticationData: (userService: UserService, name: String)) -> Void) {
         self.callback = callback
@@ -148,7 +174,7 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         view.backgroundColor = UIColor.createColor(lightMode: .white, darkMode: .darkGray)
         scrollView.contentSize = CGSize(width: view.frame.width, height: max(view.frame.width, view.frame.height))
         
-        contentView.addSubviews(logo, stackView, logIn, regIn)
+        contentView.addSubviews(logo, stackView, logIn, regIn, biometricLogIn)
         stackView.addArrangedSubview(userName)
         stackView.addArrangedSubview(password)
         scrollView.addSubview(contentView)
@@ -179,12 +205,19 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
                                                object: nil)
         
         if let delegate = delegate {
-            _ = delegate.checkUserToDataBase { [weak self] user in
-                self?.userName.text = user.name
-                DispatchQueue.main.async {
-                    self?.logined()
-                }
-            }
+			let callback: (User)->Void = { [weak self] user in
+				self?.userName.text = user.name
+				if self?.localAithorizationService.canUseBiometricalAuthentication() ?? false {
+					DispatchQueue.main.async {
+						
+						if self?.localAithorizationService.isFaceID() ?? false {
+							self?.biometricLogIn.setTitle("faceID".localized, for: .normal)
+						}
+						self?.biometricLogIn.isHidden = false
+					}
+				}
+			}
+            _ = delegate.checkUserToDataBase(callback: callback, failureCallback: nil)
         }
     }
     
@@ -230,8 +263,14 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
                                      
                                      regIn.topAnchor.constraint(equalTo: password.bottomAnchor, constant: Const.indent),
                                      regIn.leadingAnchor.constraint(equalTo: logIn.trailingAnchor, constant: Const.leadingMargin),
-                                     regIn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
-                                     regIn.heightAnchor.constraint(equalToConstant: Const.size)])
+									 regIn.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Const.trailingMargin),
+                                     regIn.heightAnchor.constraint(equalToConstant: Const.size),
+									 
+									 biometricLogIn.topAnchor.constraint(equalTo: logIn.bottomAnchor, constant: Const.indent),
+									 biometricLogIn.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+									 biometricLogIn.widthAnchor.constraint(equalToConstant: view.frame.width / 2 -  Const.leadingMargin),
+									 biometricLogIn.heightAnchor.constraint(equalToConstant: Const.size)
+									])
     }
     
     
@@ -256,6 +295,17 @@ class LogInViewController: UIViewController, UITextFieldDelegate  {
         regIn.isEnabled = self.userName.text != "" && self.password.text != ""
         logIn.isEnabled = regIn.isEnabled
     }
+	
+	@objc func useBiometric() {
+		
+		localAithorizationService.useBiometricalAuthentication {[weak self] result in
+			if result {
+				DispatchQueue.main.async {
+					self?.logined()
+				}
+			}
+		}
+	}
     
     func logined() {
         let userService = CurrentUserService(name: userName.text ?? "", avatar: "avatar", status: "В ожидании еды")

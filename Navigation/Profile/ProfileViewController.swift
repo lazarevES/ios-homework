@@ -96,11 +96,16 @@ class ProfileViewController: UIViewController {
     }
     
     @objc func exitToProfile() {
-        
+		
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
-            coordinator.DissmisApp()
+			
+			let dbCoordinator = RealmCoordinator()
+			dbCoordinator.delete(User.self, predicate: nil) { [weak self] _ in
+				self?.coordinator.DissmisApp()
+			}
+			
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
